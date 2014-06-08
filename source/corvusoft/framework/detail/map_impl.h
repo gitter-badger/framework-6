@@ -1,0 +1,94 @@
+/*
+ * Copyright (c) 2013, 2014 Corvusoft
+ */
+
+#ifndef _FRAMEWORK_DETAIL_MAP_IMPL_H
+#define _FRAMEWORK_DETAIL_MAP_IMPL_H 1
+
+//System Includes
+#include <map>
+#include <string>
+
+//Project Includes
+
+//External Includes
+
+//System Namespaces
+
+//Project Namespaces
+
+//External Namespaces
+
+namespace framework
+{
+    //Forward Declarations
+    
+    namespace detail
+    {
+        //Forward Declarations
+        
+        class MapImpl
+        {
+            public:
+                //Friends
+                
+                //Definitions
+                typedef std::map< std::string, std::string >::const_iterator const_iterator;
+            
+                //Constructors
+            
+                //Functionality
+                static const_iterator find_key_ignoring_case( const std::string& key, const std::map< std::string, std::string >& container );
+            
+                //Getters
+            
+                //Setters
+                
+                //Operators
+                
+                //Properties
+                
+            protected:
+                //Friends
+                
+                //Definitions
+                
+                //Constructors
+                
+                //Functionality
+                
+                //Getters
+                
+                //Setters
+                
+                //Operators
+                
+                //Properties
+                
+            private:
+                //Friends
+                
+                //Definitions
+                
+                //Constructors
+                MapImpl( void ) = delete;
+            
+                MapImpl( const MapImpl& original ) = delete;
+            
+                virtual ~MapImpl( void ) = delete;
+            
+                //Functionality
+            
+                //Getters
+            
+                //Setters
+            
+                //Operators
+                MapImpl& operator =( const MapImpl& rhs ) = delete;
+            
+                //Properties
+        };
+    }
+}
+
+#endif  /* _FRAMEWORK_DETAIL_MAP_IMPL_H */

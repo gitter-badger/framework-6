@@ -1,0 +1,12 @@
+[submodule "dependency/asio"]
+	path = dependency/asio
+	url = http://source.corvusoft.co.uk/asio-dependency.git
+[submodule "dependency/gtest"]
+	path = dependency/gtest
+	url = http://source.corvusoft.co.uk/gtest-dependency.git
+[submodule "dependency/curl"]
+	path = dependency/curl
+	url = http://source.corvusoft.co.uk/libcurl-dependency.git
+[submodule "dependency/jsoncpp"]
+        path = dependency/jsoncpp
+        url = http://source.corvusoft.co.uk/jsoncpp-dependency.git

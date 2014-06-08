@@ -1,0 +1,11 @@
+/*
+ * Copyright (c) 2013, 2014 Corvusoft
+ */
+
+#include "corvusoft/framework/map"
+#include "corvusoft/framework/uri"
+#include "corvusoft/framework/date"
+#include "corvusoft/framework/regex"
+#include "corvusoft/framework/string"
+#include "corvusoft/framework/istream"
+#include "corvusoft/framework/functional"
