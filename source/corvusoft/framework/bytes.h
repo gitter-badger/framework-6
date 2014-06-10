@@ -19,7 +19,7 @@
 
 //External Namespaces
 
-namespace restq
+namespace framework
 {
     typedef std::vector< Byte > Bytes;
 }

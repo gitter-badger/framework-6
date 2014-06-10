@@ -17,7 +17,7 @@
 //Project Namespaces
 
 //External Namespaces
-namespace restq
+namespace framework
 {
     typedef uint8_t Byte;
 }
