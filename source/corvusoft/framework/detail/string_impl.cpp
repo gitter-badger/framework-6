@@ -25,6 +25,18 @@ namespace framework
     {
         const char* StringImpl::empty = "";
         
+        string StringImpl::to_string( const Bytes& value )
+        {
+            string result = empty;
+            
+            for ( const auto byte : value )
+            {
+                result.push_back( static_cast< char >( byte ) );
+            }
+            
+            return result;
+        }
+        
         string StringImpl::lowercase( const string& value )
         {
             string result = empty;

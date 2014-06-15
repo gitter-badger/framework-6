@@ -23,6 +23,11 @@ namespace framework
 {
     const char* String::empty = StringImpl::empty;
     
+    string String::to_string( const Bytes& value )
+    {
+        return StringImpl::to_string( value );
+    }
+    
     string String::lowercase( const string& value )
     {
         return StringImpl::lowercase( value );

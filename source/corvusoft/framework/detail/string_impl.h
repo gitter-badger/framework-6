@@ -11,6 +11,7 @@
 #include <cstdarg>
 
 //Project Includes
+#include <corvusoft/framework/bytes>
 
 //External Includes
 
@@ -38,6 +39,8 @@ namespace framework
                 //Constructor
                 
                 //Functionality
+                static std::string to_string( const Bytes& value );
+            
                 static std::string lowercase( const std::string& value );
             
                 static std::string uppercase( const std::string& value );
