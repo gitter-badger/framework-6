@@ -12,6 +12,8 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/date_impl.cpp
      ${SOURCE_DIR}/regex.cpp
      ${SOURCE_DIR}/detail/regex_impl.cpp
+     ${SOURCE_DIR}/run_id.cpp
+     ${SOURCE_DIR}/detail/run_id_impl.cpp
      ${SOURCE_DIR}/string.cpp
      ${SOURCE_DIR}/detail/string_impl.cpp
      ${SOURCE_DIR}/istream.cpp

@@ -30,6 +30,11 @@ namespace framework
     {
         //n/a
     }
+
+    UniqueId::UniqueId( const UniqueIdImpl& implementation ) : m_pimpl( new UniqueIdImpl( implementation ) )
+    {
+        //n/a
+    }
     
     UniqueId::~UniqueId( void )
     {

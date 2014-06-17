@@ -8,6 +8,7 @@
 #include <uuid/uuid.h>
 
 //Project Includes
+#include "corvusoft/framework/string.h"
 #include "corvusoft/framework/detail/unique_id_impl.h"
 
 //External Includes
@@ -25,7 +26,7 @@ namespace framework
 {
     namespace detail
     {
-        UniqueIdImpl::UniqueIdImpl( void ) : m_unique_id( "" )
+        UniqueIdImpl::UniqueIdImpl( void ) : m_unique_id( String::empty )
         {
             //n/a
         }

@@ -2,10 +2,11 @@
  * Copyright (c) 2013, 2014 Corvusoft
  */
 
-#ifndef _FRAMEWORK_UNIQUE_ID_H
-#define _FRAMEWORK_UNIQUE_ID_H 1
+#ifndef _FRAMEWORK_RUN_ID_H
+#define _FRAMEWORK_RUN_ID_H 1
 
 //System Includes
+#include <chrono>
 #include <memory>
 #include <string>
 
@@ -22,12 +23,14 @@
 namespace framework
 {
     //Forward Delcarations
+    class UniqueId;
+    
     namespace detail
     {
-        class UniqueIdImpl;
+        class RunIdImpl;
     }
     
-    class UniqueId
+    class RunId
     {
         public:
             //Friends
@@ -35,35 +38,38 @@ namespace framework
             //Definitions
             
             //Constructors
-            UniqueId( const std::string& value );
+            RunId( const std::string& value );
             
-            UniqueId( const UniqueId& original );
+            RunId( const RunId& original );
         
-            UniqueId( const detail::UniqueIdImpl& implementation );
-            
-            virtual ~UniqueId( void );
+            RunId( const detail::RunIdImpl& implementation );
+        
+            virtual ~RunId( void );
             
             //Functionality
             std::string to_string( void ) const;
-        
-            static UniqueId generate( void );
-        
-            static UniqueId parse( const std::string& value );
+
+            static RunId generate( void );
+
+            static RunId parse( const std::string& value );
             
             //Getters
+            UniqueId get_unique_id( void ) const;
+
+            std::chrono::time_point< std::chrono::system_clock > get_timestamp( void ) const;
             
             //Setters
             
             //Operators
-            UniqueId& operator =( const UniqueId& value );
-
-            bool operator <( const UniqueId& value ) const;
-
-            bool operator >( const UniqueId& value ) const;
+            RunId& operator =( const RunId& value );
         
-            bool operator ==( const UniqueId& value ) const;
-
-            bool operator !=( const UniqueId& value ) const;
+            bool operator <( const RunId& value ) const;
+        
+            bool operator >( const RunId& value ) const;
+        
+            bool operator ==( const RunId& value ) const;
+       
+            bool operator !=( const RunId& value ) const;
             
             //Properties
             
@@ -90,7 +96,7 @@ namespace framework
             //Definitions
             
             //Constructors
-            UniqueId( void );
+            RunId( void );
             
             //Functionality
             
@@ -101,8 +107,8 @@ namespace framework
             //Operators
             
             //Properties
-            const std::unique_ptr< detail::UniqueIdImpl > m_pimpl;
+            const std::unique_ptr< detail::RunIdImpl > m_pimpl;
     };
 }
 
-#endif  /* _FRAMEWORK_UNIQUE_ID_H */
+#endif  /* _FRAMEWORK_RUN_ID_H */
