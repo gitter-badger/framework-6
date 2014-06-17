@@ -20,7 +20,8 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/string.h
      ${SOURCE_DIR}/istream
      ${SOURCE_DIR}/istream.h
+     ${SOURCE_DIR}/unique_id
+     ${SOURCE_DIR}/unique_id.h
      ${SOURCE_DIR}/functional
      ${SOURCE_DIR}/functional.h
 )
-
