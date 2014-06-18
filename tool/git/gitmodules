@@ -4,3 +4,6 @@
 [submodule "dependency/gcrypt"]
 	path = dependency/gcrypt
 	url = http://source.corvusoft.co.uk/gcrypt-dependency.git
+[submodule "dependency/gpg-error"]
+	path = dependency/gpg-error
+	url = http://source.corvusoft.co.uk/gpg-error-dependency.git
