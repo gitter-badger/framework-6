@@ -15,6 +15,7 @@ option( BUILD_TESTS "Build all test suites using CTest." OFF )
 set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules" )
 
 find_package( gcrypt REQUIRED )
+find_package( gpg-error REQUIRED )
 
 include_directories( ${gcrypt_INCLUDE} )
 
