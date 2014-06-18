@@ -1,6 +1,6 @@
 # Copyright (c) 2013, 2014 Corvusoft
 
-project( "Unit Test Suite" )
+project( "unit test suite" )
 
 cmake_minimum_required( VERSION 2.8.10 )
 
@@ -8,8 +8,7 @@ cmake_minimum_required( VERSION 2.8.10 )
 # Configuration
 #
 set( SOURCE_DIR "source" )
-set( CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/distribution" )
-set( EXECUTABLE_OUTPUT_PATH "${CMAKE_INSTALL_PREFIX}/binary/test"  )
+set( EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/distribution/binary/test"  )
 
 include_directories( ${gtest_INCLUDE} )
 
