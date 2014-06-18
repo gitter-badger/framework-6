@@ -19,6 +19,8 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/istream.h
      ${SOURCE_DIR}/run_id
      ${SOURCE_DIR}/run_id.h
+     ${SOURCE_DIR}/checksum
+     ${SOURCE_DIR}/checksum.h
      ${SOURCE_DIR}/unique_id
      ${SOURCE_DIR}/unique_id.h
      ${SOURCE_DIR}/functional

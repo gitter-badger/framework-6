@@ -31,7 +31,7 @@ namespace framework
         //n/a
     }
     
-    Checksum( const ChecksumImpl& implementation ) : m_pimpl( new ChecksumImpl( implementation ) )
+    Checksum::Checksum( const ChecksumImpl& implementation ) : m_pimpl( new ChecksumImpl( implementation ) )
     {
         //n/a
     }

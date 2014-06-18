@@ -14,6 +14,10 @@ option( BUILD_TESTS "Build all test suites using CTest." OFF )
 #
 set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules" )
 
+find_package( gcrypt REQUIRED )
+
+include_directories( ${gcrypt_INCLUDE} )
+
 #
 # Configuration
 #
@@ -51,7 +55,7 @@ include_directories( ${INCLUDE_DIR} )
 
 add_library( ${PROJECT_NAME} SHARED ${MANIFEST} )
 
-target_link_libraries( ${PROJECT_NAME} )
+target_link_libraries( ${PROJECT_NAME} ${gcrypt_LIBRARY} )
 
 #
 # Install

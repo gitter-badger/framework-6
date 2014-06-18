@@ -1,3 +1,6 @@
 [submodule "dependency/gtest"]
 	path = dependency/gtest
 	url = http://source.corvusoft.co.uk/gtest-dependency.git
+[submodule "dependency/gcrypt"]
+	path = dependency/gcrypt
+	url = http://source.corvusoft.co.uk/gcrypt-dependency.git

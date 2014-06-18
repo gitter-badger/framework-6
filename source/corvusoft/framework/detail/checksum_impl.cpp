@@ -7,10 +7,11 @@
 #include <stdexcept>
 
 //Project Includes
+#include "corvusoft/framework/string.h"
 #include "corvusoft/framework/detail/checksum_impl.h"
 
 //External Includes
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations" //See issue tracker #3
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #include <gcrypt.h>
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
@@ -28,7 +29,7 @@ namespace framework
 {
     namespace detail
     {
-        ChecksumImpl::ChecksumImpl( void ) : m_checksum( "" )
+        ChecksumImpl::ChecksumImpl( void ) : m_checksum( String::empty )
         {
             //n/a
         }
