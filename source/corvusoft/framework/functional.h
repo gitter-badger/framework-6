@@ -88,7 +88,7 @@ namespace framework
             //Setters
             
             //Operators
-            Functional& operator =( const Functional& rhs ) = delete;
+            Functional& operator =( const Functional& value ) = delete;
         
             //Properties
     };

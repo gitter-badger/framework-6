@@ -84,7 +84,7 @@ namespace framework
                 //Setters
             
                 //Operators
-                MapImpl& operator =( const MapImpl& rhs ) = delete;
+                MapImpl& operator =( const MapImpl& value ) = delete;
             
                 //Properties
         };

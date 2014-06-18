@@ -105,7 +105,7 @@ namespace framework
                 //Setters
             
                 //Operators
-                StringImpl& operator =( const StringImpl& rhs ) = delete;
+                StringImpl& operator =( const StringImpl& value ) = delete;
             
                 //Properties
         };

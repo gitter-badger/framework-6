@@ -83,7 +83,7 @@ namespace framework
                 //Setters
             
                 //Operators
-                DateImpl& operator =( const DateImpl& rhs ) = delete;
+                DateImpl& operator =( const DateImpl& value ) = delete;
             
                 //Properties
         };

@@ -78,7 +78,7 @@ namespace framework
             //Setters
         
             //Operators
-            Regex& operator =( const Regex& rhs ) = delete;
+            Regex& operator =( const Regex& value ) = delete;
         
             //Properties
     };

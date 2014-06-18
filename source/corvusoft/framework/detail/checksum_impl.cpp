@@ -93,29 +93,29 @@ namespace framework
             m_checksum = value;
         }
         
-        bool ChecksumImpl::operator <( const ChecksumImpl& rhs ) const
+        bool ChecksumImpl::operator <( const ChecksumImpl& value ) const
         {
-            return ( m_checksum < rhs.m_checksum );
+            return ( m_checksum < value.m_checksum );
         }
         
-        bool ChecksumImpl::operator >( const ChecksumImpl& rhs ) const
+        bool ChecksumImpl::operator >( const ChecksumImpl& value ) const
         {
-            return not ( m_checksum < rhs.m_checksum );
+            return not ( m_checksum < value.m_checksum );
         }
         
-        bool ChecksumImpl::operator ==( const ChecksumImpl& rhs ) const
+        bool ChecksumImpl::operator ==( const ChecksumImpl& value ) const
         {
-            return ( m_checksum == rhs.m_checksum );
+            return ( m_checksum == value.m_checksum );
         }
         
-        bool ChecksumImpl::operator !=( const ChecksumImpl& rhs ) const
+        bool ChecksumImpl::operator !=( const ChecksumImpl& value ) const
         {
-            return ( m_checksum not_eq rhs.m_checksum );
+            return ( m_checksum not_eq value.m_checksum );
         }
         
-        ChecksumImpl& ChecksumImpl::operator =( const ChecksumImpl& rhs )
+        ChecksumImpl& ChecksumImpl::operator =( const ChecksumImpl& value )
         {
-            set_checksum( rhs.m_checksum );
+            set_checksum( value.m_checksum );
             
             return *this;
         }

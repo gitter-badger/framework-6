@@ -82,7 +82,7 @@ namespace framework
                 //Setters
             
                 //Operators
-                RegexImpl& operator =( const RegexImpl& rhs ) = delete;
+                RegexImpl& operator =( const RegexImpl& value ) = delete;
             
                 //Properties
         };

@@ -80,7 +80,7 @@ namespace framework
             //Setters
         
             //Operators
-            Uri& operator =( const Uri& rhs ) = delete;
+            Uri& operator =( const Uri& value ) = delete;
         
             //Properties
     };

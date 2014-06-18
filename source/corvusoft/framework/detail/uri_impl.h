@@ -84,7 +84,7 @@ namespace framework
                 //Setters
                 
                 //Operators
-                UriImpl& operator =( const UriImpl& rhs ) = delete;
+                UriImpl& operator =( const UriImpl& value ) = delete;
             
                 //Properties
         };
