@@ -68,9 +68,8 @@ install( FILES ${PROJECT_ARTIFACTS} DESTINATION "include/corvusoft/${PROJECT_NAM
 # Test
 #
 if ( BUILD_TESTS )
-    find_package( GTest REQUIRED )
+    find_package( gtest REQUIRED )
 
     enable_testing( )
     add_subdirectory( "${CMAKE_SOURCE_DIR}/test/unit" "unit-tests" )
 endif ( )
-

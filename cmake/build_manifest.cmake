@@ -1,8 +1,5 @@
 # Copyright (c) 2013, 2014 Corvusoft
 
-#
-# Build manifest
-#
 set( MANIFEST
      ${SOURCE_DIR}/map.cpp
      ${SOURCE_DIR}/detail/map_impl.cpp

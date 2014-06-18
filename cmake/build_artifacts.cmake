@@ -1,8 +1,5 @@
 # Copyright (c) 2013, 2014 Corvusoft
 
-#
-# Install artifacts
-#
 set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/map
      ${SOURCE_DIR}/map.h
