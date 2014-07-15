@@ -21,6 +21,11 @@ using framework::detail::RegexImpl;
 
 namespace framework
 {
+    Regex::Regex( const char* pattern ) : m_pimpl( new RegexImpl( pattern ) )
+    {
+        //n/a
+    }
+    
     Regex::Regex( const string& pattern ) : m_pimpl( new RegexImpl( pattern ) )
     {
         //n/a

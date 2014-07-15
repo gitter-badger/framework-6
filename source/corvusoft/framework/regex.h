@@ -34,6 +34,8 @@ namespace framework
             //Definitions
             
             //Constructors
+            Regex( const char* pattern );
+            
             Regex( const std::string& pattern );
             
             Regex( const Regex& original );
