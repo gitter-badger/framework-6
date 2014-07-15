@@ -31,4 +31,10 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/resident_allocator.h
      ${SOURCE_DIR}/resident_string
      ${SOURCE_DIR}/resident_string.h
+     ${SOURCE_DIR}/hash_algorithm
+     ${SOURCE_DIR}/hash_algorithm.h
+     ${SOURCE_DIR}/password
+     ${SOURCE_DIR}/password.h
+     ${SOURCE_DIR}/username
+     ${SOURCE_DIR}/username.h
 )

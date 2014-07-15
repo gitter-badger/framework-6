@@ -23,7 +23,7 @@
 
 namespace framework
 {
-    typedef std::basic_string< char, std::char_traits< char >, detail::ResidentAllocator< char > > ResidentString;
+    typedef std::basic_string< char, std::char_traits< char >, ResidentAllocator< char > > ResidentString;
 }
 
 #endif  /* _FRAMEWORK_RESIDENT_STRING_H */

@@ -19,4 +19,8 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/checksum_impl.cpp
      ${SOURCE_DIR}/unique_id.cpp
      ${SOURCE_DIR}/detail/unique_id_impl.cpp
+     ${SOURCE_DIR}/password.cpp
+     ${SOURCE_DIR}/detail/password_impl.cpp
+     ${SOURCE_DIR}/username.cpp
+     ${SOURCE_DIR}/detail/username_impl.cpp
 )
