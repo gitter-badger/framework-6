@@ -34,6 +34,8 @@ namespace framework
             //Definitions
             
             //Constructors
+            Regex( void );
+            
             Regex( const char* pattern );
             
             Regex( const std::string& pattern );
@@ -91,7 +93,6 @@ namespace framework
             //Definitions
             
             //Constructors
-            Regex( void ) = delete;
             
             //Functionality
             

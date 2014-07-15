@@ -6,6 +6,7 @@
 
 //Project Includes
 #include "corvusoft/framework/regex.h"
+#include "corvusoft/framework/string.h"
 #include "corvusoft/framework/detail/regex_impl.h"
 
 //External Includes
@@ -21,6 +22,11 @@ using framework::detail::RegexImpl;
 
 namespace framework
 {
+    Regex::Regex( void ) : m_pimpl( new RegexImpl( String::empty ) )
+    {
+        //n/a
+    }
+    
     Regex::Regex( const char* pattern ) : m_pimpl( new RegexImpl( pattern ) )
     {
         //n/a
