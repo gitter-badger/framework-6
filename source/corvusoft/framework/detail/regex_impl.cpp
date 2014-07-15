@@ -3,10 +3,8 @@
  */
 
 //System Includes
-#include <regex>
 
 //Project Includes
-#include "corvusoft/framework/string.h"
 #include "corvusoft/framework/detail/regex_impl.h"
 
 //External Includes
@@ -25,17 +23,14 @@ namespace framework
 {
     namespace detail
     {
-        RegexImpl::RegexImpl( void ) : m_pattern( String::empty )
+        RegexImpl::RegexImpl( const string& pattern ) : m_pattern( pattern ),
+            m_expression( regex( pattern ) )
         {
             //n/a
         }
         
-        RegexImpl::RegexImpl( const string& pattern ) : m_pattern( pattern )
-        {
-            //n/a
-        }
-        
-        RegexImpl::RegexImpl( const RegexImpl& original ) : m_pattern( original.m_pattern )
+        RegexImpl::RegexImpl( const RegexImpl& original ) : m_pattern( original.m_pattern ),
+            m_expression( original.m_expression )
         {
             //n/a
         }
@@ -52,7 +47,7 @@ namespace framework
         
         bool RegexImpl::is_match( const string& value )
         {
-            return regex_match( value, regex( m_pattern ) );
+            return regex_match( value, m_expression );
         }
         
         bool RegexImpl::is_valid( const string& value )
@@ -74,6 +69,8 @@ namespace framework
         RegexImpl& RegexImpl::operator =( const RegexImpl& value )
         {
             m_pattern = value.m_pattern;
+            
+            m_expression = value.m_expression;
             
             return *this;
         }

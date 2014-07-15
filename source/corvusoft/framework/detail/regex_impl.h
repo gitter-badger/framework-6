@@ -6,6 +6,7 @@
 #define _FRAMEWORK_DETAIL_REGEX_IMPL_H 1
 
 //System Includes
+#include <regex>
 #include <string>
 
 //Project Includes
@@ -34,8 +35,6 @@ namespace framework
                 //Definitions
                 
                 //Constructor
-                RegexImpl( void );
-                
                 RegexImpl( const std::string& pattern );
                 
                 RegexImpl( const RegexImpl& original );
@@ -81,6 +80,7 @@ namespace framework
                 //Definitions
                 
                 //Constructors
+                RegexImpl( void ) = delete;
                 
                 //Functionality
                 
@@ -92,6 +92,8 @@ namespace framework
                 
                 //Properties
                 std::string m_pattern;
+                
+                std::regex m_expression;
         };
     }
 }
