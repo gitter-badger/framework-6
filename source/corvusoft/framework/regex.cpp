@@ -12,6 +12,7 @@
 
 //System Namespaces
 using std::string;
+using std::unique_ptr;
 
 //Project Namespaces
 using framework::detail::RegexImpl;
@@ -20,8 +21,45 @@ using framework::detail::RegexImpl;
 
 namespace framework
 {
+    Regex::Regex( const string& pattern ) : m_pimpl( new RegexImpl( pattern ) )
+    {
+        //n/a
+    }
+    
+    Regex::Regex( const Regex& original ) : m_pimpl( new RegexImpl( *original.m_pimpl ) )
+    {
+        //n/a
+    }
+    
+    Regex::Regex( const RegexImpl& implementation ) : m_pimpl( new RegexImpl( implementation ) )
+    {
+        //n/a
+    }
+    
+    Regex::~Regex( void )
+    {
+        //n/a
+    }
+    
+    string Regex::to_string( void ) const
+    {
+        return m_pimpl->to_string( );
+    }
+    
+    bool Regex::is_match( const string& value )
+    {
+        return m_pimpl->is_match( value );
+    }
+    
     bool Regex::is_valid( const string& value )
     {
         return RegexImpl::is_valid( value );
+    }
+    
+    Regex& Regex::operator =( const Regex& value )
+    {
+        *m_pimpl = *value.m_pimpl;
+        
+        return *this;
     }
 }

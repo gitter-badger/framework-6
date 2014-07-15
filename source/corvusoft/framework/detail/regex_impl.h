@@ -34,15 +34,27 @@ namespace framework
                 //Definitions
                 
                 //Constructor
+                RegexImpl( void );
+                
+                RegexImpl( const std::string& pattern );
+                
+                RegexImpl( const RegexImpl& original );
+                
+                virtual ~RegexImpl( void );
                 
                 //Functionality
+                std::string to_string( void ) const;
+                
+                bool is_match( const std::string& value );
+                
                 static bool is_valid( const std::string& value );
-            
+                
                 //Getters
                 
                 //Setters
                 
                 //Operators
+                RegexImpl& operator =( const RegexImpl& value );
                 
                 //Properties
                 
@@ -69,22 +81,17 @@ namespace framework
                 //Definitions
                 
                 //Constructors
-                RegexImpl( void ) = delete;
-            
-                RegexImpl( const RegexImpl& original ) = delete;
-            
-                virtual ~RegexImpl( void ) = delete;
-            
+                
                 //Functionality
-            
+                
                 //Getters
-            
+                
                 //Setters
-            
+                
                 //Operators
-                RegexImpl& operator =( const RegexImpl& value ) = delete;
-            
+                
                 //Properties
+                std::string m_pattern;
         };
     }
 }

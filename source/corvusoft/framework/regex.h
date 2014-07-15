@@ -21,6 +21,10 @@
 namespace framework
 {
     //Forward Declarations
+    namespace detail
+    {
+        class RegexImpl;
+    }
     
     class Regex
     {
@@ -30,15 +34,27 @@ namespace framework
             //Definitions
             
             //Constructors
+            Regex( const std::string& pattern );
+            
+            Regex( const Regex& original );
+            
+            Regex( const detail::RegexImpl& implementation );
+            
+            virtual ~Regex( void );
             
             //Functionality
+            std::string to_string( void ) const;
+            
+            bool is_match( const std::string& value );
+            
             static bool is_valid( const std::string& value );
-        
+            
             //Getters
             
             //Setters
             
             //Operators
+            Regex& operator =( const Regex& value );
             
             //Properties
             
@@ -66,21 +82,17 @@ namespace framework
             
             //Constructors
             Regex( void ) = delete;
-        
-            Regex( const Regex& original ) = delete;
-        
-            virtual ~Regex( void ) = delete;
-        
+            
             //Functionality
-        
+            
             //Getters
-        
+            
             //Setters
-        
+            
             //Operators
-            Regex& operator =( const Regex& value ) = delete;
-        
+            
             //Properties
+            std::unique_ptr< detail::RegexImpl > m_pimpl;
     };
 }
 
