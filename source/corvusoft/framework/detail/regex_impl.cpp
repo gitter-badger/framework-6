@@ -66,6 +66,26 @@ namespace framework
             return result;
         }
         
+        bool RegexImpl::operator <( const RegexImpl& value ) const
+        {
+            return ( m_pattern < value.m_pattern );
+        }
+        
+        bool RegexImpl::operator >( const RegexImpl& value ) const
+        {
+            return not ( m_pattern < value.m_pattern );
+        }
+        
+        bool RegexImpl::operator ==( const RegexImpl& value ) const
+        {
+            return ( m_pattern == value.m_pattern );
+        }
+        
+        bool RegexImpl::operator !=( const RegexImpl& value ) const
+        {
+            return ( m_pattern not_eq value.m_pattern );
+        }
+        
         RegexImpl& RegexImpl::operator =( const RegexImpl& value )
         {
             m_pattern = value.m_pattern;

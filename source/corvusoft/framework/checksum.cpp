@@ -45,7 +45,7 @@ namespace framework
     {
         return m_pimpl->to_string( );
     }
-
+    
     Checksum Checksum::generate( const Bytes& value )
     {
         return ChecksumImpl::generate( value );

@@ -56,6 +56,14 @@ namespace framework
             //Operators
             Regex& operator =( const Regex& value );
             
+            bool operator <( const Regex& value ) const;
+            
+            bool operator >( const Regex& value ) const;
+            
+            bool operator ==( const Regex& value ) const;
+            
+            bool operator !=( const Regex& value ) const;
+            
             //Properties
             
         protected:

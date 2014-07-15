@@ -53,6 +53,14 @@ namespace framework
                 //Setters
                 
                 //Operators
+                bool operator <( const RegexImpl& value ) const;
+                
+                bool operator >( const RegexImpl& value ) const;
+                
+                bool operator ==( const RegexImpl& value ) const;
+                
+                bool operator !=( const RegexImpl& value ) const;
+                
                 RegexImpl& operator =( const RegexImpl& value );
                 
                 //Properties
