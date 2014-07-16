@@ -12,7 +12,7 @@
 
 //System Namespaces
 using std::string;
-using std::shared_ptr;
+using std::unique_ptr;
 
 //Project Namespaces
 using framework::detail::ChecksumImpl;
