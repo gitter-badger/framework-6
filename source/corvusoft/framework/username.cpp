@@ -31,6 +31,11 @@ namespace framework
         //n/a
     }
     
+    Username::Username( const UsernameImpl& implementation ) : m_pimpl( new UsernameImpl( implementation ) )
+    {
+        //n/a
+    }
+    
     Username::~Username( void )
     {
         //n/a
@@ -59,22 +64,22 @@ namespace framework
     
     bool Username::operator <( const Username& value ) const
     {
-        return ( *m_pimpl < *value.m_pimpl );
+        return *m_pimpl < *value.m_pimpl;
     }
     
     bool Username::operator >( const Username& value ) const
     {
-        return ( *m_pimpl > *value.m_pimpl );
+        return *m_pimpl > *value.m_pimpl;
     }
     
     bool Username::operator ==( const Username& value ) const
     {
-        return ( *m_pimpl == *value.m_pimpl );
+        return *m_pimpl == *value.m_pimpl;
     }
     
     bool Username::operator !=( const Username& value ) const
     {
-        return ( *m_pimpl not_eq * value.m_pimpl );
+        return *m_pimpl not_eq * value.m_pimpl;
     }
     
     Username::Username( void ) : m_pimpl( new UsernameImpl )

@@ -68,7 +68,7 @@ namespace framework
         
         bool RegexImpl::operator <( const RegexImpl& value ) const
         {
-            return ( m_pattern < value.m_pattern );
+            return m_pattern < value.m_pattern;
         }
         
         bool RegexImpl::operator >( const RegexImpl& value ) const
@@ -78,12 +78,12 @@ namespace framework
         
         bool RegexImpl::operator ==( const RegexImpl& value ) const
         {
-            return ( m_pattern == value.m_pattern );
+            return m_pattern == value.m_pattern;
         }
         
         bool RegexImpl::operator !=( const RegexImpl& value ) const
         {
-            return ( m_pattern not_eq value.m_pattern );
+            return m_pattern not_eq value.m_pattern;
         }
         
         RegexImpl& RegexImpl::operator =( const RegexImpl& value )

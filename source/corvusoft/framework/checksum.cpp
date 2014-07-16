@@ -74,22 +74,22 @@ namespace framework
     
     bool Checksum::operator <( const Checksum& value ) const
     {
-        return ( *m_pimpl < *value.m_pimpl );
+        return *m_pimpl < *value.m_pimpl;
     }
     
     bool Checksum::operator >( const Checksum& value ) const
     {
-        return ( *m_pimpl > *value.m_pimpl );
+        return *m_pimpl > *value.m_pimpl;
     }
     
     bool Checksum::operator ==( const Checksum& value ) const
     {
-        return ( *m_pimpl == *value.m_pimpl );
+        return *m_pimpl == *value.m_pimpl;
     }
     
     bool Checksum::operator !=( const Checksum& value ) const
     {
-        return ( *m_pimpl not_eq * value.m_pimpl );
+        return *m_pimpl not_eq * value.m_pimpl;
     }
     
     Checksum::Checksum( void ) : m_pimpl( new ChecksumImpl )

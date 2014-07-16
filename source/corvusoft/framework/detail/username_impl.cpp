@@ -59,22 +59,22 @@ namespace framework
         
         bool UsernameImpl::operator <( const UsernameImpl& value ) const
         {
-            return ( m_username < value.m_username );
+            return m_username < value.m_username;
         }
         
         bool UsernameImpl::operator >( const UsernameImpl& value ) const
         {
-            return ( m_username > value.m_username );
+            return m_username > value.m_username;
         }
         
         bool UsernameImpl::operator ==( const UsernameImpl& value ) const
         {
-            return ( m_username == value.m_username );
+            return m_username == value.m_username;
         }
         
         bool UsernameImpl::operator !=( const UsernameImpl& value ) const
         {
-            return ( m_username not_eq value.m_username );
+            return m_username not_eq value.m_username;
         }
         
         UsernameImpl& UsernameImpl::operator =( const UsernameImpl& value )

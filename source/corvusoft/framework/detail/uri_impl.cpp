@@ -345,22 +345,22 @@ namespace framework
         
         bool UriImpl::operator <( const UriImpl& rhs ) const
         {
-            return ( m_uri < rhs.m_uri );
+            return m_uri < rhs.m_uri;
         }
         
         bool UriImpl::operator >( const UriImpl& rhs ) const
         {
-            return ( m_uri > rhs.m_uri );
+            return m_uri > rhs.m_uri;
         }
         
         bool UriImpl::operator ==( const UriImpl& rhs ) const
         {
-            return ( m_uri == rhs.m_uri );
+            return m_uri == rhs.m_uri;
         }
         
         bool UriImpl::operator !=( const UriImpl& rhs ) const
         {
-            return ( m_uri not_eq rhs.m_uri );
+            return m_uri not_eq rhs.m_uri;
         }
     }
 }

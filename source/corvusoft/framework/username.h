@@ -39,6 +39,8 @@ namespace framework
             
             Username( const Username& original );
             
+            Username( const detail::UsernameImpl& implementation );
+            
             virtual ~Username( void );
             
             //Functionality

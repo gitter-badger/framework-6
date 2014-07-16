@@ -31,6 +31,11 @@ namespace framework
         //n/a
     }
     
+    Password::Password( const PasswordImpl& implementation ) : m_pimpl( new PasswordImpl( implementation ) )
+    {
+        //n/a
+    }
+    
     Password::~Password( void )
     {
         //n/a
@@ -52,49 +57,37 @@ namespace framework
     
     Password Password::generate( const ResidentString& cleartext )
     {
-        Password password;
-        
-        *password.m_pimpl = PasswordImpl::generate( cleartext );
-        
-        return password;
+        return PasswordImpl::generate( cleartext );
     }
     
     Password Password::generate( const ResidentString& cleartext, const string& salt )
     {
-        Password password;
-        
-        *password.m_pimpl = PasswordImpl::generate( cleartext, salt );
-        
-        return password;
+        return PasswordImpl::generate( cleartext, salt );
     }
     
     Password Password::generate( const ResidentString& cleartext, const string& salt, const HashAlgorithm algorithm )
     {
-        Password password;
-        
-        *password.m_pimpl = PasswordImpl::generate( cleartext, salt, algorithm );
-        
-        return password;
+        return PasswordImpl::generate( cleartext, salt, algorithm );
     }
     
     bool Password::operator ==( const Password& value ) const
     {
-        return ( *m_pimpl == *value.m_pimpl );
+        return *m_pimpl == *value.m_pimpl;
     }
     
     bool Password::operator !=( const Password& value ) const
     {
-        return ( *m_pimpl not_eq * value.m_pimpl );
+        return *m_pimpl not_eq * value.m_pimpl;
     }
     
     bool Password::operator ==( const ResidentString& cleartext ) const
     {
-        return ( *m_pimpl == cleartext );
+        return *m_pimpl == cleartext;
     }
     
     bool Password::operator !=( const ResidentString& cleartext ) const
     {
-        return ( *m_pimpl not_eq cleartext );
+        return *m_pimpl not_eq cleartext;
     }
     
     Password::Password( void ) : m_pimpl( new PasswordImpl )
@@ -111,11 +104,11 @@ namespace framework
     
     bool Password::operator <( const Password& value ) const
     {
-        return ( *m_pimpl < *value.m_pimpl );
+        return *m_pimpl < *value.m_pimpl;
     }
     
     bool Password::operator >( const Password& value ) const
     {
-        return ( *m_pimpl > *value.m_pimpl );
+        return *m_pimpl > *value.m_pimpl;
     }
 }

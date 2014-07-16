@@ -96,7 +96,7 @@ namespace framework
         
         bool ChecksumImpl::operator <( const ChecksumImpl& value ) const
         {
-            return ( m_checksum < value.m_checksum );
+            return m_checksum < value.m_checksum;
         }
         
         bool ChecksumImpl::operator >( const ChecksumImpl& value ) const
@@ -106,12 +106,12 @@ namespace framework
         
         bool ChecksumImpl::operator ==( const ChecksumImpl& value ) const
         {
-            return ( m_checksum == value.m_checksum );
+            return m_checksum == value.m_checksum;
         }
         
         bool ChecksumImpl::operator !=( const ChecksumImpl& value ) const
         {
-            return ( m_checksum not_eq value.m_checksum );
+            return m_checksum not_eq value.m_checksum;
         }
         
         ChecksumImpl& ChecksumImpl::operator =( const ChecksumImpl& value )

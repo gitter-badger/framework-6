@@ -195,7 +195,7 @@ namespace framework
         
         bool PasswordImpl::operator !=( const PasswordImpl& value ) const
         {
-            return ( m_hash not_eq value.m_hash );
+            return m_hash not_eq value.m_hash;
         }
         
         bool PasswordImpl::operator ==( const ResidentString& cleartext ) const
@@ -219,7 +219,7 @@ namespace framework
             
             PasswordImpl password = generate( cleartext, salt, algorithm );
             
-            return ( *this == password );
+            return *this == password;
         }
         
         bool PasswordImpl::operator !=( const ResidentString& cleartext ) const

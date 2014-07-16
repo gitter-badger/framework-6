@@ -43,6 +43,8 @@ namespace framework
             
             Password( const Password& original );
             
+            Password( const detail::PasswordImpl& implementation );
+            
             virtual ~Password( void );
             
             //Functionality

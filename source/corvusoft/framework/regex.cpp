@@ -76,21 +76,21 @@ namespace framework
     
     bool Regex::operator <( const Regex& value ) const
     {
-        return ( *m_pimpl < *value.m_pimpl );
+        return *m_pimpl < *value.m_pimpl;
     }
     
     bool Regex::operator >( const Regex& value ) const
     {
-        return ( *m_pimpl > *value.m_pimpl );
+        return *m_pimpl > *value.m_pimpl;
     }
     
     bool Regex::operator ==( const Regex& value ) const
     {
-        return ( *m_pimpl == *value.m_pimpl );
+        return *m_pimpl == *value.m_pimpl;
     }
     
     bool Regex::operator !=( const Regex& value ) const
     {
-        return ( *m_pimpl not_eq * value.m_pimpl );
+        return *m_pimpl not_eq * value.m_pimpl;
     }
 }

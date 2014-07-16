@@ -134,22 +134,22 @@ namespace framework
     
     bool Uri::operator <( const Uri& rhs ) const
     {
-        return ( *m_pimpl < *rhs.m_pimpl );
+        return *m_pimpl < *rhs.m_pimpl;
     }
     
     bool Uri::operator >( const Uri& rhs ) const
     {
-        return ( *m_pimpl > *rhs.m_pimpl );
+        return *m_pimpl > *rhs.m_pimpl;
     }
     
     bool Uri::operator ==( const Uri& rhs ) const
     {
-        return ( *m_pimpl == *rhs.m_pimpl );
+        return *m_pimpl == *rhs.m_pimpl;
     }
     
     bool Uri::operator !=( const Uri& rhs ) const
     {
-        return ( *m_pimpl not_eq * rhs.m_pimpl );
+        return *m_pimpl not_eq * rhs.m_pimpl;
     }
     
     Uri::Uri( void ) : m_pimpl( new UriImpl )
