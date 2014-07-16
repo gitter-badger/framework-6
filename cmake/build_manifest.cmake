@@ -23,4 +23,6 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/password_impl.cpp
      ${SOURCE_DIR}/username.cpp
      ${SOURCE_DIR}/detail/username_impl.cpp
+     ${SOURCE_DIR}/http.cpp
+     ${SOURCE_DIR}/detail/http_impl.cpp
 )

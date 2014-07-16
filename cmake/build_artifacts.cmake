@@ -37,4 +37,6 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/password.h
      ${SOURCE_DIR}/username
      ${SOURCE_DIR}/username.h
+     ${SOURCE_DIR}/http
+     ${SOURCE_DIR}/http.h
 )
