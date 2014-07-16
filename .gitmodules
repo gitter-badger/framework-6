@@ -7,3 +7,6 @@
 [submodule "dependency/gpg-error"]
 	path = dependency/gpg-error
 	url = http://source.corvusoft.co.uk/gpg-error-dependency.git
+[submodule "dependency/curl"]
+	path = dependency/curl
+	url = http://source.corvusoft.co.uk/libcurl-dependency.git
