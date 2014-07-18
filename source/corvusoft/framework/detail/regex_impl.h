@@ -35,7 +35,7 @@ namespace framework
                 //Definitions
                 
                 //Constructor
-                RegexImpl( const std::string& pattern, bool ignore_case = false );
+                RegexImpl( const std::string& pattern, const int options = 0 );
                 
                 RegexImpl( const RegexImpl& original );
                 

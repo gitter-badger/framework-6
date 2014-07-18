@@ -13,6 +13,8 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/bytes.h
      ${SOURCE_DIR}/regex
      ${SOURCE_DIR}/regex.h
+     ${SOURCE_DIR}/regex_option
+     ${SOURCE_DIR}/regex_option.h
      ${SOURCE_DIR}/string
      ${SOURCE_DIR}/string.h
      ${SOURCE_DIR}/istream

@@ -5,6 +5,7 @@
 //System Includes
 
 //Project Includes
+#include "corvusoft/framework/regex_option.h"
 #include "corvusoft/framework/detail/regex_impl.h"
 
 //External Includes
@@ -24,10 +25,10 @@ namespace framework
 {
     namespace detail
     {
-        RegexImpl::RegexImpl( const string& pattern, bool ignore_case ) : m_pattern( pattern ),
+        RegexImpl::RegexImpl( const string& pattern, const int options ) : m_pattern( pattern ),
             m_expression( )
         {
-            if ( ignore_case )
+            if ( options & RegexOption::CASE_INSENSITIVE )
             {
                 m_expression.assign( pattern, icase );
             }

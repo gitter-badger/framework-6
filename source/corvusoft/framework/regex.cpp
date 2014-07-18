@@ -27,12 +27,12 @@ namespace framework
         //n/a
     }
     
-    Regex::Regex( const char* pattern, bool ignore_case ) : m_pimpl( new RegexImpl( pattern, ignore_case ) )
+    Regex::Regex( const char* pattern, const int options ) : m_pimpl( new RegexImpl( pattern, options ) )
     {
         //n/a
     }
     
-    Regex::Regex( const string& pattern, bool ignore_case ) : m_pimpl( new RegexImpl( pattern, ignore_case ) )
+    Regex::Regex( const string& pattern, const int options ) : m_pimpl( new RegexImpl( pattern, options ) )
     {
         //n/a
     }
