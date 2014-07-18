@@ -36,9 +36,9 @@ namespace framework
             //Constructors
             Regex( void );
             
-            Regex( const char* pattern );
+            Regex( const char* pattern, bool ignore_case = false );
             
-            Regex( const std::string& pattern );
+            Regex( const std::string& pattern, bool ignore_case = false );
             
             Regex( const Regex& original );
             

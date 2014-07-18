@@ -14,6 +14,7 @@ using std::regex;
 using std::string;
 using std::regex_match;
 using std::regex_error;
+using std::regex_constants::icase;
 
 //Project Namespaces
 
@@ -23,10 +24,13 @@ namespace framework
 {
     namespace detail
     {
-        RegexImpl::RegexImpl( const string& pattern ) : m_pattern( pattern ),
-            m_expression( regex( pattern ) )
+        RegexImpl::RegexImpl( const string& pattern, bool ignore_case ) : m_pattern( pattern ),
+            m_expression( )
         {
-            //n/a
+            if ( ignore_case )
+            {
+                m_expression.assign( pattern, icase );
+            }
         }
         
         RegexImpl::RegexImpl( const RegexImpl& original ) : m_pattern( original.m_pattern ),
