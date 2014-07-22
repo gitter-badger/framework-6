@@ -5,6 +5,7 @@
 //System Includes
 
 //Project Includes
+#include "corvusoft/framework/map.h"
 #include "corvusoft/framework/string.h"
 #include "corvusoft/framework/detail/http_impl.h"
 
@@ -14,6 +15,7 @@
 //System Namespaces
 using std::map;
 using std::string;
+using std::to_string;
 
 //Project Namespaces
 
@@ -72,6 +74,13 @@ namespace framework
                 CURLcode result = curl_easy_perform( curl );
                 
                 struct curl_slist* headers = nullptr;
+                
+                if ( Map::find_key_ignoring_case( "Content-Length", request.headers ) == request.headers.end( ) )
+                {
+                    string value = "Content-Length: " + ::to_string( request.body.size( ) );
+                    
+                    headers = curl_slist_append( headers, value.data( ) );
+                }
                 
                 for ( auto header : request.headers )
                 {
