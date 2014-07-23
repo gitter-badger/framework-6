@@ -26,7 +26,7 @@ namespace framework
     namespace detail
     {
         RegexImpl::RegexImpl( const string& pattern, const int options ) : m_pattern( pattern ),
-            m_expression( )
+            m_expression( pattern )
         {
             if ( options & RegexOption::CASE_INSENSITIVE )
             {
