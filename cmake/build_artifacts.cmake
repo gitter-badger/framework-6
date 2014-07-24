@@ -41,4 +41,6 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/username.h
      ${SOURCE_DIR}/http
      ${SOURCE_DIR}/http.h
+     ${SOURCE_DIR}/threadpool
+     ${SOURCE_DIR}/threadpool.h
 )

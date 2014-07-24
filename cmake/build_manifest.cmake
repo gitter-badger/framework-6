@@ -25,4 +25,6 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/username_impl.cpp
      ${SOURCE_DIR}/http.cpp
      ${SOURCE_DIR}/detail/http_impl.cpp
+     ${SOURCE_DIR}/threadpool.cpp
+     ${SOURCE_DIR}/detail/threadpool_impl.cpp
 )
