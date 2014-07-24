@@ -30,16 +30,6 @@ namespace framework
         m_pimpl->set_thread_limit( limit );
     }
     
-    ThreadPool::ThreadPool( const ThreadPool& original ) : m_pimpl( new ThreadPoolImpl( *original.m_pimpl ) )
-    {
-        //n/a
-    }
-    
-    ThreadPool::ThreadPool( const ThreadPoolImpl& implementation ) : m_pimpl( new ThreadPoolImpl( implementation ) )
-    {
-        //n/a
-    }
-    
     ThreadPool::~ThreadPool( void )
     {
         //n/a
@@ -63,12 +53,5 @@ namespace framework
     void ThreadPool::join( void )
     {
         m_pimpl->join( );
-    }
-    
-    ThreadPool& ThreadPool::operator =( const ThreadPool& value )
-    {
-        *this->m_pimpl = *value.m_pimpl;
-        
-        return *this;
     }
 }

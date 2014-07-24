@@ -41,8 +41,6 @@ namespace framework
                 //Constructors
                 ThreadPoolImpl( void );
                 
-                ThreadPoolImpl( const ThreadPoolImpl& original );
-                
                 virtual ~ThreadPoolImpl( void );
                 
                 //Functionality
@@ -61,7 +59,6 @@ namespace framework
                 void set_thread_limit( const int value );
                 
                 //Operators
-                ThreadPoolImpl& operator =( const ThreadPoolImpl& value );
                 
                 //Properties
                 
@@ -88,6 +85,7 @@ namespace framework
                 //Definitions
                 
                 //Constructors
+                ThreadPoolImpl( const ThreadPoolImpl& original ) = delete;
                 
                 //Functionality
                 void idle_task( void );
@@ -97,6 +95,7 @@ namespace framework
                 //Setters
                 
                 //Operators
+                ThreadPoolImpl& operator =( const ThreadPoolImpl& value ) = delete;
                 
                 //Properties
                 bool m_is_active;

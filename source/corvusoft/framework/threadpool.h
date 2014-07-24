@@ -40,10 +40,6 @@ namespace framework
             
             ThreadPool( const int limit );
             
-            ThreadPool( const ThreadPool& original );
-            
-            ThreadPool( const detail::ThreadPoolImpl& implementation );
-            
             virtual ~ThreadPool( void );
             
             //Functionality
@@ -60,7 +56,6 @@ namespace framework
             //Setters
             
             //Operators
-            ThreadPool& operator =( const ThreadPool& value );
             
             //Properties
             
@@ -87,6 +82,7 @@ namespace framework
             //Definitions
             
             //Constructors
+            ThreadPool( const ThreadPool& original ) = delete;
             
             //Functionality
             
@@ -95,6 +91,7 @@ namespace framework
             //Setters
             
             //Operators
+            ThreadPool& operator =( const ThreadPool& value ) = delete;
             
             //Properties
             std::unique_ptr< detail::ThreadPoolImpl > m_pimpl;
