@@ -37,6 +37,16 @@ namespace framework
             //n/a
         }
         
+        ThreadPoolImpl::ThreadPoolImpl( const ThreadPoolImpl& original ) : m_is_active( false ),
+            m_tasks_mutex( ),
+            m_thread_limit( original.m_thread_limit ),
+            m_tasks_pending_cv( ),
+            m_tasks( ),
+            m_workers( )
+        {
+            //n/a
+        }
+        
         ThreadPoolImpl::~ThreadPoolImpl( void )
         {
             //n/a
@@ -95,6 +105,13 @@ namespace framework
             }
             
             m_thread_limit = value;
+        }
+        
+        ThreadPoolImpl& ThreadPoolImpl::operator =( const ThreadPoolImpl& value )
+        {
+            m_thread_limit = value.m_thread_limit;
+            
+            return *this;
         }
         
         void ThreadPoolImpl::idle_task( void )
