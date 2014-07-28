@@ -71,8 +71,6 @@ namespace framework
                 
                 curl_easy_setopt( curl, CURLOPT_POSTFIELDS, &( request.body )[ 0 ] );
                 
-                CURLcode result = curl_easy_perform( curl );
-                
                 struct curl_slist* headers = nullptr;
                 
                 if ( Map::find_key_ignoring_case( "Content-Length", request.headers ) == request.headers.end( ) )
@@ -89,7 +87,11 @@ namespace framework
                     headers = curl_slist_append( headers, value.data( ) );
                 }
                 
-                result = curl_easy_setopt( curl, CURLOPT_HTTPHEADER, headers );
+                curl_easy_setopt( curl, CURLOPT_HTTPHEADER, headers );
+                
+                CURLcode result = curl_easy_perform( curl );
+                
+                curl_easy_getinfo ( curl, CURLINFO_RESPONSE_CODE, &response.status_code );
                 
                 if ( result not_eq CURLE_OK )
                 {

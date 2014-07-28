@@ -40,7 +40,7 @@ namespace framework
             struct Response
             {
                 Bytes body;
-                int status_code;
+                long status_code;
                 std::map< std::string, std::string > headers;
             };
             
