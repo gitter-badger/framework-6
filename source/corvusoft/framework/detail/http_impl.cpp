@@ -108,20 +108,24 @@ namespace framework
         {
             Http::Response* response = static_cast< Http::Response* >( ptr );
             
-            response->body = Bytes( static_cast< Byte* >( data ), static_cast< Byte* >( data ) + size );
+            auto length = size * nmemb;
             
-            return size * nmemb;
+            response->body = Bytes( static_cast< Byte* >( data ), static_cast< Byte* >( data ) + length );
+            
+            return length;
         }
         
         size_t HttpImpl::write_headers_callback( void* data, size_t size, size_t nmemb, void* ptr )
         {
             Http::Response* response = static_cast< Http::Response* >( ptr );
             
-            auto header = String::split( string( static_cast< char* >( data ), size * nmemb ), ':' );
+            auto length = size * nmemb;
+            
+            auto header = String::split( string( static_cast< char* >( data ), length ), ':' );
             
             response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
             
-            return size * nmemb;
+            return length;
         }
     }
 }
