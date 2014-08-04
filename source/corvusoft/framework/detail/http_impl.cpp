@@ -139,7 +139,7 @@ namespace framework
             auto length = size * nmemb;
             
             auto response_data = string( static_cast< char* >( data ), length );
-            auto end_of_first_line = response_data.find( "\n" );
+            auto end_of_first_line = response_data.find_first_of( '\n' );
             
             auto header_data = response_data.substr( end_of_first_line );
             
