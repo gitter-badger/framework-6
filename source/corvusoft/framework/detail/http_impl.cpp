@@ -134,7 +134,10 @@ namespace framework
             auto length = size * nmemb;
             auto response_data = string( static_cast< char* >( data ), length );
             
-            if ( "HTTP/" == String::uppercase( response_data.substr( 0, 5 ) ) )
+            
+            fprintf( stderr, "%s\n", response_data.substr( 0, 4 ).data( ) );
+            
+            if ( "HTTP/" == String::uppercase( response_data.substr( 0, 4 ) ) )
             {
                 //"HTTP/1.1 200 OK"
                 //response.status_code =
