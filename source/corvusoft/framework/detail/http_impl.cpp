@@ -131,26 +131,31 @@ namespace framework
         
         size_t HttpImpl::write_headers_callback( void* data, size_t size, size_t nmemb, void* ptr )
         {
-            Http::Response* response = static_cast< Http::Response* >( ptr );
-            
             auto length = size * nmemb;
-            auto response_data = string( static_cast< char* >( data ), length );
             
-            if ( "HTTP/" == String::uppercase( response_data.substr( 0, 5 ) ) )
+            if ( length not_eq 0 )
             {
-                auto parts = String::split( response_data, ' ' );
+                Http::Response* response = static_cast< Http::Response* >( ptr );
                 
-                response->status_code = stol( parts[ 1 ] );
-                response->status_message = String::trim( parts[ 2 ] );
+                auto length = size * nmemb;
+                auto response_data = string( static_cast< char* >( data ), length );
                 
-                parts = String::split( parts[ 0 ], '/' );
-                response->version = stod( parts[ 1 ] );
-            }
-            else
-            {
-                auto header = String::split( response_data, ':' );
-                
-                response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
+                if ( "HTTP/" == String::uppercase( response_data.substr( 0, 5 ) ) )
+                {
+                    auto parts = String::split( response_data, ' ' );
+                    
+                    response->status_code = stol( parts[ 1 ] );
+                    response->status_message = String::trim( parts[ 2 ] );
+                    
+                    parts = String::split( parts[ 0 ], '/' );
+                    response->version = stod( parts[ 1 ] );
+                }
+                else
+                {
+                    auto header = String::split( response_data, ':' );
+                    
+                    response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
+                }
             }
             
             return length;
