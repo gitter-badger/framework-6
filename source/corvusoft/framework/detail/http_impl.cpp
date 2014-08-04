@@ -129,28 +129,21 @@ namespace framework
         
         size_t HttpImpl::write_headers_callback( void* data, size_t size, size_t nmemb, void* ptr )
         {
-            //first line
-            //"HTTP/1.1 200 OK"
-            //response.status_code =
-            //response.version = request.version;
-            //response.status_message
             Http::Response* response = static_cast< Http::Response* >( ptr );
             
             auto length = size * nmemb;
-            
             auto response_data = string( static_cast< char* >( data ), length );
             
-            auto lines = String::split( response_data, '\n' );
-            
-            
-            fprintf( stderr, "%li\n", lines.size( ) );
-            
-            auto first_line = lines.at( 0 );
-            lines.erase( lines.begin( ) );
-            
-            for ( auto line : lines )
+            if ( "HTTP/" == response_data.substr( 0, 4 ) )
             {
-                auto header = String::split( line, ':' );
+                //"HTTP/1.1 200 OK"
+                //response.status_code =
+                //response.version = request.version;
+                //response.status_message
+            }
+            else
+            {
+                auto header = String::split( response_data, ':' );
                 
                 response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
             }
