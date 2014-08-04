@@ -139,15 +139,18 @@ namespace framework
             auto length = size * nmemb;
             
             auto response_data = string( static_cast< char* >( data ), length );
-            auto end_of_first_line = response_data.find_first_of( '\n' );
             
-            auto header_data = response_data.substr( end_of_first_line );
+            auto lines = String::split( response_data, '\n' );
             
-            fprintf ( stderr, "%s\n", response_data.data( ) );
+            auto first_line = lines.at( 0 );
+            lines.erase( lines.begin( ) );
             
-            auto header = String::split( header_data, ':' );
-            
-            response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
+            for ( auto line : lines )
+            {
+                auto header = String::split( line, ':' );
+                
+                response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
+            }
             
             return length;
         }
