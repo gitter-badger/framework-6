@@ -140,7 +140,10 @@ namespace framework
             
             auto response_data = string( static_cast< char* >( data ), length );
             
-            auto lines = String::split( response_data, '\r' );
+            auto lines = String::split( response_data, '\n' );
+            
+            
+            fprintf( stderr, "%li\n", lines.size( ) );
             
             auto first_line = lines.at( 0 );
             lines.erase( lines.begin( ) );
