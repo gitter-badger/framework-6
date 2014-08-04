@@ -141,7 +141,7 @@ namespace framework
                 auto parts = String::split( response_data, ' ' );
                 
                 response->status_code = stol( parts[ 1 ] );
-                response->status_message = parts[ 2 ];
+                response->status_message = String::trim( parts[ 2 ] );
                 
                 parts = String::split( parts[ 0 ], '/' );
                 response->version = stod( parts[ 1 ] );
