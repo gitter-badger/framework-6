@@ -27,25 +27,37 @@ namespace framework
     {
         Http::Response HttpImpl::get( const Http::Request& request )
         {
-            return perform( "GET", request );
+            auto rq = request;
+            rq.method = "GET";
+            
+            return perform( request );
         }
         
         Http::Response HttpImpl::put( const Http::Request& request )
         {
-            return perform( "PUT", request );
+            auto rq = request;
+            rq.method = "PUT";
+            
+            return perform( request );
         }
         
         Http::Response HttpImpl::post( const Http::Request& request )
         {
-            return perform( "POST", request );
+            auto rq = request;
+            rq.method = "POST";
+            
+            return perform( request );
         }
         
         Http::Response HttpImpl::destroy( const Http::Request& request )
         {
-            return perform( "DELETE", request );
+            auto rq = request;
+            rq.method = "DELETE";
+            
+            return perform( request );
         }
         
-        Http::Response HttpImpl::perform( const string& method, const Http::Request& request )
+        Http::Response HttpImpl::perform( const Http::Request& request )
         {
             Http::Response response;
             
@@ -57,7 +69,7 @@ namespace framework
             {
                 curl_easy_setopt( curl, CURLOPT_VERBOSE, 0L );
                 
-                curl_easy_setopt( curl, CURLOPT_CUSTOMREQUEST, method.data( ) );
+                curl_easy_setopt( curl, CURLOPT_CUSTOMREQUEST, request.method.data( ) );
                 
                 curl_easy_setopt( curl, CURLOPT_WRITEFUNCTION, &write_body_callback );
                 
@@ -70,6 +82,8 @@ namespace framework
                 curl_easy_setopt( curl, CURLOPT_URL, request.uri.data( ) );
                 
                 curl_easy_setopt( curl, CURLOPT_POSTFIELDS, &( request.body )[ 0 ] );
+                
+                curl_easy_setopt( curl, CURLOPT_HTTP_VERSION, request.version );
                 
                 struct curl_slist* headers = nullptr;
                 
@@ -91,7 +105,7 @@ namespace framework
                 
                 CURLcode result = curl_easy_perform( curl );
                 
-                curl_easy_getinfo ( curl, CURLINFO_RESPONSE_CODE, &response.status_code );
+                curl_easy_getinfo( curl, CURLINFO_RESPONSE_CODE, &response.status_code );
                 
                 if ( result not_eq CURLE_OK )
                 {
@@ -117,6 +131,10 @@ namespace framework
         
         size_t HttpImpl::write_headers_callback( void* data, size_t size, size_t nmemb, void* ptr )
         {
+            //first line
+            //response.status_code =
+            //response.version = request.version;
+            //response.status_message
             Http::Response* response = static_cast< Http::Response* >( ptr );
             
             auto length = size * nmemb;

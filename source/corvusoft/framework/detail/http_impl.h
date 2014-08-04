@@ -83,7 +83,7 @@ namespace framework
                 virtual ~HttpImpl( void ) = delete;
                 
                 //Functionality
-                static Http::Response perform( const std::string& method, const Http::Request& request );
+                static Http::Response perform( const Http::Request& request );
                 
                 static size_t write_body_callback( void* ptr, size_t size, size_t nmemb, void* data );
                 

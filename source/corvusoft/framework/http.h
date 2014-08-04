@@ -33,14 +33,18 @@ namespace framework
             struct Request
             {
                 Bytes body;
-                std::string uri;
+                double version = 1.1;
+                std::string uri = "";
+                std::string method = "GET";
                 std::map< std::string, std::string > headers;
             };
             
             struct Response
             {
                 Bytes body;
-                long status_code;
+                double version = 1.1;
+                long status_code = 200;
+                std::string status_message = "OK";
                 std::map< std::string, std::string > headers;
             };
             
