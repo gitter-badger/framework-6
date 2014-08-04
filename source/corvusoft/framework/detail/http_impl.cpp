@@ -135,9 +135,9 @@ namespace framework
             auto response_data = string( static_cast< char* >( data ), length );
             
             
-            fprintf( stderr, "%s\n", response_data.substr( 0, 4 ).data( ) );
+            fprintf( stderr, "%s\n", response_data.substr( 0, 5 ).data( ) );
             
-            if ( "HTTP/" == String::uppercase( response_data.substr( 0, 4 ) ) )
+            if ( "HTTP/" == String::uppercase( response_data.substr( 0, 5 ) ) )
             {
                 //"HTTP/1.1 200 OK"
                 //response.status_code =
