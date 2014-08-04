@@ -138,9 +138,12 @@ namespace framework
             
             auto length = size * nmemb;
             
-            auto header_data = string( static_cast< char* >( data ), length );
+            auto response_data = string( static_cast< char* >( data ), length );
+            auto end_of_first_line = response_data.find( "\r\n" );
             
-            auto header = String::split( string( static_cast< char* >( data ), length ), ':' );
+            auto header_data = response_data.substr( end_of_first_line );
+            
+            auto header = String::split( header_data, ':' );
             
             response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
             
