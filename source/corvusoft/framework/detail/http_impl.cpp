@@ -105,8 +105,6 @@ namespace framework
                 
                 CURLcode result = curl_easy_perform( curl );
                 
-                curl_easy_getinfo( curl, CURLINFO_RESPONSE_CODE, &response.status_code );
-                
                 if ( result not_eq CURLE_OK )
                 {
                     fprintf( stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror( result ) );
@@ -132,12 +130,15 @@ namespace framework
         size_t HttpImpl::write_headers_callback( void* data, size_t size, size_t nmemb, void* ptr )
         {
             //first line
+            //"HTTP/1.1 200 OK"
             //response.status_code =
             //response.version = request.version;
             //response.status_message
             Http::Response* response = static_cast< Http::Response* >( ptr );
             
             auto length = size * nmemb;
+            
+            auto header_data = string( static_cast< char* >( data ), length );
             
             auto header = String::split( string( static_cast< char* >( data ), length ), ':' );
             
