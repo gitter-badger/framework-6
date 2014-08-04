@@ -141,7 +141,7 @@ namespace framework
             auto response_data = string( static_cast< char* >( data ), length );
             auto end_of_first_line = response_data.find( "\r\n" );
             
-            auto header_data = response_data.substr( end_of_first_line );
+            auto header_data = response_data.substr( end_of_first_line + 2 );
             
             auto header = String::split( header_data, ':' );
             
