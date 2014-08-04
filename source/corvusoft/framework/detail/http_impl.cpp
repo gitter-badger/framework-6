@@ -14,6 +14,8 @@
 
 //System Namespaces
 using std::map;
+using std::stol;
+using std::stod;
 using std::string;
 using std::to_string;
 
@@ -134,15 +136,15 @@ namespace framework
             auto length = size * nmemb;
             auto response_data = string( static_cast< char* >( data ), length );
             
-            
-            fprintf( stderr, "%s\n", response_data.substr( 0, 5 ).data( ) );
-            
             if ( "HTTP/" == String::uppercase( response_data.substr( 0, 5 ) ) )
             {
-                //"HTTP/1.1 200 OK"
-                //response.status_code =
-                //response.version = request.version;
-                //response.status_message
+                auto parts = String::split( response_data, ' ' );
+                
+                response->status_code = stol( parts[ 1 ] );
+                response->status_message = parts[ 2 ];
+                
+                parts = String::split( parts[ 0 ], '/' );
+                response->version = stod( parts[ 1 ] );
             }
             else
             {
