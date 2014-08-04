@@ -134,7 +134,7 @@ namespace framework
             Http::Response* response = static_cast< Http::Response* >( ptr );
             
             auto length = size * nmemb;
-            auto response_data = string( static_cast< char* >( data ), length );
+            auto response_data = String::trim( string( static_cast< char* >( data ), length ) );
             
             if ( not response_data.empty( ) )
             {
