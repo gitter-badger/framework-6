@@ -152,7 +152,7 @@ namespace framework
                 {
                     auto header = String::split( response_data, ':' );
                     
-                    if ( not header.empty( ) )
+                    if ( header.size( ) > 1 )
                     {
                         auto name = String::trim( header[ 0 ] );
                         auto value = String::trim( header[ 1 ] );
