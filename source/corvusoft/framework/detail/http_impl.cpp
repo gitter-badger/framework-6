@@ -154,7 +154,13 @@ namespace framework
                 {
                     auto header = String::split( response_data, ':' );
                     
-                    response->headers[ String::trim( header[ 0 ] ) ] = String::trim( header[ 1 ] );
+                    auto name = String::trim( header[ 0 ] );
+                    auto value = String::trim( header[ 1 ] );
+                    
+                    if ( not name.empty( ) )
+                    {
+                        response->headers[ name ] = value;
+                    }
                 }
             }
             
