@@ -31,7 +31,7 @@ namespace framework
             time_t timestamp = system_clock::to_time_t( value );
             
             tm time = { };
-            localtime_r( &timestamp, &time );
+            gmtime_r( &timestamp, &time );
             
             stringstream date;
             date << put_time( &time, "%c" );
