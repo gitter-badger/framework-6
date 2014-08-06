@@ -29,17 +29,17 @@ namespace framework
             //Friends
             
             //Definitions
-            typedef std::map< std::string, std::string >::const_iterator const_iterator;
-        
+            typedef std::map< std::string, std::string >::iterator iterator;
+            
             //Constructors
-        
+            
             //Functionality
-            static const_iterator find_key_ignoring_case( const std::string& key, const std::map< std::string, std::string >& container );
-        
+            static iterator find_key_ignoring_case( const std::string& key, const std::map< std::string, std::string >& container );
+            
             //Getters
-        
+            
             //Setters
-        
+            
             //Operators
             
             //Properties
@@ -81,7 +81,7 @@ namespace framework
             
             //Operators
             Map& operator =( const Map& value ) = delete;
-        
+            
             //Properties
     };
 }

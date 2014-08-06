@@ -26,7 +26,7 @@ TEST( Map, find_key_ignoring_case )
     map< string, string > values;
     values[ "name" ] = "value";
     
-    Map::const_iterator actual = Map::find_key_ignoring_case( "NAMe", values );
+    Map::iterator actual = Map::find_key_ignoring_case( "NAMe", values );
     
     EXPECT_EQ( "name", actual->first );
     EXPECT_EQ( "value", actual->second );

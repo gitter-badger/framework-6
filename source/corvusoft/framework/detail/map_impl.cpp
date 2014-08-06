@@ -22,11 +22,13 @@ namespace framework
 {
     namespace detail
     {
-        MapImpl::const_iterator MapImpl::find_key_ignoring_case( const string& key, const map< string, string >& container )
+        MapImpl::iterator MapImpl::find_key_ignoring_case( const string& key, const map< string, string >& container )
         {
+            map< string, string > values = container;
+            
             string identifier = String::lowercase( key );
             
-            for ( auto value : container )
+            for ( auto value : values )
             {
                 if ( identifier == String::lowercase( value.first ) )
                 {
@@ -35,7 +37,7 @@ namespace framework
                 }
             }
             
-            return ( identifier not_eq String::empty ) ? container.find( identifier ) : container.end( );
+            return ( identifier not_eq String::empty ) ? values.find( identifier ) : values.end( );
         }
     }
 }

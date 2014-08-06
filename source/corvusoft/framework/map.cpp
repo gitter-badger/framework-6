@@ -21,7 +21,7 @@ using framework::detail::MapImpl;
 
 namespace framework
 {
-    Map::const_iterator Map::find_key_ignoring_case( const string& key, const map< string, string >& container )
+    Map::iterator Map::find_key_ignoring_case( const string& key, const map< string, string >& container )
     {
         return MapImpl::find_key_ignoring_case( key, container );
     }
