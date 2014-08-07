@@ -29,7 +29,7 @@ namespace framework
     {
         Http::Response HttpImpl::get( const Http::Request& request )
         {
-            auto action = request;
+            Http::Request action = request;
             action.method = "GET";
             
             return perform( action );
@@ -37,7 +37,7 @@ namespace framework
         
         Http::Response HttpImpl::put( const Http::Request& request )
         {
-            auto action = request;
+            Http::Request action = request;
             action.method = "PUT";
             
             return perform( action );
@@ -45,7 +45,7 @@ namespace framework
         
         Http::Response HttpImpl::post( const Http::Request& request )
         {
-            auto action = request;
+            Http::Request action = request;
             action.method = "POST";
             
             return perform( action );
@@ -53,7 +53,7 @@ namespace framework
         
         Http::Response HttpImpl::destroy( const Http::Request& request )
         {
-            auto action = request;
+            Http::Request action = request;
             action.method = "DELETE";
             
             return perform( action );

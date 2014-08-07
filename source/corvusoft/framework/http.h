@@ -43,8 +43,8 @@ namespace framework
             {
                 Bytes body;
                 double version = 1.1;
-                long status_code = 200;
-                std::string status_message = "OK";
+                long status_code = 0;
+                std::string status_message = "";
                 std::map< std::string, std::string > headers;
             };
             
