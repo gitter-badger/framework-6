@@ -50,6 +50,8 @@ namespace framework
                 
                 static RunIdImpl parse( const std::string& value );
                 
+                static bool is_valid( const std::string& value );
+                
                 //Getters
                 UniqueId get_unique_id( void ) const;
                 

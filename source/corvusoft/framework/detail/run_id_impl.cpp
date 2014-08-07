@@ -58,9 +58,7 @@ namespace framework
         
         RunIdImpl RunIdImpl::parse( const string& value )
         {
-            bool valid = regex_match( value, regex( "^[0-9a-zA-Z]{8,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{12,}\\-[0-9]{0,12}$" ) );
-            
-            if ( not valid )
+            if ( not is_valid( value ) )
             {
                 throw invalid_argument( "Argument is not a valid runtime identifier: " + value );
             }
@@ -76,6 +74,11 @@ namespace framework
             result.set_timestamp( system_clock::from_time_t( timestamp ) );
             
             return result;
+        }
+        
+        bool RunIdImpl::is_valid( const string& value )
+        {
+            return regex_match( value, regex( "^[0-9a-zA-Z]{8,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{12,}\\-[0-9]{0,12}$" ) );
         }
         
         UniqueId RunIdImpl::get_unique_id( void ) const

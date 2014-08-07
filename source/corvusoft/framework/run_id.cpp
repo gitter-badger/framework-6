@@ -59,6 +59,11 @@ namespace framework
         return RunIdImpl::parse( value );
     }
     
+    bool RunId::is_valid( const string& value )
+    {
+        return RunIdImpl::is_valid( value );
+    }
+    
     UniqueId RunId::get_unique_id( void ) const
     {
         return m_pimpl->get_unique_id( );

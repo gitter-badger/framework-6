@@ -41,34 +41,36 @@ namespace framework
             RunId( const std::string& value );
             
             RunId( const RunId& original );
-        
+            
             RunId( const detail::RunIdImpl& implementation );
-        
+            
             virtual ~RunId( void );
             
             //Functionality
             std::string to_string( void ) const;
-
+            
             static RunId generate( void );
-
+            
             static RunId parse( const std::string& value );
+            
+            static bool is_valid( const std::string& value );
             
             //Getters
             UniqueId get_unique_id( void ) const;
-
+            
             std::chrono::time_point< std::chrono::system_clock > get_timestamp( void ) const;
             
             //Setters
             
             //Operators
             RunId& operator =( const RunId& value );
-        
+            
             bool operator <( const RunId& value ) const;
-        
+            
             bool operator >( const RunId& value ) const;
-        
+            
             bool operator ==( const RunId& value ) const;
-       
+            
             bool operator !=( const RunId& value ) const;
             
             //Properties
