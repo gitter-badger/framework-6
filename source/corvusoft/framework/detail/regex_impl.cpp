@@ -55,6 +55,11 @@ namespace framework
             return regex_match( value, m_expression );
         }
         
+        bool RegexImpl::is_match( const string& value, const string& pattern )
+        {
+            return regex_match( value, regex( pattern ) );
+        }
+        
         bool RegexImpl::is_valid( const string& value )
         {
             bool result = true;
