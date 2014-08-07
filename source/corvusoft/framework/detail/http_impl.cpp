@@ -29,34 +29,34 @@ namespace framework
     {
         Http::Response HttpImpl::get( const Http::Request& request )
         {
-            auto rq = request;
-            rq.method = "GET";
+            auto action = request;
+            action.method = "GET";
             
-            return perform( request );
+            return perform( action );
         }
         
         Http::Response HttpImpl::put( const Http::Request& request )
         {
-            auto rq = request;
-            rq.method = "PUT";
+            auto action = request;
+            action.method = "PUT";
             
-            return perform( request );
+            return perform( action );
         }
         
         Http::Response HttpImpl::post( const Http::Request& request )
         {
-            auto rq = request;
-            rq.method = "POST";
+            auto action = request;
+            action.method = "POST";
             
-            return perform( request );
+            return perform( action );
         }
         
         Http::Response HttpImpl::destroy( const Http::Request& request )
         {
-            auto rq = request;
-            rq.method = "DELETE";
+            auto action = request;
+            action.method = "DELETE";
             
-            return perform( request );
+            return perform( action );
         }
         
         Http::Response HttpImpl::perform( const Http::Request& request )
