@@ -178,16 +178,6 @@ namespace framework
             return *this;
         }
         
-        bool PasswordImpl::operator <( const PasswordImpl& value ) const
-        {
-            return m_hash < value.m_hash;
-        }
-        
-        bool PasswordImpl::operator >( const PasswordImpl& value ) const
-        {
-            return m_hash > value.m_hash;
-        }
-        
         bool PasswordImpl::operator ==( const PasswordImpl& value ) const
         {
             return m_hash == value.m_hash;

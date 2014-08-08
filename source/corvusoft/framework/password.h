@@ -63,6 +63,8 @@ namespace framework
             //Setters
             
             //Operators
+            Password& operator =( const Password& value );
+            
             bool operator ==( const Password& value ) const;
             
             bool operator !=( const Password& value ) const;
@@ -105,11 +107,9 @@ namespace framework
             //Setters
             
             //Operators
-            Password& operator =( const Password& value );
+            bool operator <( const Password& value ) const = delete;
             
-            bool operator <( const Password& value ) const;
-            
-            bool operator >( const Password& value ) const;
+            bool operator >( const Password& value ) const = delete;
             
             //Properties
             const std::unique_ptr< detail::PasswordImpl > m_pimpl;

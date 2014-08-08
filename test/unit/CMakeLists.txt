@@ -22,6 +22,7 @@ add_executable( regex_unit_test_suite ${SOURCE_DIR}/regex_suite.cpp )
 add_executable( istream_unit_test_suite ${SOURCE_DIR}/istream_suite.cpp )
 add_executable( checksum_unit_test_suite ${SOURCE_DIR}/checksum_suite.cpp )
 add_executable( username_unit_test_suite ${SOURCE_DIR}/username_suite.cpp )
+add_executable( password_unit_test_suite ${SOURCE_DIR}/password_suite.cpp )
 
 target_link_libraries( uri_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 target_link_libraries( map_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
@@ -30,6 +31,7 @@ target_link_libraries( regex_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRA
 target_link_libraries( istream_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 target_link_libraries( checksum_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} ) 
 target_link_libraries( username_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
+target_link_libraries( password_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 
 #
 # Setup
@@ -42,3 +44,4 @@ add_test( regex_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/regex_unit_test_suite 
 add_test( istream_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/istream_unit_test_suite )
 add_test( checksum_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/checksum_unit_test_suite )
 add_test( username_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/username_unit_test_suite )
+add_test( password_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/password_unit_test_suite )

@@ -60,10 +60,6 @@ namespace framework
                 //Operators
                 PasswordImpl& operator =( const PasswordImpl& value );
                 
-                bool operator <( const PasswordImpl& value ) const;
-                
-                bool operator >( const PasswordImpl& value ) const;
-                
                 bool operator ==( const PasswordImpl& value ) const;
                 
                 bool operator !=( const PasswordImpl& value ) const;
@@ -106,6 +102,9 @@ namespace framework
                 //Setters
                 
                 //Operators
+                bool operator <( const PasswordImpl& value ) const = delete;
+                
+                bool operator >( const PasswordImpl& value ) const = delete;
                 
                 //Properties
                 std::string m_hash;

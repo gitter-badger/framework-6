@@ -70,6 +70,13 @@ namespace framework
         return PasswordImpl::generate( cleartext, salt, algorithm );
     }
     
+    Password& Password::operator =( const Password& value )
+    {
+        *m_pimpl = *value.m_pimpl;
+        
+        return *this;
+    }
+    
     bool Password::operator ==( const Password& value ) const
     {
         return *m_pimpl == *value.m_pimpl;
@@ -93,22 +100,5 @@ namespace framework
     Password::Password( void ) : m_pimpl( new PasswordImpl )
     {
         //n/a
-    }
-    
-    Password& Password::operator =( const Password& value )
-    {
-        *m_pimpl = *value.m_pimpl;
-        
-        return *this;
-    }
-    
-    bool Password::operator <( const Password& value ) const
-    {
-        return *m_pimpl < *value.m_pimpl;
-    }
-    
-    bool Password::operator >( const Password& value ) const
-    {
-        return *m_pimpl > *value.m_pimpl;
     }
 }
