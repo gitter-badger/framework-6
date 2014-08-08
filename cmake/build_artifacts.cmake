@@ -27,8 +27,6 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/unique_id.h
      ${SOURCE_DIR}/functional
      ${SOURCE_DIR}/functional.h
-     ${SOURCE_DIR}/range
-     ${SOURCE_DIR}/range.h
      ${SOURCE_DIR}/resident_allocator
      ${SOURCE_DIR}/resident_allocator.h
      ${SOURCE_DIR}/resident_string
@@ -41,6 +39,4 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/username.h
      ${SOURCE_DIR}/http
      ${SOURCE_DIR}/http.h
-     ${SOURCE_DIR}/threadpool
-     ${SOURCE_DIR}/threadpool.h
 )
