@@ -38,17 +38,19 @@ namespace framework
             UniqueId( const std::string& value );
             
             UniqueId( const UniqueId& original );
-        
+            
             UniqueId( const detail::UniqueIdImpl& implementation );
             
             virtual ~UniqueId( void );
             
             //Functionality
             std::string to_string( void ) const;
-        
+            
             static UniqueId generate( void );
-        
+            
             static UniqueId parse( const std::string& value );
+            
+            static bool is_valid( const std::string& value );
             
             //Getters
             
@@ -56,13 +58,13 @@ namespace framework
             
             //Operators
             UniqueId& operator =( const UniqueId& value );
-
+            
             bool operator <( const UniqueId& value ) const;
-
+            
             bool operator >( const UniqueId& value ) const;
-        
+            
             bool operator ==( const UniqueId& value ) const;
-
+            
             bool operator !=( const UniqueId& value ) const;
             
             //Properties

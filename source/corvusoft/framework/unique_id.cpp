@@ -48,11 +48,7 @@ namespace framework
     
     UniqueId UniqueId::generate( void )
     {
-        UniqueId id;
-        
-        *id.m_pimpl = UniqueIdImpl::generate( );
-        
-        return id;
+        return UniqueIdImpl::generate( );
     }
     
     UniqueId UniqueId::parse( const string& value )
@@ -62,6 +58,11 @@ namespace framework
         id.m_pimpl->set_id( value );
         
         return id;
+    }
+    
+    bool UniqueId::is_valid( const string& value )
+    {
+        return UniqueIdImpl::is_valid( value );
     }
     
     UniqueId& UniqueId::operator =( const UniqueId& value )

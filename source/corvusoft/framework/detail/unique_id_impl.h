@@ -46,6 +46,8 @@ namespace framework
                 
                 static UniqueIdImpl generate( void );
                 
+                static bool is_valid( const std::string& value );
+                
                 //Getters
                 
                 //Setters

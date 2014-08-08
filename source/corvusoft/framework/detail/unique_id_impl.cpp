@@ -63,11 +63,14 @@ namespace framework
             return pimpl;
         }
         
+        bool UniqueIdImpl::is_valid( const string& value )
+        {
+            return regex_match( value, regex( "^[0-9a-zA-Z]{8,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{12,}$" ) );
+        }
+        
         void UniqueIdImpl::set_id( const string& value )
         {
-            bool valid = regex_match( value, regex( "^[0-9a-zA-Z]{8,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{4,}\\-[0-9a-zA-Z]{12,}$" ) );
-            
-            if ( not valid )
+            if ( not is_valid( value ) )
             {
                 throw invalid_argument( "Argument is not a valid unique id: " + value );
             }
@@ -81,16 +84,24 @@ namespace framework
             
             uuid_parse( m_unique_id.data( ), lhs_uuid );
             
-            uuid_t value_uuid = { 0 };
+            uuid_t rhs_uuid = { 0 };
             
-            uuid_parse( value.m_unique_id.data( ), value_uuid );
+            uuid_parse( value.m_unique_id.data( ), rhs_uuid );
             
-            return ( uuid_compare( lhs_uuid, value_uuid ) < 0 );
+            return ( uuid_compare( lhs_uuid, rhs_uuid ) < 0 );
         }
         
         bool UniqueIdImpl::operator >( const UniqueIdImpl& value ) const
         {
-            return not ( *this < value );
+            uuid_t lhs_uuid = { 0 };
+            
+            uuid_parse( m_unique_id.data( ), lhs_uuid );
+            
+            uuid_t rhs_uuid = { 0 };
+            
+            uuid_parse( value.m_unique_id.data( ), rhs_uuid );
+            
+            return ( uuid_compare( lhs_uuid, rhs_uuid ) > 0 );
         }
         
         bool UniqueIdImpl::operator ==( const UniqueIdImpl& value ) const
@@ -99,11 +110,11 @@ namespace framework
             
             uuid_parse( m_unique_id.data( ), lhs_uuid );
             
-            uuid_t value_uuid = { 0 };
+            uuid_t rhs_uuid = { 0 };
             
-            uuid_parse( value.m_unique_id.data( ), value_uuid );
+            uuid_parse( value.m_unique_id.data( ), rhs_uuid );
             
-            return ( uuid_compare( lhs_uuid, value_uuid ) == 0 );
+            return ( uuid_compare( lhs_uuid, rhs_uuid ) == 0 );
         }
         
         bool UniqueIdImpl::operator !=( const UniqueIdImpl& value ) const
