@@ -40,18 +40,7 @@ namespace framework
         
         MapImpl::const_iterator MapImpl::find_key_ignoring_case( const string& key, const map< string, string >& container )
         {
-            string identifier = String::lowercase( key );
-            
-            for ( auto value : container )
-            {
-                if ( identifier == String::lowercase( value.first ) )
-                {
-                    identifier = value.first;
-                    break;
-                }
-            }
-            
-            return ( identifier not_eq String::empty ) ? container.find( identifier ) : container.end( );
+            return static_cast< MapImpl::const_iterator >( find_key_ignoring_case( key, static_cast< map< string, string > >( container ) ) );
         }
     }
 }
