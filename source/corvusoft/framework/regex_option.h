@@ -23,7 +23,8 @@ namespace framework
     
     enum RegexOption : int
     {
-        CASE_INSENSITIVE = 0002
+        CASE_SENSITIVE = 0002,
+        CASE_INSENSITIVE = 0004
     };
 }
 
