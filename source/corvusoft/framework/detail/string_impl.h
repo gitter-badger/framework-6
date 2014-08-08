@@ -24,6 +24,7 @@
 namespace framework
 {
     //Forward Declarations
+    enum StringOption : int;
     
     namespace detail
     {
@@ -55,9 +56,9 @@ namespace framework
                 
                 static std::string trim_lagging( const std::string& value, const std::string& delimiter );
                 
-                static std::string remove( const std::string& needle, const std::string& haystack, bool case_insensitive );
+                static std::string remove( const std::string& target, const std::string& value, const StringOption option );
                 
-                static std::string replace( const std::string& target, const std::string& substitute, const std::string& value, bool case_insensitive );
+                static std::string replace( const std::string& target, const std::string& substitute, const std::string& value, const StringOption option );
                 
                 //Getters
                 

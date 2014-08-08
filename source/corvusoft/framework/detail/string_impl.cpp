@@ -6,6 +6,7 @@
 #include <algorithm>
 
 //Project Includes
+#include "corvusoft/framework/string_option.h"
 #include "corvusoft/framework/detail/string_impl.h"
 
 //External Includes
@@ -67,6 +68,24 @@ namespace framework
             }
             
             return formatted;
+        }
+        
+        string::size_type StringImpl::format( string& output, const string::size_type length, const string format, va_list arguments )
+        {
+            char* formatted = new char[ length + 1 ];
+            
+            int required_length = vsnprintf( formatted, length + 1, format.data( ), arguments );
+            
+            if ( required_length == -1 )
+            {
+                required_length = 0;
+            }
+            
+            output = formatted;
+            
+            delete[ ] formatted;
+            
+            return required_length;
         }
         
         vector< string > StringImpl::split( const string& value, const char delimiter )
@@ -137,42 +156,29 @@ namespace framework
             return result;
         }
         
-        string StringImpl::remove( const string& needle, const string& haystack, bool case_insensitive )
+        string StringImpl::remove( const string& target, const string& value, const StringOption option )
         {
-            return replace( needle, empty, haystack, case_insensitive );
+            return replace( target, empty, value, option );
         }
         
-        string StringImpl::replace( const string& needle, const string& substitute, const string& haystack, bool case_insensitive )
+        string StringImpl::replace( const string& target, const string& substitute, const string& value, const StringOption option )
         {
-            string target = case_insensitive ? StringImpl::lowercase( needle ) : needle;
-            string source = case_insensitive ? StringImpl::lowercase( haystack ) : haystack;
+            string result = value;
             
-            string::size_type index = source.find( target );
-            
-            if ( index not_eq string::npos )
+            if ( not target.empty( ) and not value.empty( ) )
             {
-                source.replace( index, target.length( ), substitute );
+                string needle = ( option & StringOption::CASE_INSENSITIVE ) ? StringImpl::lowercase( target ) : target;
+                string haystack = ( option & StringOption::CASE_INSENSITIVE ) ? StringImpl::lowercase( value ) : value;
+                
+                string::size_type index = haystack.find( needle );
+                
+                if ( index not_eq string::npos )
+                {
+                    result.replace( index, needle.length( ), substitute );
+                }
             }
             
-            return source;
-        }
-        
-        string::size_type StringImpl::format( string& output, const string::size_type length, const string format, va_list arguments )
-        {
-            char* formatted = new char[ length + 1 ];
-            
-            int required_length = vsnprintf( formatted, length + 1, format.data( ), arguments );
-            
-            if ( required_length == -1 )
-            {
-                required_length = 0;
-            }
-            
-            output = formatted;
-            
-            delete[ ] formatted;
-            
-            return required_length;
+            return result;
         }
     }
 }

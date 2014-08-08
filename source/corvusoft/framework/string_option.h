@@ -2,8 +2,8 @@
  * Copyright (c) 2013, 2014 Corvusoft
  */
 
-#ifndef _FRAMEWORK_REGEX_OPTION_H
-#define _FRAMEWORK_REGEX_OPTION_H 1
+#ifndef _FRAMEWORK_STRING_OPTION_H
+#define _FRAMEWORK_STRING_OPTION_H 1
 
 //System Includes
 
@@ -20,11 +20,11 @@ namespace framework
 {
     //Forward Declarations
     
-    enum RegexOption : int
+    enum StringOption : int
     {
         CASE_SENSITIVE = 0002,
         CASE_INSENSITIVE = 0004
     };
 }
 
-#endif  /* _FRAMEWORK_REGEX_OPTION_H */
+#endif  /* _FRAMEWORK_STRING_OPTION_H */

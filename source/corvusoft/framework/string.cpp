@@ -6,6 +6,7 @@
 
 //Project Includes
 #include "corvusoft/framework/string.h"
+#include "corvusoft/framework/string_option.h"
 #include "corvusoft/framework/detail/string_impl.h"
 
 //External Includes
@@ -70,13 +71,23 @@ namespace framework
         return StringImpl::trim_lagging( value, delimiter );
     }
     
-    string String::remove( const string& needle, const string& haystack, bool case_insensitive )
+    string String::remove( const string& target, const string& value )
     {
-        return StringImpl::remove( needle, haystack, case_insensitive );
+        return StringImpl::remove( target, value, StringOption::CASE_SENSITIVE );
     }
     
-    string String::replace( const string& needle, const string& substitute, const string& haystack, bool case_insensitive )
+    string String::remove( const string& target, const string& value, const StringOption option )
     {
-        return StringImpl::replace( needle, substitute, haystack, case_insensitive );
+        return StringImpl::remove( target, value, option );
+    }
+    
+    string String::replace( const string& target, const string& substitute, const string& value )
+    {
+        return StringImpl::replace( target, substitute, value, StringOption::CASE_SENSITIVE );
+    }
+    
+    string String::replace( const string& target, const string& substitute, const string& value, const StringOption option )
+    {
+        return StringImpl::replace( target, substitute, value, option );
     }
 }

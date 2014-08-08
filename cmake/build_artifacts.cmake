@@ -17,6 +17,8 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/regex_option.h
      ${SOURCE_DIR}/string
      ${SOURCE_DIR}/string.h
+     ${SOURCE_DIR}/string_option
+     ${SOURCE_DIR}/string_option.h
      ${SOURCE_DIR}/istream
      ${SOURCE_DIR}/istream.h
      ${SOURCE_DIR}/run_id

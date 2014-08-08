@@ -25,6 +25,7 @@ add_executable( checksum_unit_test_suite ${SOURCE_DIR}/checksum_suite.cpp )
 add_executable( username_unit_test_suite ${SOURCE_DIR}/username_suite.cpp )
 add_executable( password_unit_test_suite ${SOURCE_DIR}/password_suite.cpp )
 add_executable( unique_id_unit_test_suite ${SOURCE_DIR}/unique_id_suite.cpp )
+add_executable( string_unit_test_suite ${SOURCE_DIR}/string_suite.cpp )
 
 target_link_libraries( uri_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 target_link_libraries( map_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
@@ -36,6 +37,7 @@ target_link_libraries( checksum_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LI
 target_link_libraries( username_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 target_link_libraries( password_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 target_link_libraries( unique_id_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
+target_link_libraries( string_unit_test_suite ${CMAKE_PROJECT_NAME} ${gtest_LIBRARY} ${gtest_MAIN_LIBRARY} )
 
 #
 # Setup
@@ -51,3 +53,4 @@ add_test( checksum_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/checksum_unit_test_
 add_test( username_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/username_unit_test_suite )
 add_test( password_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/password_unit_test_suite )
 add_test( unique_id_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/unique_id_unit_test_suite )
+add_test( string_unit_test_suite ${EXECUTABLE_OUTPUT_PATH}/string_unit_test_suite )
