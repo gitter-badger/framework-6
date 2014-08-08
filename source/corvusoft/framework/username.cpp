@@ -46,6 +46,11 @@ namespace framework
         return m_pimpl->to_string( );
     }
     
+    bool Username::is_valid( const string& value )
+    {
+        return UsernameImpl::is_valid( value );
+    }
+    
     Username Username::parse( const string& value )
     {
         Username username;

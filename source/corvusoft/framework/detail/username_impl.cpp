@@ -45,11 +45,14 @@ namespace framework
             return m_username;
         }
         
+        bool UsernameImpl::is_valid( const string& value )
+        {
+            return regex_match( value, regex( "^[a-zA-Z0-9_@\\-\\. ]{6,}$" ) );
+        }
+        
         void UsernameImpl::set_username( const string& value )
         {
-            bool valid = regex_match( value, regex( "^[a-zA-Z0-9_@\\-\\. ]{6,}$" ) );
-            
-            if ( not valid )
+            if ( not is_valid( value ) )
             {
                 throw invalid_argument( "Argument is not a valid username: " + value );
             }

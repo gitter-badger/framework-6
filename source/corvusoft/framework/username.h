@@ -46,6 +46,8 @@ namespace framework
             //Functionality
             std::string to_string( void ) const;
             
+            static bool is_valid( const std::string& value );
+            
             static Username parse( const std::string& value );
             
             //Getters
