@@ -19,7 +19,7 @@ using framework::IStream;
 
 //External Namespaces
 
-TEST( IStream, reverse_peek )
+TEST( IStream, valid_string )
 {
     istringstream stream( "Corvusoft" );
     stream.get( );
@@ -27,4 +27,15 @@ TEST( IStream, reverse_peek )
     char actual = IStream::reverse_peek( stream );
     
     EXPECT_EQ( 'C', actual );
+}
+
+TEST( IStream, empty_string )
+{
+    istringstream stream( "" );
+    stream.get( );
+    
+    char actual = IStream::reverse_peek( stream );
+    char expected = 0;
+    
+    EXPECT_EQ( expected, actual );
 }

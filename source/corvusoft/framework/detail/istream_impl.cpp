@@ -22,9 +22,14 @@ namespace framework
     {
         char IStreamImpl::reverse_peek( istream& value )
         {
-            value.unget( );
+            char previous_byte = 0;
             
-            char previous_byte = value.get( );
+            if ( value.gcount( ) not_eq 0 )
+            {
+                value.unget( );
+                
+                previous_byte = value.get( );
+            }
             
             return previous_byte;
         }
