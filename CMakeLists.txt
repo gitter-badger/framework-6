@@ -78,4 +78,5 @@ if ( BUILD_TESTS )
 
     enable_testing( )
     add_subdirectory( "${CMAKE_SOURCE_DIR}/test/unit" "unit-tests" )
+    add_subdirectory( "${CMAKE_SOURCE_DIR}/test/integration" "integration-tests" )
 endif ( )
