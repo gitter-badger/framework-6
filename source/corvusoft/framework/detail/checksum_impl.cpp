@@ -49,6 +49,11 @@ namespace framework
             return m_checksum;
         }
         
+        bool ChecksumImpl::is_valid( const string& value )
+        {
+            return regex_match( value, regex( "^[0-9a-fA-F]+$" ) );
+        }
+        
         ChecksumImpl ChecksumImpl::generate( const Bytes& value )
         {
             int hash_size = gcry_md_get_algo_dlen( GCRY_MD_SHA256 );
@@ -57,7 +62,7 @@ namespace framework
             
             gcry_md_hash_buffer( GCRY_MD_SHA256, hash, &value[0], value.size( ) );
             
-            string data = "";
+            string data = String::empty;
             
             for ( int index = 0; index < hash_size; index++ )
             {
@@ -84,9 +89,7 @@ namespace framework
         
         void ChecksumImpl::set_checksum( const string& value )
         {
-            bool valid = regex_match( value, regex( "^[0-9a-fA-F]+$" ) );
-            
-            if ( not valid )
+            if ( not is_valid( value ) )
             {
                 throw invalid_argument( "Checksum value supplied is not a valid hash: " + value );
             }

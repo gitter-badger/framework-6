@@ -46,6 +46,11 @@ namespace framework
         return m_pimpl->to_string( );
     }
     
+    bool Checksum::is_valid( const string& value )
+    {
+        return ChecksumImpl::is_valid( value );
+    }
+    
     Checksum Checksum::generate( const Bytes& value )
     {
         return ChecksumImpl::generate( value );

@@ -45,6 +45,8 @@ namespace framework
                 //Functionality
                 std::string to_string( void ) const;
                 
+                static bool is_valid( const std::string& value );
+                
                 static ChecksumImpl generate( const Bytes& value );
                 
                 static ChecksumImpl generate( const std::string& value );

@@ -39,18 +39,20 @@ namespace framework
             Checksum( const std::string& hash );
             
             Checksum( const Checksum& original );
-        
+            
             Checksum( const detail::ChecksumImpl& implementation );
             
             virtual ~Checksum( void );
             
             //Functionality
             std::string to_string( void ) const;
-
+            
+            static bool is_valid( const std::string& value );
+            
             static Checksum generate( const Bytes& value );
-
+            
             static Checksum generate( const std::string& value );
-
+            
             static Checksum parse( const std::string& hash );
             
             //Getters
@@ -59,13 +61,13 @@ namespace framework
             
             //Operators
             Checksum& operator =( const Checksum& value );
-
+            
             bool operator <( const Checksum& value ) const;
-
+            
             bool operator >( const Checksum& value ) const;
-
+            
             bool operator ==( const Checksum& value ) const;
-
+            
             bool operator !=( const Checksum& value ) const;
             
             //Properties

@@ -8,7 +8,6 @@
 
 //Project Includes
 #include <corvusoft/framework/regex>
-#include <corvusoft/framework/regex_option>
 
 //External Includes
 #include <gtest/gtest.h>
@@ -20,7 +19,6 @@ using std::regex_error;
 
 //Project Namespaces
 using framework::Regex;
-using framework::RegexOption;
 
 //External Namespaces
 
@@ -42,15 +40,6 @@ TEST( Regex, string_constructor )
     EXPECT_EQ( value, pattern.to_string( ) );
 }
 
-TEST( Regex, string_constructor_ignore_case )
-{
-    string value = "^[a-z]{9,9}$";
-    
-    Regex pattern( value, RegexOption::CASE_INSENSITIVE );
-    
-    EXPECT_TRUE( pattern.is_match( "Corvusoft" ) );
-}
-
 TEST( Regex, character_constructor )
 {
     const char* value = ".*";
@@ -58,15 +47,6 @@ TEST( Regex, character_constructor )
     Regex pattern( value );
     
     EXPECT_EQ( value, pattern.to_string( ) );
-}
-
-TEST( Regex, character_constructor_ignore_case )
-{
-    const char* value = "^[a-z]{9,9}$";
-    
-    Regex pattern( value, RegexOption::CASE_INSENSITIVE );
-    
-    EXPECT_TRUE( pattern.is_match( "Corvusoft" ) );
 }
 
 TEST( Regex, copy_constructor )
