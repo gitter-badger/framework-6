@@ -40,6 +40,8 @@ namespace framework
                 //Constructors
                 
                 //Functionality
+                static bool contains_value_ignoring_case( const std::string& key, std::vector< std::string >& container );
+                
                 static iterator find_ignoring_case( const std::string& key, std::vector< std::string >& container );
                 
                 static const_iterator find_ignoring_case( const std::string& key, const std::vector< std::string >& container );
