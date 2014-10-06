@@ -45,7 +45,7 @@ namespace framework
         
         bool VectorImpl::contains_value_ignoring_case( const string& key, const vector< string >& container )
         {
-            return ( find_ignoring_case( key, container ) == container.end( ) );
+            return ( find_ignoring_case( key, container ) not_eq container.end( ) );
         }
     }
 }
