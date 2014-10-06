@@ -24,28 +24,16 @@ namespace framework
 {
     namespace detail
     {
-        VectorImpl::iterator VectorImpl::find_ignoring_case( const string& key, vector< string >& container )
+        bool VectorImpl::contains_value_ignoring_case( const string& key, const vector< string >& container )
         {
             auto identifier = String::lowercase( key );
             
-            return find_if( container.begin( ), container.end( ), [ &identifier ]( const string & value )
+            auto iterator = find_if( container.begin( ), container.end( ), [ &identifier ]( const string & value )
             {
                 return ( identifier == String::lowercase( value ) );
             } );
-        }
-        
-        VectorImpl::const_iterator VectorImpl::find_ignoring_case( const string& key, const vector< string >& container )
-        {
-            vector< string > items = container;
             
-            auto iterator = find_ignoring_case( key, items );
-            
-            return static_cast< VectorImpl::const_iterator >( iterator );
-        }
-        
-        bool VectorImpl::contains_value_ignoring_case( const string& key, const vector< string >& container )
-        {
-            return ( find_ignoring_case( key, container ) not_eq container.end( ) );
+            return ( iterator not_eq container.end( ) );
         }
     }
 }

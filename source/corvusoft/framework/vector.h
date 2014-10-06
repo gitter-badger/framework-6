@@ -29,17 +29,10 @@ namespace framework
             //Friends
             
             //Definitions
-            typedef std::vector< std::string >::iterator iterator;
-            
-            typedef std::vector< std::string >::const_iterator const_iterator;
             
             //Constructors
             
             //Functionality
-            static iterator find_ignoring_case( const std::string& key, std::vector< std::string >& container );
-            
-            static const_iterator find_ignoring_case( const std::string& key, const std::vector< std::string >& container );
-            
             static bool contains_value_ignoring_case( const std::string& key, const std::vector< std::string >& container );
             
             //Getters
