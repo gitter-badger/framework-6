@@ -13,6 +13,8 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/run_id_impl.cpp
      ${SOURCE_DIR}/string.cpp
      ${SOURCE_DIR}/detail/string_impl.cpp
+     ${SOURCE_DIR}/vector.cpp
+     ${SOURCE_DIR}/detail/vector_impl.cpp
      ${SOURCE_DIR}/istream.cpp
      ${SOURCE_DIR}/detail/istream_impl.cpp
      ${SOURCE_DIR}/checksum.cpp

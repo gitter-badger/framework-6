@@ -11,6 +11,7 @@
 #include "corvusoft/framework/regex"
 #include "corvusoft/framework/range"
 #include "corvusoft/framework/run_id"
+#include "corvusoft/framework/vector"
 #include "corvusoft/framework/string"
 #include "corvusoft/framework/istream"
 #include "corvusoft/framework/username"
