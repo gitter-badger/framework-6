@@ -30,13 +30,17 @@ namespace framework
             
             return find_if( container.begin( ), container.end( ), [ &identifier ]( const string & value )
             {
-                return identifier == String::lowercase( value );
+                return ( identifier == String::lowercase( value ) );
             } );
         }
         
         VectorImpl::const_iterator VectorImpl::find_ignoring_case( const string& key, const vector< string >& container )
         {
-            return static_cast< VectorImpl::const_iterator >( find_ignoring_case( key, static_cast< vector< string > >( container ) ) );
+            vector< string > items = container;
+            
+            auto iterator = find_ignoring_case( key, items );
+            
+            return static_cast< VectorImpl::const_iterator >( iterator );
         }
         
         bool VectorImpl::contains_value_ignoring_case( const string& key, const vector< string >& container )
