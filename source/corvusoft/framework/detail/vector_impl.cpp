@@ -24,11 +24,6 @@ namespace framework
 {
     namespace detail
     {
-        bool VectorImpl::contains_value_ignoring_case( const string& key, vector< string >& container )
-        {
-            return ( find_ignoring_case( key, container ) not_eq container.end( ) );
-        }
-        
         VectorImpl::iterator VectorImpl::find_ignoring_case( const string& key, vector< string >& container )
         {
             auto identifier = String::lowercase( key );
@@ -42,6 +37,11 @@ namespace framework
         VectorImpl::const_iterator VectorImpl::find_ignoring_case( const string& key, const vector< string >& container )
         {
             return static_cast< VectorImpl::const_iterator >( find_ignoring_case( key, static_cast< vector< string > >( container ) ) );
+        }
+        
+        bool VectorImpl::contains_value_ignoring_case( const string& key, const vector< string >& container )
+        {
+            return ( find_ignoring_case( key, container ) not_eq container.end( ) );
         }
     }
 }
