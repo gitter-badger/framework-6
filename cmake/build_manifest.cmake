@@ -27,4 +27,6 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/username_impl.cpp
      ${SOURCE_DIR}/http.cpp
      ${SOURCE_DIR}/detail/http_impl.cpp
+     ${SOURCE_DIR}/hexidecimal.cpp
+     ${SOURCE_DIR}/detail/hexidecimal_impl.cpp
 )
