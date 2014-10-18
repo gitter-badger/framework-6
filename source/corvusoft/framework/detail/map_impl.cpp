@@ -38,7 +38,7 @@ namespace framework
         
         MapImpl::const_iterator MapImpl::find_key_ignoring_case( const string& key, const map< string, string >& container )
         {
-            return static_cast< MapImpl::const_iterator >( find_key_ignoring_case( key, static_cast< map< string, string > >( container ) ) );
+            return find_key_ignoring_case( key, const_cast< map< string, string >& >( container ) );
         }
     }
 }
