@@ -3,6 +3,7 @@
  */
 
 //System Includes
+#include <utility>
 
 //Project Includes
 #include "corvusoft/framework/string.h"
@@ -12,6 +13,7 @@
 
 //System Namespaces
 using std::map;
+using std::pair;
 using std::string;
 
 //Project Namespaces
@@ -24,18 +26,14 @@ namespace framework
     {
         MapImpl::iterator MapImpl::find_key_ignoring_case( const string& key, map< string, string >& container )
         {
-            string identifier = String::lowercase( key );
+            auto identifier = String::lowercase( key );
             
-            for ( auto value : container )
+            auto iterator = find_if( container.begin( ), container.end( ), [ &identifier ]( const pair< string, string >& value )
             {
-                if ( identifier == String::lowercase( value.first ) )
-                {
-                    identifier = value.first;
-                    break;
-                }
-            }
+                return ( identifier == String::lowercase( value.first ) );
+            } );
             
-            return ( identifier not_eq String::empty ) ? container.find( identifier ) : container.end( );
+            return iterator;
         }
         
         MapImpl::const_iterator MapImpl::find_key_ignoring_case( const string& key, const map< string, string >& container )
