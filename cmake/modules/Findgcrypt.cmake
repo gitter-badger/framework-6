@@ -1,7 +1,7 @@
 # Copyright (c) 2013, 2014 Corvusoft
 
-find_path( gcrypt_INCLUDE gcrypt.h HINTS "/usr/include" "/usr/local/include" "/opt/local/include" "${CMAKE_SOURCE_DIR}/dependency/gcrypt/src" )
-find_library( gcrypt_LIBRARY NAMES gcrypt HINTS "/usr/lib" "/usr/local/lib" "/opt/local/lib" "${CMAKE_SOURCE_DIR}/dependency/gcrypt/src/.libs" )
+find_path( gcrypt_INCLUDE gcrypt.h HINTS "${CMAKE_SOURCE_DIR}/dependency/gcrypt/src" "/usr/include" "/usr/local/include" "/opt/local/include" )
+find_library( gcrypt_LIBRARY NAMES gcrypt HINTS "${CMAKE_SOURCE_DIR}/dependency/gcrypt/src/.libs" "/usr/lib" "/usr/local/lib" "/opt/local/lib" )
 
 if ( gcrypt_INCLUDE AND gcrypt_LIBRARY )
     set( GCRYPT_FOUND TRUE )
