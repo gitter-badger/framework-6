@@ -39,6 +39,8 @@ design/api/
 *.log
 *.sql
 *.sqlite
+*.bak
+*.swp
 
 # OS generated files #
 ######################
