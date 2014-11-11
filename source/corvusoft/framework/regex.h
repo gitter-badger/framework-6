@@ -51,7 +51,7 @@ namespace framework
             
             bool is_match( const std::string& value );
             
-            static bool is_match( const std::string& value, const std::string& pattern );
+            static bool is_match( const std::string& value, const std::string& pattern, const int options = 0 );
             
             static bool is_valid( const std::string& value );
             

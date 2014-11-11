@@ -55,9 +55,16 @@ namespace framework
             return regex_match( value, m_expression );
         }
         
-        bool RegexImpl::is_match( const string& value, const string& pattern )
+        bool RegexImpl::is_match( const string& value, const string& pattern, const int options )
         {
-            return regex_match( value, regex( pattern ) );
+            auto expression = regex( pattern );
+            
+            if ( options & RegexOption::CASE_INSENSITIVE )
+            {
+                expression.assign( pattern, icase );
+            }
+            
+            return regex_match( value, expression );
         }
         
         bool RegexImpl::is_valid( const string& value )

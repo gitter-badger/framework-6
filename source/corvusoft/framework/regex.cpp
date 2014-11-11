@@ -62,9 +62,9 @@ namespace framework
         return m_pimpl->is_match( value );
     }
     
-    bool Regex::is_match( const string& value, const string& pattern )
+    bool Regex::is_match( const string& value, const string& pattern, const int options )
     {
-        return RegexImpl::is_match( value, pattern );
+        return RegexImpl::is_match( value, pattern, options );
     }
     
     bool Regex::is_valid( const string& value )
