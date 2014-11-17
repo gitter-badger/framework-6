@@ -56,11 +56,11 @@ namespace framework
         
         ChecksumImpl ChecksumImpl::generate( const Bytes& value )
         {
-            int hash_size = gcry_md_get_algo_dlen( GCRY_MD_SHA256 );
+            int hash_size = gcry_md_get_algo_dlen( GCRY_MD_MD5 );
             
             Byte* hash = new Byte[ hash_size ];
             
-            gcry_md_hash_buffer( GCRY_MD_SHA256, hash, &value[0], value.size( ) );
+            gcry_md_hash_buffer( GCRY_MD_MD5, hash, &value[0], value.size( ) );
             
             string data = String::empty;
             
