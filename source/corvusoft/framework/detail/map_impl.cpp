@@ -4,6 +4,7 @@
 
 //System Includes
 #include <utility>
+#include <algorithm>
 
 //Project Includes
 #include "corvusoft/framework/string.h"
@@ -15,6 +16,7 @@
 using std::map;
 using std::pair;
 using std::string;
+using std::find_if;
 
 //Project Namespaces
 
