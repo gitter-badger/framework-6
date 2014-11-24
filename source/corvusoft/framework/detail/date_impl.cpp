@@ -34,7 +34,7 @@ namespace framework
             gmtime_r( &timestamp, &time );
             
             stringstream date;
-            date << put_time( &time, "%c" );
+            date << put_time( &time, "%a, %d %b %Y %H:%M:%S %Z" );
             
             return date.str( );
         }
