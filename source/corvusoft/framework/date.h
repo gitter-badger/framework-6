@@ -33,6 +33,8 @@ namespace framework
             //Constructors
             
             //Functionality
+            static std::chrono::time_point< std::chrono::system_clock > parse( const std::string& value );
+            
             static std::string format( const std::chrono::time_point< std::chrono::system_clock >& value );
             
             //Getters
@@ -67,11 +69,11 @@ namespace framework
             
             //Constructors
             Date( void ) = delete;
-        
+            
             Date( const Date& original ) = delete;
-        
+            
             virtual ~Date( void ) = delete;
-        
+            
             //Functionality
             
             //Getters
@@ -80,7 +82,7 @@ namespace framework
             
             //Operators
             Date& operator =( const Date& value ) = delete;
-        
+            
             //Properties
     };
 }

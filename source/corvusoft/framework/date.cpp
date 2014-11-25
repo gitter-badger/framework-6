@@ -3,8 +3,6 @@
  */
 
 //System Includes
-#include <iomanip>
-#include <sstream>
 
 //Project Includes
 #include "corvusoft/framework/date.h"
@@ -24,6 +22,11 @@ using framework::detail::DateImpl;
 
 namespace framework
 {
+    time_point< system_clock > Date::parse( const string& value )
+    {
+        return DateImpl::parse( value );
+    }
+    
     string Date::format( const time_point< system_clock >& value )
     {
         return DateImpl::format( value );
