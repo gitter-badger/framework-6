@@ -40,8 +40,8 @@ namespace framework
             const static string formats[ 4 ] =
             {
                 "%a %b %d %H:%M:%S %Y",
-                "%A, %d-%b-%y %H:%M:%S GMT",
-                "%a, %d %b %Y %H:%M:%S GMT"
+                "%A, %d-%b-%y %H:%M:%S %Z",
+                "%a, %d %b %Y %H:%M:%S %Z"
             };
             
             tm datestamp = { };
