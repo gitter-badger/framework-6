@@ -52,21 +52,21 @@ TEST( Checksum, is_valid )
 {
     EXPECT_FALSE( Checksum::is_valid( "" ) );
     EXPECT_FALSE( Checksum::is_valid( "----" ) );
-    EXPECT_TRUE( Checksum::is_valid( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" ) );
+    EXPECT_TRUE( Checksum::is_valid( "9abc3aa2b0e3ca6c4eb822830ec84e68" ) );
 }
 
 TEST( Checksum, to_string )
 {
-    Checksum checksum( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" );
+    Checksum checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
     
-    EXPECT_EQ( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d", checksum.to_string( ) );
+    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", checksum.to_string( ) );
 }
 
 TEST( Checksum, generate_from_string )
 {
     Checksum checksum = Checksum::generate( "corvusoft solutions" );
     
-    EXPECT_EQ( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d", checksum.to_string( ) );
+    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", checksum.to_string( ) );
     
     EXPECT_NO_THROW( Checksum::generate( "" ) );
     EXPECT_NO_THROW( Checksum::generate( "_)(*&^%" ) );
@@ -74,9 +74,9 @@ TEST( Checksum, generate_from_string )
 
 TEST( Checksum, parse )
 {
-    Checksum checksum = Checksum::parse( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" );
+    Checksum checksum = Checksum::parse( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
     
-    EXPECT_EQ( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d", checksum.to_string( ) );
+    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", checksum.to_string( ) );
     
     EXPECT_THROW( Checksum::parse( "" ), invalid_argument );
     EXPECT_THROW( Checksum::parse( "*&^%$£" ), invalid_argument );
@@ -84,10 +84,10 @@ TEST( Checksum, parse )
 
 TEST( Checksum, assignment_operator )
 {
-    Checksum original( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" );
+    Checksum original( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
     Checksum copy = original;
     
-    EXPECT_EQ( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d", copy.to_string( ) );
+    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", copy.to_string( ) );
 }
 
 TEST( Checksum, less_than_operator )
