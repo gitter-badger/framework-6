@@ -18,7 +18,6 @@
 using std::tm;
 using std::time_t;
 using std::string;
-using std::mktime;
 using std::get_time;
 using std::put_time;
 using std::ostringstream;
@@ -37,19 +36,20 @@ namespace framework
     {
         time_point< system_clock > DateImpl::parse( const string& value )
         {
-            const static string formats[ 4 ] =
+            const char* formats[ 3 ] =
             {
                 "%a %b %d %H:%M:%S %Y",
-                "%A, %d-%b-%y %H:%M:%S %Z",
-                "%a, %d %b %Y %H:%M:%S %Z"
+                "%A, %d-%b-%y %H:%M:%S GMT",
+                "%a, %d %b %Y %H:%M:%S GMT"
             };
             
             tm datestamp = { };
-            istringstream stream( value );
+            istringstream stream;
             
             for ( auto format : formats )
             {
-                stream >> get_time( &datestamp, format.data( ) );
+                stream = istringstream( value );
+                stream >> get_time( &datestamp, format );
                 
                 if ( not stream.fail( ) )
                 {
@@ -62,7 +62,7 @@ namespace framework
                 throw invalid_argument( String::empty );
             }
             
-            time_t timestamp = mktime( &datestamp );
+            time_t timestamp = timegm( &datestamp );
             
             return system_clock::from_time_t( timestamp );
         }
