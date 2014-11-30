@@ -18,7 +18,6 @@
 #include "corvusoft/framework/password"
 #include "corvusoft/framework/checksum"
 #include "corvusoft/framework/unique_id"
-#include "corvusoft/framework/functional"
 #include "corvusoft/framework/threadpool"
 #include "corvusoft/framework/hexidecimal"
 #include "corvusoft/framework/regex_option"

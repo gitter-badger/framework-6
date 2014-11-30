@@ -29,8 +29,6 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/checksum.h
      ${SOURCE_DIR}/unique_id
      ${SOURCE_DIR}/unique_id.h
-     ${SOURCE_DIR}/functional
-     ${SOURCE_DIR}/functional.h
      ${SOURCE_DIR}/resident_allocator
      ${SOURCE_DIR}/resident_allocator.h
      ${SOURCE_DIR}/resident_string
