@@ -12,6 +12,7 @@
 //External Includes
 
 //System Namespaces
+using std::map;
 using std::string;
 using std::vector;
 
@@ -59,6 +60,11 @@ namespace framework
     string String::join( const vector< string >& values, const string& delimiter )
     {
         return StringImpl::join( values, delimiter );
+    }
+    
+    string String::join( const map< string, string >& values, const string& pair_delimiter, const string& delimiter )
+    {
+        return StringImpl::join( values, pair_delimiter, delimiter );
     }
     
     string String::trim( const string& value, const string& delimiter )

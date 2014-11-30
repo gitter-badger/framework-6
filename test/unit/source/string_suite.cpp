@@ -3,6 +3,7 @@
  */
 
 //System Includes
+#include <map>
 #include <string>
 #include <vector>
 
@@ -13,6 +14,7 @@
 #include <gtest/gtest.h>
 
 //System Namespaces
+using std::map;
 using std::string;
 using std::vector;
 
@@ -86,25 +88,60 @@ TEST( String, split_empty_string_with_delimiter )
     EXPECT_EQ( vector< string >( ), String::split( "", ' ' ) );
 }
 
-TEST( String, join_with_delimiter )
+TEST( String, join_vector_with_delimiter )
 {
     vector< string > values = { "Corvusoft", "Solutions" };
     
     EXPECT_EQ( "Corvusoft, Solutions", String::join( values, ", " ) );
 }
 
-TEST( String, join_with_missing_delimiter )
+TEST( String, join_vector_with_missing_delimiter )
 {
     vector< string > values = { "Corvusoft", "Solutions" };
     
     EXPECT_EQ( "CorvusoftSolutions", String::join( values, "" ) );
 }
 
-TEST( String, join_empty_with_delimiter )
+TEST( String, join_empty_vector_with_delimiter )
 {
     vector< string > values;
     
     EXPECT_EQ( "", String::join( values, "-" ) );
+}
+
+TEST( String, join_map_with_delimiters )
+{
+    map< string, string > values = { { "fields", "id,rev" }, { "sort", "rev" } };
+    
+    EXPECT_EQ( "fields=id,rev&sort=rev", String::join( values, "=", "&" ) );
+}
+
+TEST( String, join_map_with_missing_delimiters )
+{
+    map< string, string > values = { { "fields", "id,rev" }, { "sort", "rev" } };
+    
+    EXPECT_EQ( "fieldsid,revsortrev", String::join( values, "", "" ) );
+}
+
+TEST( String, join_empty_map_with_delimiter )
+{
+    map< string, string > values;
+    
+    EXPECT_EQ( "", String::join( values, "=", "&" ) );
+}
+
+TEST( String, join_map_with_missing_delimiter )
+{
+    map< string, string > values = { { "fields", "id,rev" }, { "sort", "rev" } };
+    
+    EXPECT_EQ( "fields=id,revsort=rev", String::join( values, "=", "" ) );
+}
+
+TEST( String, join_map_with_missing_pair_delimiter )
+{
+    map< string, string > values = { { "fields", "id,rev" }, { "sort", "rev" } };
+    
+    EXPECT_EQ( "fieldsid,rev&sortrev", String::join( values, "", "&" ) );
 }
 
 TEST( String, trim_string )

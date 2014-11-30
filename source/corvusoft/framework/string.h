@@ -6,6 +6,7 @@
 #define _FRAMEWORK_STRING_H 1
 
 //System Includes
+#include <map>
 #include <string>
 #include <vector>
 #include <cstdarg>
@@ -47,6 +48,8 @@ namespace framework
             static std::vector< std::string > split( const std::string& text, const char delimiter );
             
             static std::string join( const std::vector< std::string >& values, const std::string& delimiter );
+            
+            static std::string join( const std::map< std::string, std::string >& values, const std::string& pair_delimiter, const std::string& delimiter );
             
             static std::string trim( const std::string& value, const std::string& delimiter = " \t\r\n" );
             
