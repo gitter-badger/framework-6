@@ -15,6 +15,7 @@
 using std::map;
 using std::string;
 using std::vector;
+using std::multimap;
 
 //Project Namespaces
 using framework::detail::StringImpl;
@@ -63,6 +64,11 @@ namespace framework
     }
     
     string String::join( const map< string, string >& values, const string& pair_delimiter, const string& delimiter )
+    {
+        return StringImpl::join( values, pair_delimiter, delimiter );
+    }
+    
+    string String::join( const multimap< string, string >& values, const string& pair_delimiter, const string& delimiter )
     {
         return StringImpl::join( values, pair_delimiter, delimiter );
     }

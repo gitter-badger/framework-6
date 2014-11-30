@@ -15,6 +15,7 @@
 using std::map;
 using std::string;
 using std::vector;
+using std::multimap;
 using std::transform;
 
 //Project Namespaces
@@ -131,6 +132,18 @@ namespace framework
         }
         
         string StringImpl::join( const map< string, string >& values, const string& pair_delimiter, const string& delimiter )
+        {
+            string result = empty;
+            
+            for ( auto value : values )
+            {
+                result += value.first + pair_delimiter + value.second + delimiter;
+            }
+            
+            return StringImpl::trim_lagging( result, delimiter );
+        }
+        
+        string StringImpl::join( const multimap< string, string >& values, const string& pair_delimiter, const string& delimiter )
         {
             string result = empty;
             

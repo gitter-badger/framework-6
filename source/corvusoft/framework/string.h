@@ -51,6 +51,8 @@ namespace framework
             
             static std::string join( const std::map< std::string, std::string >& values, const std::string& pair_delimiter, const std::string& delimiter );
             
+            static std::string join( const std::multimap< std::string, std::string >& values, const std::string& pair_delimiter, const std::string& delimiter );
+            
             static std::string trim( const std::string& value, const std::string& delimiter = " \t\r\n" );
             
             static std::string trim_leading( const std::string& value, const std::string& delimiter = " \t\r\n" );
