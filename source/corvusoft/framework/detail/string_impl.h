@@ -50,6 +50,8 @@ namespace framework
                 
                 static std::vector< std::string > split( const std::string& text, const char delimiter );
                 
+                static std::string join( const std::vector< std::string >& values, const std::string& delimiter );
+                
                 static std::string trim( const std::string& value, const std::string& delimiter );
                 
                 static std::string trim_leading( const std::string& value, const std::string& delimiter );

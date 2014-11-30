@@ -56,6 +56,11 @@ namespace framework
         return StringImpl::split( value, delimiter );
     }
     
+    string String::join( const vector< string >& values, const string& delimiter )
+    {
+        return StringImpl::join( values, delimiter );
+    }
+    
     string String::trim( const string& value, const string& delimiter )
     {
         return StringImpl::trim( value, delimiter );

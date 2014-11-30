@@ -117,6 +117,18 @@ namespace framework
             return tokens;
         }
         
+        string StringImpl::join( const vector< string >& values, const string& delimiter )
+        {
+            string result = empty;
+            
+            for ( auto& value : values )
+            {
+                result += value + delimiter;
+            }
+            
+            return StringImpl::trim_lagging( result, delimiter );
+        }
+        
         string StringImpl::trim( const string& value, const string& delimiter )
         {
             string result = empty;

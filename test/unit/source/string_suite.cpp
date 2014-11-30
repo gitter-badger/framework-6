@@ -86,6 +86,27 @@ TEST( String, split_empty_string_with_delimiter )
     EXPECT_EQ( vector< string >( ), String::split( "", ' ' ) );
 }
 
+TEST( String, join_with_delimiter )
+{
+    vector< string > values = { "Corvusoft", "Solutions" };
+    
+    EXPECT_EQ( "Corvusoft, Solutions", String::join( values, ", " ) );
+}
+
+TEST( String, join_with_missing_delimiter )
+{
+    vector< string > values = { "Corvusoft", "Solutions" };
+    
+    EXPECT_EQ( "CorvusoftSolutions", String::join( values, "" ) );
+}
+
+TEST( String, join_empty_with_delimiter )
+{
+    vector< string > values;
+    
+    EXPECT_EQ( "", String::join( values, "-" ) );
+}
+
 TEST( String, trim_string )
 {
     EXPECT_EQ( "Corvusoft Solutions", String::trim( "\n\r\t  Corvusoft Solutions\t\n\r " ) );
