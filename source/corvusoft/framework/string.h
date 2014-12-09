@@ -37,6 +37,8 @@ namespace framework
             //Constructors
             
             //Functionality
+            static Bytes to_bytes( const std::string& value );
+            
             static std::string to_string( const Bytes& value );
             
             static std::string lowercase( const std::string& value );

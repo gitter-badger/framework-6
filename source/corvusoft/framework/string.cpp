@@ -26,6 +26,11 @@ namespace framework
 {
     const char* String::empty = StringImpl::empty;
     
+    Bytes String::to_bytes( const string& value )
+    {
+        return StringImpl::to_bytes( value );
+    }
+    
     string String::to_string( const Bytes& value )
     {
         return StringImpl::to_string( value );
