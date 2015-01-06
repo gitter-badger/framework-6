@@ -15,6 +15,7 @@ using std::regex;
 using std::string;
 using std::regex_match;
 using std::regex_error;
+using std::regex_replace;
 using std::regex_constants::icase;
 
 //Project Namespaces
@@ -81,6 +82,12 @@ namespace framework
             }
             
             return result;
+        }
+        
+        string RegexImpl::escape( const string& value )
+        {
+            static const regex escape( "([.^$|()\\[\\]{}*+?\\\\])" );
+            return regex_replace( value, escape, "\\$1" );
         }
         
         bool RegexImpl::operator <( const RegexImpl& value ) const

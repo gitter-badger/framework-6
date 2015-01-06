@@ -7,6 +7,7 @@
 #include <algorithm>
 
 //Project Includes
+#include "corvusoft/framework/regex.h"
 #include "corvusoft/framework/string_option.h"
 #include "corvusoft/framework/detail/string_impl.h"
 
@@ -214,11 +215,12 @@ namespace framework
                 return value;
             }
             
-            auto pattern = regex( target );
+            auto expression = Regex::escape( target );
+            auto pattern = regex( expression );
             
             if ( option & StringOption::CASE_INSENSITIVE )
             {
-                pattern.assign( target, icase );
+                pattern.assign( expression, icase );
             }
             
             return regex_replace( value, pattern, substitute );

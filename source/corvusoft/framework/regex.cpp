@@ -72,6 +72,11 @@ namespace framework
         return RegexImpl::is_valid( value );
     }
     
+    string Regex::escape( const string& value )
+    {
+        return RegexImpl::escape( value );
+    }
+    
     Regex& Regex::operator =( const Regex& value )
     {
         *m_pimpl = *value.m_pimpl;

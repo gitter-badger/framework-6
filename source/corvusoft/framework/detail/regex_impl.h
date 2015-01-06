@@ -50,6 +50,8 @@ namespace framework
                 
                 static bool is_valid( const std::string& value );
                 
+                static std::string escape( const std::string& value );
+                
                 //Getters
                 
                 //Setters
