@@ -194,6 +194,11 @@ TEST( String, remove_string )
     EXPECT_EQ( "Corvusoft", String::remove( " Solutions", "Corvusoft Solutions" ) );
 }
 
+TEST( String, remove_multiple_strings )
+{
+    EXPECT_EQ( " dash  dash dash", String::remove( "dot", "dot dash dot dash dash" ) );
+}
+
 TEST( String, remove_string_with_missing_target )
 {
     EXPECT_EQ( "Corvusoft Solutions", String::remove( "ltd", "Corvusoft Solutions" ) );
@@ -217,6 +222,11 @@ TEST( String, remove_string_with_empty_arguments )
 TEST( String, replace_string )
 {
     EXPECT_EQ( "Corvusoft Solutions", String::replace( "ltd", "Solutions", "Corvusoft ltd" ) );
+}
+
+TEST( String, replace_multiple_strings )
+{
+    EXPECT_EQ( "ping dash ping dash dash", String::replace( "dot", "ping", "dot dash dot dash dash" ) );
 }
 
 TEST( String, replace_string_with_missing_target )

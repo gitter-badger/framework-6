@@ -3,6 +3,7 @@
  */
 
 //System Includes
+#include <regex>
 #include <algorithm>
 
 //Project Includes
@@ -13,10 +14,12 @@
 
 //System Namespaces
 using std::map;
+using std::regex;
 using std::string;
 using std::vector;
 using std::multimap;
 using std::transform;
+using std::regex_constants::icase;
 
 //Project Namespaces
 
@@ -206,22 +209,19 @@ namespace framework
         
         string StringImpl::replace( const string& target, const string& substitute, const string& value, const StringOption option )
         {
-            string result = value;
-            
-            if ( not target.empty( ) and not value.empty( ) )
+            if ( target.empty( ) )
             {
-                string needle = ( option & StringOption::CASE_INSENSITIVE ) ? StringImpl::lowercase( target ) : target;
-                string haystack = ( option & StringOption::CASE_INSENSITIVE ) ? StringImpl::lowercase( value ) : value;
-                
-                string::size_type index = haystack.find( needle );
-                
-                if ( index not_eq string::npos )
-                {
-                    result.replace( index, needle.length( ), substitute );
-                }
+                return value;
             }
             
-            return result;
+            auto pattern = regex( target );
+            
+            if ( option & StringOption::CASE_INSENSITIVE )
+            {
+                pattern.assign( target, icase );
+            }
+            
+            return regex_replace( value, pattern, substitute );
         }
     }
 }
