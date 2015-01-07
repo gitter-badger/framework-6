@@ -23,7 +23,14 @@ using framework::Checksum;
 
 TEST( Checksum, generate_from_bytes )
 {
-    Bytes bytes = { 'b', 'y', 't', 'e', 's', '\0' };
+    Bytes bytes = { 'b', 'y', 't', 'e', 's' };
     
-    EXPECT_EQ( "73ca55dbfe8bb55d6351bf415671fc4b", Checksum::generate( bytes ).to_string( ) );
+    EXPECT_EQ( "4b3a6218bb3e3a7303e8a171a60fcf92", Checksum::generate( bytes ).to_string( ) );
+}
+
+TEST( Checksum, generate_from_empty_bytes )
+{
+    Bytes bytes;
+    
+    EXPECT_EQ( "d41d8cd98f00b204e9800998ecf8427e", Checksum::generate( bytes ).to_string( ) );
 }
