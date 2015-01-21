@@ -32,7 +32,7 @@ namespace framework
         //n/a
     }
     
-    Regex::Regex( const string& pattern, const int options ) : m_pimpl( new RegexImpl( pattern, options ) )
+    Regex::Regex( const string& pattern, const int options ) : m_pimpl( new RegexImpl( pattern.data( ), options ) )
     {
         //n/a
     }

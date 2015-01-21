@@ -8,12 +8,11 @@
 
 //Project Includes
 #include "corvusoft/framework/string.h"
+#include "corvusoft/framework/hexidecimal.h"
 #include "corvusoft/framework/detail/checksum_impl.h"
 
 //External Includes
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#include <gcrypt.h>
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#include <md5.h>
 
 //System Namespaces
 using std::regex;
@@ -56,28 +55,14 @@ namespace framework
         
         ChecksumImpl ChecksumImpl::generate( const Bytes& value )
         {
-            int hash_size = gcry_md_get_algo_dlen( GCRY_MD_MD5 );
-            
-            Byte* hash = new Byte[ hash_size ];
-            
-            gcry_md_hash_buffer( GCRY_MD_MD5, hash, &value[0], value.size( ) );
-            
-            string data = String::empty;
-            
-            for ( int index = 0; index < hash_size; index++ )
-            {
-                char hexidecimal[ 3 ] = { 0 };
-                
-                snprintf( hexidecimal, 3, "%02x", hash[ index ] );
-                
-                data.append( hexidecimal );
-            }
-            
-            delete[ ] hash;
+            md5_state_t state;
+            md5_byte_t digest[ 16 ];
+            md5_init( &state );
+            md5_append( &state, ( const md5_byte_t* ) &value[ 0 ], value.size( ) );
+            md5_finish( &state, digest );
             
             ChecksumImpl pimpl;
-            
-            pimpl.m_checksum = data;
+            pimpl.m_checksum = String::lowercase( Hexidecimal::encode( Bytes( digest, digest + 16 ) ) );
             
             return pimpl;
         }

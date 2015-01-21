@@ -5,12 +5,14 @@
 //System Includes
 #include <string>
 #include <chrono>
+#include <stdexcept>
 
 //Project Includes
 #include <corvusoft/framework/date>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::string;
@@ -22,45 +24,102 @@ using framework::Date;
 
 //External Namespaces
 
-TEST( Date, zero_format )
+SCENARIO( "parse", "[date]" )
 {
-    string actual = Date::format( system_clock::from_time_t( 0 ) );
-    
-    EXPECT_EQ( "Thu, 01 Jan 1970 00:00:00 GMT", actual );
+    GIVEN( "i want to parse a date string value" )
+    {
+        WHEN( "i invoke parse with 'Sat Jun 07 11:03:14 2014'" )
+        {
+            THEN( "i should see '1402138994' timestamp" )
+            {
+                REQUIRE( Date::parse( "Sat Jun 07 11:03:14 2014" ) == system_clock::from_time_t( 1402138994 ) );
+                REQUIRE( Date::parse( "Thu, 01 Jan 1970 00:00:00 GMT" ) == system_clock::from_time_t( 0 ) );
+                REQUIRE( Date::parse( "Thursday, 01-Jan-1970 00:00:00 GMT" ) == system_clock::from_time_t( 0 ) );
+            }
+        }
+    }
 }
 
-TEST( Date, positive_format )
+SCENARIO( "empty parse", "[date]" )
 {
-    string actual = Date::format( system_clock::from_time_t( 1402138994 ) );
-    
-    EXPECT_EQ( "Sat, 07 Jun 2014 11:03:14 GMT", actual );
+    GIVEN( "i want to parse a date string value" )
+    {
+        WHEN( "i invoke parse with ''" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Date::parse( "" ), invalid_argument );
+            }
+        }
+    }
 }
 
-TEST( Date, negative_timestamp )
+SCENARIO( "invalid parse", "[date]" )
 {
-    string actual = Date::format( system_clock::from_time_t( -100 ) );
-    
-    EXPECT_EQ( "Wed, 31 Dec 1969 23:58:20 GMT", actual );
+    GIVEN( "i want to parse a date string value" )
+    {
+        WHEN( "i invoke parse with '&%$FDS'" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Date::parse( "&%$FDS" ), invalid_argument );
+            }
+        }
+    }
 }
 
-TEST( Date, empty_string_parse )
+SCENARIO( "malformed parse", "[date]" )
 {
-    EXPECT_THROW( Date::parse( "" ), invalid_argument );
+    GIVEN( "i want to parse a date string value" )
+    {
+        WHEN( "i invoke parse with '29/02/1984'" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Date::parse( "29/02/1984" ), invalid_argument );
+            }
+        }
+    }
 }
 
-TEST( Date, parse_valid_dates )
+SCENARIO( "format", "[date]" )
 {
-    auto datestamp = Date::parse( "Sat Jun 07 11:03:14 2014" );
-    EXPECT_EQ( system_clock::from_time_t( 1402138994 ), datestamp );
-    
-    datestamp = Date::parse( "Thu, 01 Jan 1970 00:00:00 GMT" );
-    EXPECT_EQ( system_clock::from_time_t( 0 ), datestamp );
-    
-    datestamp = Date::parse( "Thursday, 01-Jan-1970 00:00:00 GMT" );
-    EXPECT_EQ( system_clock::from_time_t( 0 ), datestamp );
+    GIVEN( "i want to format a timestamp" )
+    {
+        WHEN( "i invoke format with '1402138994'" )
+        {
+            THEN( "i should see 'Sat, 07 Jun 2014 11:03:14 GMT'" )
+            {
+                REQUIRE( Date::format( system_clock::from_time_t( 1402138994 ) ) == "Sat, 07 Jun 2014 11:03:14 GMT" );
+            }
+        }
+    }
 }
 
-TEST( Date, parse_unknown_date )
+SCENARIO( "zero format", "[date]" )
 {
-    EXPECT_THROW( Date::parse( "29/02/1984" ), invalid_argument );
+    GIVEN( "i want to format a timestamp" )
+    {
+        WHEN( "i invoke format with '0'" )
+        {
+            THEN( "i should see 'Thu, 01 Jan 1970 00:00:00 GMT'" )
+            {
+                REQUIRE( Date::format( system_clock::from_time_t( 0 ) ) == "Thu, 01 Jan 1970 00:00:00 GMT" );
+            }
+        }
+    }
+}
+
+SCENARIO( "negative format", "[date]" )
+{
+    GIVEN( "i want to format a timestamp" )
+    {
+        WHEN( "i invoke format with '-100'" )
+        {
+            THEN( "i should see 'Wed, 31 Dec 1969 23:58:20 GMT'" )
+            {
+                REQUIRE( Date::format( system_clock::from_time_t( -100 ) ) == "Wed, 31 Dec 1969 23:58:20 GMT" );
+            }
+        }
+    }
 }

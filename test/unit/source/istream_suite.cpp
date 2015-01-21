@@ -9,7 +9,8 @@
 #include <corvusoft/framework/istream>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::istringstream;
@@ -19,23 +20,36 @@ using framework::IStream;
 
 //External Namespaces
 
-TEST( IStream, valid_string )
+SCENARIO( "reverse_peek", "[istream]" )
 {
-    istringstream stream( "Corvusoft" );
-    stream.get( );
-    
-    char actual = IStream::reverse_peek( stream );
-    
-    EXPECT_EQ( 'C', actual );
+    GIVEN( "i want to peek at the previously read character" )
+    {
+        WHEN( "i call get and then reverse peek on a 'Corvusoft' stream" )
+        {
+            istringstream stream( "Corvusoft" );
+            stream.get( );
+            
+            THEN( "i should see 'C'" )
+            {
+                REQUIRE( IStream::reverse_peek( stream ) == 'C' );
+            }
+        }
+    }
 }
 
-TEST( IStream, empty_string )
+SCENARIO( "empty reverse_peek", "[istream]" )
 {
-    istringstream stream( "" );
-    stream.get( );
-    
-    char actual = IStream::reverse_peek( stream );
-    char expected = 0;
-    
-    EXPECT_EQ( expected, actual );
+    GIVEN( "i want to peek at the previously read character" )
+    {
+        WHEN( "i call get and then reverse peek on a '' stream" )
+        {
+            istringstream stream( "" );
+            stream.get( );
+            
+            THEN( "i should see ''" )
+            {
+                REQUIRE( IStream::reverse_peek( stream ) == 0 );
+            }
+        }
+    }
 }

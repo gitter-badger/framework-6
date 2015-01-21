@@ -89,7 +89,7 @@ namespace framework
                 
                 struct curl_slist* headers = nullptr;
                 
-                if ( Map::find_key_ignoring_case( "Content-Length", request.headers ) == request.headers.end( ) )
+                if ( Map::find_ignoring_case( "Content-Length", request.headers ) == request.headers.end( ) )
                 {
                     string value = "Content-Length: " + ::to_string( request.body.size( ) );
                     

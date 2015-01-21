@@ -3,8 +3,10 @@
  */
 
 //System Includes
+#include <stdexcept>
 
 //Project Includes
+#include "corvusoft/framework/string.h"
 #include "corvusoft/framework/regex_option.h"
 #include "corvusoft/framework/detail/regex_impl.h"
 
@@ -16,6 +18,7 @@ using std::string;
 using std::regex_match;
 using std::regex_error;
 using std::regex_replace;
+using std::invalid_argument;
 using std::regex_constants::icase;
 
 //Project Namespaces
@@ -26,12 +29,23 @@ namespace framework
 {
     namespace detail
     {
-        RegexImpl::RegexImpl( const string& pattern, const int options ) : m_pattern( pattern ),
-            m_expression( pattern )
+        RegexImpl::RegexImpl( const char* pattern, const int options ) : m_pattern( String::empty ),
+            m_expression( )
         {
+            if ( pattern == nullptr )
+            {
+                throw invalid_argument( String::empty );
+            }
+            
+            m_pattern = pattern;
+            
             if ( options & RegexOption::CASE_INSENSITIVE )
             {
                 m_expression.assign( pattern, icase );
+            }
+            else
+            {
+                m_expression.assign( pattern );
             }
         }
         

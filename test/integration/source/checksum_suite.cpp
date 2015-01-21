@@ -10,7 +10,8 @@
 #include <corvusoft/framework/checksum>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::string;
@@ -21,16 +22,34 @@ using framework::Checksum;
 
 //External Namespaces
 
-TEST( Checksum, generate_from_bytes )
+SCENARIO( "generate", "[checksum]" )
 {
-    Bytes bytes = { 'b', 'y', 't', 'e', 's' };
-    
-    EXPECT_EQ( "4b3a6218bb3e3a7303e8a171a60fcf92", Checksum::generate( bytes ).to_string( ) );
+    GIVEN( "i want to instantiate a checksum from a byte value" )
+    {
+        Bytes bytes = { 'b', 'y', 't', 'e', 's' };
+        
+        WHEN( "i construct the object with '{ 'b', 'y', 't', 'e', 's' }'" )
+        {
+            THEN( "i should see '4b3a6218bb3e3a7303e8a171a60fcf92'" )
+            {
+                REQUIRE( Checksum::generate( bytes ).to_string( ) == "4b3a6218bb3e3a7303e8a171a60fcf92" );
+            }
+        }
+    }
 }
 
-TEST( Checksum, generate_from_empty_bytes )
+SCENARIO( "empty generate", "[checksum]" )
 {
-    Bytes bytes;
-    
-    EXPECT_EQ( "d41d8cd98f00b204e9800998ecf8427e", Checksum::generate( bytes ).to_string( ) );
+    GIVEN( "i want to instantiate a checksum from a byte value" )
+    {
+        Bytes bytes = { };
+        
+        WHEN( "i construct the object with ''" )
+        {
+            THEN( "i should see 'd41d8cd98f00b204e9800998ecf8427e'" )
+            {
+                REQUIRE( Checksum::generate( bytes ).to_string( ) == "d41d8cd98f00b204e9800998ecf8427e" );
+            }
+        }
+    }
 }

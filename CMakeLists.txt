@@ -14,11 +14,11 @@ option( BUILD_TESTS "Build all test suites using CTest." OFF )
 #
 set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules" )
 
+find_package( md5 REQUIRED )
+find_package( ooid REQUIRED )
 find_package( curl REQUIRED )
-find_package( gcrypt REQUIRED )
-find_package( gpg-error REQUIRED )
 
-include_directories( ${gcrypt_INCLUDE} ${curl_INCLUDE} )
+include_directories( ${md5_INCLUDE} ${ooid_INCLUDE} ${curl_INCLUDE} )
 
 #
 # Configuration
@@ -57,7 +57,7 @@ include_directories( ${INCLUDE_DIR} )
 
 add_library( ${PROJECT_NAME} SHARED ${MANIFEST} )
 
-target_link_libraries( ${PROJECT_NAME} ${gcrypt_LIBRARY} ${curl_LIBRARY} )
+target_link_libraries( ${PROJECT_NAME} ${curl_LIBRARY} )
 
 #
 # Install
@@ -74,10 +74,9 @@ install( FILES ${PROJECT_ARTIFACTS} DESTINATION "include/corvusoft/${PROJECT_NAM
 # Test
 #
 if ( BUILD_TESTS )
-    find_package( gtest REQUIRED )
+    find_package( catch REQUIRED )
 
     enable_testing( )
     add_subdirectory( "${CMAKE_SOURCE_DIR}/test/unit" "unit-tests" )
-    add_subdirectory( "${CMAKE_SOURCE_DIR}/test/regression" "regression-tests" )
     add_subdirectory( "${CMAKE_SOURCE_DIR}/test/integration" "integration-tests" )
 endif ( )

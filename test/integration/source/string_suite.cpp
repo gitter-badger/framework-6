@@ -7,88 +7,273 @@
 #include <vector>
 
 //Project Includes
+#include <corvusoft/framework/bytes>
 #include <corvusoft/framework/string>
 #include <corvusoft/framework/string_option>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::string;
 using std::vector;
 
 //Project Namespaces
+using framework::Bytes;
 using framework::String;
 using framework::StringOption;
 
 //External Namespaces
 
-TEST( String, case_insensitive_remove_string )
+SCENARIO( "case insensitive remove", "[string]" )
 {
-    EXPECT_EQ( "corvusoft", String::remove( " Solutions", "corvusoft solutions", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to remove elements from a string value" )
+    {
+        WHEN( "i invoke remove 'Solutions' from 'Corvusoft SOLUTIONS'" )
+        {
+            THEN( "i should see 'Corvusoft '" )
+            {
+                REQUIRE( String::remove( "Solutions", "Corvusoft SOLUTIONS", StringOption::CASE_INSENSITIVE ) == "Corvusoft " );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_remove_string_with_missing_target )
+SCENARIO( "case insensitive remove with missing target", "[string]" )
 {
-    EXPECT_EQ( "corvusoft Solutions", String::remove( "ltd", "corvusoft Solutions", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to remove elements from a string value" )
+    {
+        WHEN( "i invoke remove 'ltd' from 'Corvusoft SOLUTIONS'" )
+        {
+            THEN( "i should see 'Corvusoft '" )
+            {
+                REQUIRE( String::remove( "ltd", "Corvusoft SOLUTIONS", StringOption::CASE_INSENSITIVE ) == "Corvusoft SOLUTIONS" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_remove_string_with_empty_target )
+SCENARIO( "case insensitive remove with empty target", "[string]" )
 {
-    EXPECT_EQ( "Corvusoft Solutions", String::remove( "", "Corvusoft Solutions", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to remove elements from a string value" )
+    {
+        WHEN( "i invoke remove '' from 'Corvusoft SOLUTIONS'" )
+        {
+            THEN( "i should see 'Corvusoft SOLUTIONS'" )
+            {
+                REQUIRE( String::remove( "", "Corvusoft SOLUTIONS", StringOption::CASE_INSENSITIVE ) == "Corvusoft SOLUTIONS" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_remove_string_with_empty_value )
+SCENARIO( "case insensitive remove with empty value", "[string]" )
 {
-    EXPECT_EQ( "", String::remove( " Solutions", "", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to remove elements from a string value" )
+    {
+        WHEN( "i invoke remove 'Solutions' from ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::remove( "Solutions", "", StringOption::CASE_INSENSITIVE ) == "" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_remove_string_with_empty_arguments )
+SCENARIO( "case insensitive remove with empty arguments", "[string]" )
 {
-    EXPECT_EQ( "", String::remove( "", "", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to remove elements from a string value" )
+    {
+        WHEN( "i invoke remove '' from ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::remove( "", "", StringOption::CASE_INSENSITIVE ) == "" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string )
+SCENARIO( "case insensitive replace", "[string]" )
 {
-    EXPECT_EQ( "Corvusoft Solutions", String::replace( "ltd", "Solutions", "Corvusoft Ltd", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace 'ltd' with 'Solutions' from 'Corvusoft Ltd'" )
+        {
+            THEN( "i should see 'Corvusoft Solutions'" )
+            {
+                REQUIRE( String::replace( "ltd", "Solutions", "Corvusoft Ltd", StringOption::CASE_INSENSITIVE ) == "Corvusoft Solutions" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_missing_target )
+SCENARIO( "case insensitive replace with missing target", "[string]" )
 {
-    EXPECT_EQ( "Corvusoft Solutions", String::replace( "ltd", "Solutions", "Corvusoft Solutions", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace 'Inc' with 'Solutions' from 'Corvusoft Ltd'" )
+        {
+            THEN( "i should see 'Corvusoft Ltd'" )
+            {
+                REQUIRE( String::replace( "", "Solutions", "Corvusoft Ltd", StringOption::CASE_INSENSITIVE ) == "Corvusoft Ltd" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_target )
+SCENARIO( "case insensitive replace with empty target", "[string]" )
 {
-    EXPECT_EQ( "Corvusoft ltd", String::replace( "", "Solutions", "Corvusoft ltd", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace '' with 'Solutions' from 'Corvusoft Ltd'" )
+        {
+            THEN( "i should see 'Corvusoft Ltd'" )
+            {
+                REQUIRE( String::replace( "", "Solutions", "Corvusoft Ltd", StringOption::CASE_INSENSITIVE ) == "Corvusoft Ltd" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_substitute )
+SCENARIO( "case insensitive replace with empty substitute", "[string]" )
 {
-    EXPECT_EQ( "Corvusoft ", String::replace( "ltd", "", "Corvusoft ltd", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace 'Ltd' with '' from 'Corvusoft Ltd'" )
+        {
+            THEN( "i should see 'Corvusoft '" )
+            {
+                REQUIRE( String::replace( "Ltd", "", "Corvusoft Ltd", StringOption::CASE_INSENSITIVE ) == "Corvusoft " );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_value )
+SCENARIO( "case insensitive replace with empty value", "[string]" )
 {
-    EXPECT_EQ( "", String::replace( "ltd", "Solutions", "", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace 'Ltd' with 'Solutions' from ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::replace( "Ltd", "Solutions", "", StringOption::CASE_INSENSITIVE ) == "" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_target_and_substitute )
+SCENARIO( "case insensitive replace with empty target and substitute", "[string]" )
 {
-    EXPECT_EQ( "Corvusoft ltd", String::replace( "", "", "Corvusoft ltd", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace '' with '' from 'Corvusoft SOLUTIONS'" )
+        {
+            THEN( "i should see 'Corvusoft SOLUTIONS'" )
+            {
+                REQUIRE( String::replace( "", "", "Corvusoft SOLUTIONS", StringOption::CASE_INSENSITIVE ) == "Corvusoft SOLUTIONS" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_target_and_value )
+SCENARIO( "case insensitive replace with empty target and value", "[string]" )
 {
-    EXPECT_EQ( "", String::replace( "", "Solutions", "", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace '' with 'SOLUTIONS' from ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::replace( "", "SOLUTIONS", "", StringOption::CASE_INSENSITIVE ) == "" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_substitute_and_value )
+SCENARIO( "case insensitive replace with empty substitute and value", "[string]" )
 {
-    EXPECT_EQ( "", String::replace( "ltd", "", "", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace 'Ltd' with '' from 'Corvusoft SOLUTIONS'" )
+        {
+            THEN( "i should see 'Corvusoft SOLUTIONS'" )
+            {
+                REQUIRE( String::replace( "Ltd", "", "Corvusoft SOLUTIONS", StringOption::CASE_INSENSITIVE ) == "Corvusoft SOLUTIONS" );
+            }
+        }
+    }
 }
 
-TEST( String, case_insensitive_replace_string_with_empty_arguments )
+SCENARIO( "case insensitive replace with empty arguments", "[string]" )
 {
-    EXPECT_EQ( "", String::replace( "", "", "", StringOption::CASE_INSENSITIVE ) );
+    GIVEN( "i want to replace elements from a string value" )
+    {
+        WHEN( "i invoke replace '' with '' from ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::replace( "", "", "", StringOption::CASE_INSENSITIVE ) == "" );
+            }
+        }
+    }
+}
+
+SCENARIO( "to_string", "[string]" )
+{
+    GIVEN( "i want to convert bytes to a string value" )
+    {
+        WHEN( "i invoke to_string with '{ 'a', 'b' }'" )
+        {
+            THEN( "i should see 'ab'" )
+            {
+                REQUIRE( String::to_string( Bytes( { 'a', 'b' } ) ) == "ab" );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty to_string", "[string]" )
+{
+    GIVEN( "i want to convert bytes to a string value" )
+    {
+        WHEN( "i invoke to_string with ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::to_string( Bytes( { } ) ) == "" );
+            }
+        }
+    }
+}
+
+SCENARIO( "to_bytes", "[string]" )
+{
+    GIVEN( "i want to convert bytes to a string value" )
+    {
+        WHEN( "i invoke to_string with 'ab'" )
+        {
+            THEN( "i should see '{ 'a', 'b' }'" )
+            {
+                REQUIRE( String::to_bytes( "ab" ) == Bytes( { 'a', 'b' } ) );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty to_bytes", "[string]" )
+{
+    GIVEN( "i want to convert bytes to a string value" )
+    {
+        WHEN( "i invoke to_string with ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                REQUIRE( String::to_bytes( "" ) == Bytes( { } ) );
+            }
+        }
+    }
 }

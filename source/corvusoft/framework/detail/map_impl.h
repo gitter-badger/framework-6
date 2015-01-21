@@ -40,13 +40,13 @@ namespace framework
                 //Constructors
                 
                 //Functionality
-                static iterator find_key_ignoring_case( const std::string& key, std::map< std::string, std::string >& container );
+                static iterator find_ignoring_case( const std::string& key, std::map< std::string, std::string >& container );
                 
-                static const_iterator find_key_ignoring_case( const std::string& key, const std::map< std::string, std::string >& container );
+                static const_iterator find_ignoring_case( const std::string& key, const std::map< std::string, std::string >& container );
                 
-                static iterator find_key_ignoring_case( const std::string& key, std::multimap< std::string, std::string >& container );
+                static iterator find_ignoring_case( const std::string& key, std::multimap< std::string, std::string >& container );
                 
-                static const_iterator find_key_ignoring_case( const std::string& key, const std::multimap< std::string, std::string >& container );
+                static const_iterator find_ignoring_case( const std::string& key, const std::multimap< std::string, std::string >& container );
                 
                 //Getters
                 

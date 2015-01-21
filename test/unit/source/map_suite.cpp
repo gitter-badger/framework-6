@@ -11,7 +11,8 @@
 #include <corvusoft/framework/map>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::map;
@@ -24,117 +25,217 @@ using framework::Map;
 
 //External Namespaces
 
-TEST( Map, find_key_ignoring_case_with_lowercase_string )
+SCENARIO( "find_ignoring_case on lowercase map value", "[map]" )
 {
-    map< string, string > values;
-    values[ "name" ] = "value";
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "name", values );
-    
-    EXPECT_EQ( "name", actual->first );
-    EXPECT_EQ( "value", actual->second );
+    GIVEN( "i want to locate a map entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'name' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                map< string, string > values;
+                values[ "name" ] = "value";
+                
+                Map::iterator actual = Map::find_ignoring_case( "name", values );
+                
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "value" );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_uppercase_string )
+SCENARIO( "find_ignoring_case on uppercase map value", "[map]" )
 {
-    map< string, string > values;
-    values[ "name" ] = "value";
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "NAME", values );
-    
-    EXPECT_EQ( "name", actual->first );
-    EXPECT_EQ( "value", actual->second );
+    GIVEN( "i want to locate a map entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'NAME' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                map< string, string > values;
+                values[ "name" ] = "value";
+                
+                Map::iterator actual = Map::find_ignoring_case( "NAME", values );
+                
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "value" );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_mixedcase_string )
+SCENARIO( "find_ignoring_case on mixedcase map value", "[map]" )
 {
-    map< string, string > values;
-    values[ "name" ] = "value";
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "NaMe", values );
-    
-    EXPECT_EQ( "name", actual->first );
-    EXPECT_EQ( "value", actual->second );
+    GIVEN( "i want to locate a map entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'NaMe' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                map< string, string > values;
+                values[ "name" ] = "value";
+                
+                Map::iterator actual = Map::find_ignoring_case( "NaMe", values );
+                
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "value" );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_empty_map )
+SCENARIO( "find_ignoring_case on empty map value", "[map]" )
 {
-    map< string, string > values;
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "NaMe", values );
-    
-    EXPECT_EQ( values.end( ), actual );
+    GIVEN( "i want to locate a map entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'name' on ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                map< string, string > values;
+                
+                Map::iterator actual = Map::find_ignoring_case( "name", values );
+                
+                REQUIRE( actual == values.end( ) );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_unknown_entry )
+SCENARIO( "find_ignoring_case on unknown map entry", "[map]" )
 {
-    map< string, string > values;
-    values[ "name" ] = "value";
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "forename", values );
-    
-    EXPECT_EQ( values.end( ), actual );
+    GIVEN( "i want to locate a map entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'forename' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                map< string, string > values;
+                
+                Map::iterator actual = Map::find_ignoring_case( "forename", values );
+                
+                REQUIRE( actual == values.end( ) );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_multimap_lowercase_string )
+SCENARIO( "find_ignoring_case on lowercase multimap value", "[map]" )
 {
-    multimap< string, string > values;
-    values.insert( make_pair( "name", "value" ) );
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "name", values );
-    
-    EXPECT_EQ( "name", actual->first );
-    EXPECT_EQ( "value", actual->second );
+    GIVEN( "i want to locate a multimap entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'name' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                multimap< string, string > values;
+                values.insert( make_pair( "name", "value" ) );
+                
+                Map::iterator actual = Map::find_ignoring_case( "name", values );
+                
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "value" );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_multimap_uppercase_string )
+SCENARIO( "find_ignoring_case on uppercase multimap value", "[map]" )
 {
-    multimap< string, string > values;
-    values.insert( make_pair( "name", "value" ) );
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "NAME", values );
-    
-    EXPECT_EQ( "name", actual->first );
-    EXPECT_EQ( "value", actual->second );
+    GIVEN( "i want to locate a multimap entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'NAME' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                multimap< string, string > values;
+                values.insert( make_pair( "name", "value" ) );
+                
+                Map::iterator actual = Map::find_ignoring_case( "NAME", values );
+                
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "value" );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_multimap_mixedcase_string )
+SCENARIO( "find_ignoring_case on mixedcase multimap value", "[map]" )
 {
-    multimap< string, string > values;
-    values.insert( make_pair( "name", "value" ) );
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "NaMe", values );
-    
-    EXPECT_EQ( "name", actual->first );
-    EXPECT_EQ( "value", actual->second );
+    GIVEN( "i want to locate a multimap entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'NaMe' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                multimap< string, string > values;
+                values.insert( make_pair( "name", "value" ) );
+                
+                Map::iterator actual = Map::find_ignoring_case( "NaMe", values );
+                
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "value" );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_multimap_empty_map )
+SCENARIO( "find_ignoring_case on empty multimap value", "[map]" )
 {
-    multimap< string, string > values;
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "NaMe", values );
-    
-    EXPECT_EQ( values.end( ), actual );
+    GIVEN( "i want to locate a multimap entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'name' on ''" )
+        {
+            THEN( "i should see ''" )
+            {
+                multimap< string, string > values;
+                
+                Map::iterator actual = Map::find_ignoring_case( "name", values );
+                
+                REQUIRE( actual == values.end( ) );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_multimap_unknown_entry )
+SCENARIO( "find_ignoring_case on unknown multimap entry", "[map]" )
 {
-    multimap< string, string > values;
-    values.insert( make_pair( "name", "value" ) );
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "forename", values );
-    
-    EXPECT_EQ( values.end( ), actual );
+    GIVEN( "i want to locate a multimap entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'forename' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                multimap< string, string > values;
+                values.insert( make_pair( "name", "value" ) );
+                
+                Map::iterator actual = Map::find_ignoring_case( "forename", values );
+                
+                REQUIRE( actual == values.end( ) );
+            }
+        }
+    }
 }
 
-TEST( Map, find_key_ignoring_case_with_multimap_multiple_entries )
+SCENARIO( "find_ignoring_case on multiple multimap entries", "[map]" )
 {
-    multimap< string, string > values;
-    values.insert( make_pair( "name", "1" ) );
-    values.insert( make_pair( "name", "2" ) );
-    
-    Map::iterator actual = Map::find_key_ignoring_case( "name", values );
-    
-    EXPECT_EQ( values.begin( ), actual );
+    GIVEN( "i want to locate a multimap entry" )
+    {
+        WHEN( "i invoke find_ignoring_case with 'forename' on '{ { name = value } }'" )
+        {
+            THEN( "i should see '{ name = value }'" )
+            {
+                multimap< string, string > values;
+                values.insert( make_pair( "name", "1" ) );
+                values.insert( make_pair( "name", "2" ) );
+                
+                Map::iterator actual = Map::find_ignoring_case( "name", values );
+                
+                REQUIRE( actual == values.begin( ) );
+                REQUIRE( actual->first == "name" );
+                REQUIRE( actual->second == "1" );
+            }
+        }
+    }
 }

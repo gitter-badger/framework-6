@@ -4,13 +4,13 @@
 
 //System Includes
 #include <string>
-#include <stdexcept>
 
 //Project Includes
 #include <corvusoft/framework/checksum>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::string;
@@ -21,103 +21,308 @@ using framework::Checksum;
 
 //External Namespaces
 
-TEST( Checksum, constructor )
+SCENARIO( "constructor", "[checksum]" )
 {
-    Checksum checksum( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" );
-    
-    EXPECT_EQ( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d", checksum.to_string( ) );
-    EXPECT_THROW( Checksum( "" ), invalid_argument );
-    EXPECT_THROW( Checksum( "---_)(*&" ), invalid_argument );
-}
-
-TEST( Checksum, copy_constructor )
-{
-    Checksum original( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" );
-    Checksum copy( original );
-    
-    EXPECT_EQ( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d", copy.to_string( ) );
-}
-
-TEST( Checksum, destructor )
-{
-    EXPECT_NO_THROW(
+    GIVEN( "i want to instantiate a checksum from a string value" )
     {
-        Checksum* checksum = new Checksum( "ef0fae40052802a9b60938d8ffa710aec95be9f509c0126fb7444fd5264b3f8d" );
+        Checksum checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
         
-        delete checksum;
-    } );
+        WHEN( "i construct the object with '9abc3aa2b0e3ca6c4eb822830ec84e68'" )
+        {
+            const string value = checksum.to_string( );
+            
+            THEN( "i should see '9abc3aa2b0e3ca6c4eb822830ec84e68'" )
+            {
+                REQUIRE( value == "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+            }
+        }
+    }
 }
 
-TEST( Checksum, is_valid )
+SCENARIO( "invalid constructor", "[checksum]" )
 {
-    EXPECT_FALSE( Checksum::is_valid( "" ) );
-    EXPECT_FALSE( Checksum::is_valid( "----" ) );
-    EXPECT_TRUE( Checksum::is_valid( "9abc3aa2b0e3ca6c4eb822830ec84e68" ) );
+    GIVEN( "i want to instantiate a checksum from a string value" )
+    {
+        WHEN( "i construct the object with '---_)(*&'" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Checksum( "---_)(*&" ), invalid_argument );
+            }
+        }
+    }
 }
 
-TEST( Checksum, to_string )
+SCENARIO( "empty constructor", "[checksum]" )
 {
-    Checksum checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
-    
-    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", checksum.to_string( ) );
+    GIVEN( "i want to instantiate a checksum from a string value" )
+    {
+        WHEN( "i construct the object with ''" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Checksum( "" ), invalid_argument );
+            }
+        }
+    }
 }
 
-TEST( Checksum, generate_from_string )
+SCENARIO( "copy constructor", "[checksum]" )
 {
-    Checksum checksum = Checksum::generate( "corvusoft solutions" );
-    
-    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", checksum.to_string( ) );
-    
-    EXPECT_NO_THROW( Checksum::generate( "" ) );
-    EXPECT_NO_THROW( Checksum::generate( "_)(*&^%" ) );
+    GIVEN( "i want to copy an existing checksum" )
+    {
+        Checksum checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+        
+        WHEN( "i instantiate the object with the copy-constructor" )
+        {
+            Checksum copy( checksum );
+            
+            THEN( "i should see the same properties" )
+            {
+                REQUIRE( copy.to_string( ) == checksum.to_string( ) );
+            }
+        }
+    }
 }
 
-TEST( Checksum, parse )
+SCENARIO( "destructor", "[checksum]" )
 {
-    Checksum checksum = Checksum::parse( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
-    
-    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", checksum.to_string( ) );
-    
-    EXPECT_THROW( Checksum::parse( "" ), invalid_argument );
-    EXPECT_THROW( Checksum::parse( "*&^%$£" ), invalid_argument );
+    GIVEN( "i instantiate a new object" )
+    {
+        Checksum* checksum = new Checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+        
+        WHEN( "i deallocate the object" )
+        {
+            THEN( "i should not see any exceptions" )
+            {
+                REQUIRE_NOTHROW( delete checksum );
+            }
+        }
+    }
 }
 
-TEST( Checksum, assignment_operator )
+SCENARIO( "assignment-operator", "[checksum]" )
 {
-    Checksum original( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
-    Checksum copy = original;
-    
-    EXPECT_EQ( "9abc3aa2b0e3ca6c4eb822830ec84e68", copy.to_string( ) );
+    GIVEN( "i want to copy an existing checksum" )
+    {
+        Checksum checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+        
+        WHEN( "i instantiate the object with the assignment-operator" )
+        {
+            Checksum copy = checksum;
+            
+            THEN( "i should see the same properties" )
+            {
+                REQUIRE( copy.to_string( ) == checksum.to_string( ) );
+            }
+        }
+    }
 }
 
-TEST( Checksum, less_than_operator )
+SCENARIO( "less-than-operator", "[checksum]" )
 {
-    Checksum lhs( "a" );
-    Checksum rhs( "ab" );
-    
-    EXPECT_TRUE( lhs < rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        Checksum lhs( "a" );
+        Checksum rhs( "abc" );
+        
+        WHEN( "i perform a comparison with the less-than-operator" )
+        {
+            THEN( "i should see the lhs is less than the rhs" )
+            {
+                REQUIRE( lhs < rhs );
+            }
+        }
+    }
 }
 
-TEST( Checksum, greater_than_operator )
+SCENARIO( "greater-than-operator", "[checksum]" )
 {
-    Checksum lhs( "ab" );
-    Checksum rhs( "a" );
-    
-    EXPECT_TRUE( lhs > rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        Checksum lhs( "ab" );
+        Checksum rhs( "a" );
+        
+        WHEN( "i perform a comparison with the greater-than-operator" )
+        {
+            THEN( "i should see the lhs is greater than the rhs" )
+            {
+                REQUIRE( lhs > rhs );
+            }
+        }
+    }
 }
 
-TEST( Checksum, equality_operator )
+SCENARIO( "equality-operator", "[checksum]" )
 {
-    Checksum lhs( "a" );
-    Checksum rhs( "a" );
-    
-    EXPECT_TRUE( lhs == rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        Checksum lhs( "a" );
+        Checksum rhs( "a" );
+        
+        WHEN( "i perform a comparison with the equality-operator" )
+        {
+            THEN( "i should see the identical instances" )
+            {
+                REQUIRE( lhs == rhs );
+            }
+        }
+    }
 }
 
-TEST( Checksum, inequality_operator )
+SCENARIO( "inequality-operator", "[checksum]" )
 {
-    Checksum lhs( "a" );
-    Checksum rhs( "ab" );
-    
-    EXPECT_TRUE( lhs != rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        Checksum lhs( "a" );
+        Checksum rhs( "ab" );
+        
+        WHEN( "i perform a comparison with the inequality-operator" )
+        {
+            THEN( "i should see differing instances" )
+            {
+                REQUIRE( lhs not_eq rhs );
+            }
+        }
+    }
+}
+
+SCENARIO( "is_valid", "[checksum]" )
+{
+    GIVEN( "i want to validate strings" )
+    {
+        WHEN( "i invoke is_valid with '9abc3aa2b0e3ca6c4eb822830ec84e68' example data" )
+        {
+            THEN( "i should see success" )
+            {
+                REQUIRE( Checksum::is_valid( "9abc3aa2b0e3ca6c4eb822830ec84e68" ) == true );
+            }
+        }
+    }
+}
+
+SCENARIO( "invalid is_valid", "[checksum]" )
+{
+    GIVEN( "i want to validate strings" )
+    {
+        WHEN( "i invoke is_valid with '____' example data" )
+        {
+            THEN( "i should see failure" )
+            {
+                REQUIRE( Checksum::is_valid( "____" ) == false );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty is_valid", "[checksum]" )
+{
+    GIVEN( "i want to validate strings" )
+    {
+        WHEN( "i invoke is_valid with '' example data" )
+        {
+            THEN( "i should see failure" )
+            {
+                REQUIRE( Checksum::is_valid( "" ) == false );
+            }
+        }
+    }
+}
+
+SCENARIO( "to_string", "[checksum]" )
+{
+    GIVEN( "an object with example data" )
+    {
+        Checksum checksum( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+        
+        WHEN( "i invoke to_string" )
+        {
+            THEN( "i should a string representation" )
+            {
+                REQUIRE( checksum.to_string( ) == "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+            }
+        }
+    }
+}
+
+SCENARIO( "generate", "[checksum]" )
+{
+    GIVEN( "i want to generate a new checksum" )
+    {
+        Checksum checksum = Checksum::generate( "corvusoft solutions" );
+        
+        WHEN( "i invoke generate with 'corvusoft solutions' example data" )
+        {
+            const string value = checksum.to_string( );
+            
+            THEN( "i should see '9abc3aa2b0e3ca6c4eb822830ec84e68'" )
+            {
+                REQUIRE( value == "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty generate", "[checksum]" )
+{
+    GIVEN( "i want to generate a new checksum" )
+    {
+        Checksum checksum = Checksum::generate( "" );
+        
+        WHEN( "i invoke generate with '' example data" )
+        {
+            const string value = checksum.to_string( );
+            
+            THEN( "i should see 'd41d8cd98f00b204e9800998ecf8427e'" )
+            {
+                REQUIRE( value == "d41d8cd98f00b204e9800998ecf8427e" );
+            }
+        }
+    }
+}
+
+SCENARIO( "parse", "[checksum]" )
+{
+    GIVEN( "i want to instantiate a checksum from a string value" )
+    {
+        Checksum checksum = Checksum::parse( "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+        
+        WHEN( "i invoke parse with '9abc3aa2b0e3ca6c4eb822830ec84e68'" )
+        {
+            const string value = checksum.to_string( );
+            
+            THEN( "i should see '9abc3aa2b0e3ca6c4eb822830ec84e68'" )
+            {
+                REQUIRE( value == "9abc3aa2b0e3ca6c4eb822830ec84e68" );
+            }
+        }
+    }
+}
+
+SCENARIO( "invalid parse", "[checksum]" )
+{
+    GIVEN( "i want to instantiate a checksum from a string value" )
+    {
+        WHEN( "i invoke parse with '---_)(*&'" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Checksum::parse( "---_)(*&" ), invalid_argument );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty parse", "[checksum]" )
+{
+    GIVEN( "i want to instantiate a checksum from a string value" )
+    {
+        WHEN( "i invoke parse with ''" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( Checksum::parse( "" ), invalid_argument );
+            }
+        }
+    }
 }

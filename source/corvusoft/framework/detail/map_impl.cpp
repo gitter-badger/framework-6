@@ -27,7 +27,7 @@ namespace framework
 {
     namespace detail
     {
-        MapImpl::iterator MapImpl::find_key_ignoring_case( const string& key, map< string, string >& container )
+        MapImpl::iterator MapImpl::find_ignoring_case( const string& key, map< string, string >& container )
         {
             auto identifier = String::lowercase( key );
             
@@ -39,12 +39,12 @@ namespace framework
             return iterator;
         }
         
-        MapImpl::const_iterator MapImpl::find_key_ignoring_case( const string& key, const map< string, string >& container )
+        MapImpl::const_iterator MapImpl::find_ignoring_case( const string& key, const map< string, string >& container )
         {
-            return find_key_ignoring_case( key, const_cast< map< string, string >& >( container ) );
+            return find_ignoring_case( key, const_cast< map< string, string >& >( container ) );
         }
         
-        MapImpl::iterator MapImpl::find_key_ignoring_case( const string& key, multimap< string, string >& container )
+        MapImpl::iterator MapImpl::find_ignoring_case( const string& key, multimap< string, string >& container )
         {
             auto identifier = String::lowercase( key );
             
@@ -56,9 +56,9 @@ namespace framework
             return iterator;
         }
         
-        MapImpl::const_iterator MapImpl::find_key_ignoring_case( const string& key, const multimap< string, string >& container )
+        MapImpl::const_iterator MapImpl::find_ignoring_case( const string& key, const multimap< string, string >& container )
         {
-            return find_key_ignoring_case( key, const_cast< multimap< string, string >& >( container ) );
+            return find_ignoring_case( key, const_cast< multimap< string, string >& >( container ) );
         }
     }
 }

@@ -17,28 +17,14 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/regex_option.h
      ${SOURCE_DIR}/string
      ${SOURCE_DIR}/string.h
-     ${SOURCE_DIR}/vector
-     ${SOURCE_DIR}/vector.h
      ${SOURCE_DIR}/string_option
      ${SOURCE_DIR}/string_option.h
      ${SOURCE_DIR}/istream
      ${SOURCE_DIR}/istream.h
-     ${SOURCE_DIR}/run_id
-     ${SOURCE_DIR}/run_id.h
      ${SOURCE_DIR}/checksum
      ${SOURCE_DIR}/checksum.h
      ${SOURCE_DIR}/unique_id
      ${SOURCE_DIR}/unique_id.h
-     ${SOURCE_DIR}/resident_allocator
-     ${SOURCE_DIR}/resident_allocator.h
-     ${SOURCE_DIR}/resident_string
-     ${SOURCE_DIR}/resident_string.h
-     ${SOURCE_DIR}/hash_algorithm
-     ${SOURCE_DIR}/hash_algorithm.h
-     ${SOURCE_DIR}/password
-     ${SOURCE_DIR}/password.h
-     ${SOURCE_DIR}/username
-     ${SOURCE_DIR}/username.h
      ${SOURCE_DIR}/http
      ${SOURCE_DIR}/http.h
      ${SOURCE_DIR}/hexidecimal

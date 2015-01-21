@@ -11,7 +11,8 @@
 #include <corvusoft/framework/regex_option>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::regex;
@@ -24,20 +25,38 @@ using framework::RegexOption;
 
 //External Namespaces
 
-TEST( Regex, string_constructor_ignore_case )
+SCENARIO( "case insensitive string constructor", "[regex]" )
 {
-    string value = "^[a-z]{9,9}$";
-    
-    Regex pattern( value, RegexOption::CASE_INSENSITIVE );
-    
-    EXPECT_TRUE( pattern.is_match( "Corvusoft" ) );
+    GIVEN( "i want to instantiate a regex" )
+    {
+        const string value = "^[a-z]{9,9}$";
+        
+        Regex pattern( value, RegexOption::CASE_INSENSITIVE );
+        
+        WHEN( "i construct the object with '^[a-z]{9,9}$'" )
+        {
+            THEN( "i should see pattern '^[a-z]{9,9}$'" )
+            {
+                REQUIRE( pattern.to_string( ) == value );
+            }
+        }
+    }
 }
 
-TEST( Regex, character_constructor_ignore_case )
+SCENARIO( "case insensitive character pointer constructor", "[regex]" )
 {
-    const char* value = "^[a-z]{9,9}$";
-    
-    Regex pattern( value, RegexOption::CASE_INSENSITIVE );
-    
-    EXPECT_TRUE( pattern.is_match( "Corvusoft" ) );
+    GIVEN( "i want to instantiate a regex" )
+    {
+        const char* value = "^[a-z]{9,9}$";
+        
+        Regex pattern( value, RegexOption::CASE_INSENSITIVE );
+        
+        WHEN( "i construct the object with '^[a-z]{9,9}$'" )
+        {
+            THEN( "i should see pattern '^[a-z]{9,9}$'" )
+            {
+                REQUIRE( pattern.to_string( ) == value );
+            }
+        }
+    }
 }

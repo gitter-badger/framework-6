@@ -1,16 +1,13 @@
-[submodule "dependency/gtest"]
-        branch = master
-	path = dependency/gtest
-	url = http://source.corvusoft.co.uk/gtest-dependency.git
-[submodule "dependency/gcrypt"]
-        branch = master
-	path = dependency/gcrypt
-	url = http://source.corvusoft.co.uk/gcrypt-dependency.git
-[submodule "dependency/gpg-error"]
-        branch = master
-	path = dependency/gpg-error
-	url = http://source.corvusoft.co.uk/gpg-error-dependency.git
 [submodule "dependency/curl"]
         branch = master
 	path = dependency/curl
 	url = http://source.corvusoft.co.uk/libcurl-dependency.git
+[submodule "dependency/catch"]
+	path = dependency/catch
+	url = http://source.corvusoft.co.uk/catch-dependency.git
+[submodule "dependency/ooid"]
+	path = dependency/ooid
+	url = http://source.corvusoft.co.uk/ooid-dependency.git
+[submodule "dependency/md5"]
+	path = dependency/md5
+	url = http://source.corvusoft.co.uk/md5-dependency.git

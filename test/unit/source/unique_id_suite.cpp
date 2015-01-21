@@ -4,117 +4,308 @@
 
 //System Includes
 #include <string>
+#include <chrono>
 #include <stdexcept>
 
 //Project Includes
 #include <corvusoft/framework/unique_id>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::string;
 using std::invalid_argument;
+using std::chrono::time_point;
+using std::chrono::system_clock;
 
 //Project Namespaces
 using framework::UniqueId;
 
 //External Namespaces
 
-TEST( UniqueId, constructor )
+SCENARIO( "constructor", "[unique_id]" )
 {
-    UniqueId unique_id( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    
-    EXPECT_EQ( "419D60B4-816A-447A-B902-A06DCCD61847", unique_id.to_string( ) );
-    EXPECT_THROW( UniqueId( "" ), invalid_argument );
-    EXPECT_THROW( UniqueId( "---_)(*&" ), invalid_argument );
-}
-
-TEST( UniqueId, copy_constructor )
-{
-    UniqueId original( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    UniqueId copy( original );
-    
-    EXPECT_EQ( "419D60B4-816A-447A-B902-A06DCCD61847", copy.to_string( ) );
-}
-
-TEST( UniqueId, destructor )
-{
-    EXPECT_NO_THROW(
+    GIVEN( "i want to instantiate a unique id from a string value" )
     {
-        UniqueId* unique_id = new UniqueId( "419D60B4-816A-447A-B902-A06DCCD61847" );
+        UniqueId unique_id( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
         
-        delete unique_id;
-    } );
+        WHEN( "i construct the object with 'c0f22109-d258-4458-a3f5-0d16b2f55487'" )
+        {
+            const string id = unique_id.to_string( );
+            const time_point< system_clock > timestamp = unique_id.get_timestamp( );
+            
+            THEN( "i should see 'c0f22109-d258-4458-a3f5-0d16b2f55487'" )
+            {
+                REQUIRE( timestamp == system_clock::from_time_t( 1421766026 ) );
+                REQUIRE( id == "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, is_valid )
+SCENARIO( "invalid constructor", "[unique_id]" )
 {
-    EXPECT_FALSE( UniqueId::is_valid( "" ) );
-    EXPECT_FALSE( UniqueId::is_valid( "----" ) );
-    EXPECT_TRUE( UniqueId::is_valid( "419D60B4-816A-447A-B902-A06DCCD61847" ) );
+    GIVEN( "i want to instantiate a unique id from a string value" )
+    {
+        WHEN( "i construct the object with '---_)(*&'" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( UniqueId( "" ), invalid_argument );
+                REQUIRE_THROWS_AS( UniqueId( "---_)(*&" ), invalid_argument );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, to_string )
+SCENARIO( "copy-constructor", "[unique_id]" )
 {
-    UniqueId unique_id( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    
-    EXPECT_EQ( "419D60B4-816A-447A-B902-A06DCCD61847", unique_id.to_string( ) );
+    GIVEN( "i want to copy an existing unique id" )
+    {
+        UniqueId unique_id( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        
+        WHEN( "i instantiate the object with the copy-constructor" )
+        {
+            UniqueId copy( unique_id );
+            const string id = copy.to_string( );
+            const time_point< system_clock > timestamp = copy.get_timestamp( );
+            
+            THEN( "i should see the same properties" )
+            {
+                REQUIRE( timestamp == system_clock::from_time_t( 1421766026 ) );
+                REQUIRE( id == "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, generate )
+SCENARIO( "destructor", "[unique_id]" )
 {
-    UniqueId unique_id = UniqueId::generate( );
-    
-    EXPECT_NE( "", unique_id.to_string( ) );
+    GIVEN( "i instantiate a new object" )
+    {
+        UniqueId* unique_id = new UniqueId( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        
+        WHEN( "i deallocate the object" )
+        {
+            THEN( "i should not see any exceptions" )
+            {
+                REQUIRE_NOTHROW( delete unique_id );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, parse )
+SCENARIO( "assignment-operator", "[unique_id]" )
 {
-    UniqueId unique_id = UniqueId::parse( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    
-    EXPECT_EQ( "419D60B4-816A-447A-B902-A06DCCD61847", unique_id.to_string( ) );
-    
-    EXPECT_THROW( UniqueId::parse( "" ), invalid_argument );
-    EXPECT_THROW( UniqueId::parse( "*&^%$£" ), invalid_argument );
+    GIVEN( "i want to copy an existing unique id" )
+    {
+        UniqueId unique_id( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        
+        WHEN( "i instantiate the object with the assignment-operator" )
+        {
+            UniqueId copy = unique_id;
+            const string id = copy.to_string( );
+            const time_point< system_clock > timestamp = copy.get_timestamp( );
+            
+            THEN( "i should see the same properties" )
+            {
+                REQUIRE( timestamp == system_clock::from_time_t( 1421766026 ) );
+                REQUIRE( id == "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, assignment_operator )
+SCENARIO( "less-than-operator", "[unique_id]" )
 {
-    UniqueId original( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    UniqueId copy = original;
-    
-    EXPECT_EQ( "419D60B4-816A-447A-B902-A06DCCD61847", copy.to_string( ) );
+    GIVEN( "i want to compare two objects" )
+    {
+        UniqueId lhs = UniqueId::generate( );
+        UniqueId rhs = UniqueId::generate( );
+        
+        WHEN( "i perform a comparison with the less-than-operator" )
+        {
+            THEN( "i should see the lhs is less than the rhs" )
+            {
+                REQUIRE( lhs < rhs );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, less_than_operator )
+SCENARIO( "greater-than-operator", "[unique_id]" )
 {
-    UniqueId lhs( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    UniqueId rhs( "450A6A76-EDBB-48F6-B1E1-F6930E05605E" );
-    
-    EXPECT_TRUE( lhs < rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        UniqueId lhs = UniqueId::generate( );
+        UniqueId rhs = UniqueId::generate( );
+        
+        WHEN( "i perform a comparison with the greater-than-operator" )
+        {
+            THEN( "i should see the lhs is greater than the rhs" )
+            {
+                REQUIRE( rhs > lhs );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, greater_than_operator )
+SCENARIO( "equality-operator", "[unique_id]" )
 {
-    UniqueId lhs( "450A6A76-EDBB-48F6-B1E1-F6930E05605E" );
-    UniqueId rhs( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    
-    EXPECT_TRUE( lhs > rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        UniqueId lhs( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        UniqueId rhs( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        
+        WHEN( "i perform a comparison with the equality-operator" )
+        {
+            THEN( "i should see the identical instances" )
+            {
+                REQUIRE( lhs == rhs );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, equality_operator )
+SCENARIO( "inequality-operator", "[unique_id]" )
 {
-    UniqueId lhs( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    UniqueId rhs( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    
-    EXPECT_TRUE( lhs == rhs );
+    GIVEN( "i want to compare two objects" )
+    {
+        UniqueId lhs = UniqueId::generate( );
+        UniqueId rhs = UniqueId::generate( );
+        
+        WHEN( "i perform a comparison with the inequality-operator" )
+        {
+            THEN( "i should see the identical instances" )
+            {
+                REQUIRE( lhs not_eq rhs );
+            }
+        }
+    }
 }
 
-TEST( UniqueId, inequality_operator )
+SCENARIO( "is_valid", "[unique_id]" )
 {
-    UniqueId lhs( "419D60B4-816A-447A-B902-A06DCCD61847" );
-    UniqueId rhs( "450A6A76-EDBB-48F6-B1E1-F6930E05605E" );
-    
-    EXPECT_TRUE( lhs != rhs );
+    GIVEN( "i want to validate strings" )
+    {
+        WHEN( "i invoke is_valid with 'c0f22109-d258-4458-a3f5-0d16b2f55487' example data" )
+        {
+            THEN( "i should see success" )
+            {
+                REQUIRE( UniqueId::is_valid( "c0f22109-d258-4458-a3f5-0d16b2f55487" ) == true );
+            }
+        }
+    }
+}
+
+SCENARIO( "invalid is_valid", "[unique_id]" )
+{
+    GIVEN( "i want to validate strings" )
+    {
+        WHEN( "i invoke is_valid with '____' example data" )
+        {
+            THEN( "i should see failure" )
+            {
+                REQUIRE( UniqueId::is_valid( "____" ) == false );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty is_valid", "[unique_id]" )
+{
+    GIVEN( "i want to validate strings" )
+    {
+        WHEN( "i invoke is_valid with '' example data" )
+        {
+            THEN( "i should see failure" )
+            {
+                REQUIRE( UniqueId::is_valid( "" ) == false );
+            }
+        }
+    }
+}
+
+SCENARIO( "to_string", "[unique_id]" )
+{
+    GIVEN( "an object with example data" )
+    {
+        UniqueId unique_id( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        
+        WHEN( "i invoke to_string" )
+        {
+            THEN( "i should a string representation" )
+            {
+                REQUIRE( unique_id.to_string( ) == "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+            }
+        }
+    }
+}
+
+SCENARIO( "generate", "[unique_id]" )
+{
+    GIVEN( "i want to generate a new unique id" )
+    {
+        UniqueId unique_id = UniqueId::generate( );
+        
+        WHEN( "i invoke generate" )
+        {
+            const string id = unique_id.to_string( );
+            const time_point< system_clock > timestamp = unique_id.get_timestamp( );
+            
+            THEN( "i should a valid identifier" )
+            {
+                REQUIRE( id not_eq "" );
+                REQUIRE( timestamp <= system_clock::now( ) );
+            }
+        }
+    }
+}
+
+SCENARIO( "parse", "[unique_id]" )
+{
+    GIVEN( "i want to instantiate a unique id from a string value" )
+    {
+        UniqueId unique_id = UniqueId::parse( "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+        
+        WHEN( "i invoke parse with 'c0f22109-d258-4458-a3f5-0d16b2f55487'" )
+        {
+            const string value = unique_id.to_string( );
+            
+            THEN( "i should see 'c0f22109-d258-4458-a3f5-0d16b2f55487'" )
+            {
+                REQUIRE( value == "c0f22109-d258-4458-a3f5-0d16b2f55487" );
+            }
+        }
+    }
+}
+
+SCENARIO( "invalid parse", "[unique_id]" )
+{
+    GIVEN( "i want to instantiate a unique id from a string value" )
+    {
+        WHEN( "i invoke parse with '---_)(*&'" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( UniqueId::parse( "---_)(*&" ), invalid_argument );
+            }
+        }
+    }
+}
+
+SCENARIO( "empty parse", "[unique_id]" )
+{
+    GIVEN( "i want to instantiate a unique id from a string value" )
+    {
+        WHEN( "i invoke parse with ''" )
+        {
+            THEN( "i should see an exception" )
+            {
+                REQUIRE_THROWS_AS( UniqueId::parse( "" ), invalid_argument );
+            }
+        }
+    }
 }

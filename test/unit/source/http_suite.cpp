@@ -12,7 +12,8 @@
 #include <corvusoft/framework/http>
 
 //External Includes
-#include <gtest/gtest.h>
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 
 //System Namespaces
 using std::map;
@@ -24,28 +25,46 @@ using framework::Http;
 
 //External Namespaces
 
-TEST( Http, request_defaults )
+SCENARIO( "request constructor", "[http]" )
 {
-    Http::Request request;
-    
-    EXPECT_EQ( "", request.uri );
-    EXPECT_EQ( 1.1, request.version );
-    EXPECT_EQ( "GET", request.method );
-    EXPECT_EQ( vector< uint8_t >( ), request.body );
-    
-    map< string, string > headers;
-    EXPECT_EQ( headers, request.headers );
+    GIVEN( "i want to instantiate a HTTP request" )
+    {
+        WHEN( "i construct the structure" )
+        {
+            Http::Request request;
+            
+            THEN( "i should see default request values" )
+            {
+                REQUIRE( request.uri == "" );
+                REQUIRE( request.version == 1.1 );
+                REQUIRE( request.method == "GET" );
+                REQUIRE( request.body == vector< uint8_t >( ) );
+                
+                map< string, string > headers;
+                REQUIRE( request.headers == headers );
+            }
+        }
+    }
 }
 
-TEST( Http, response_defaults )
+SCENARIO( "response constructor", "[http]" )
 {
-    Http::Response response;
-    
-    EXPECT_EQ( 1.1, response.version );
-    EXPECT_EQ( 0, response.status_code );
-    EXPECT_EQ( "", response.status_message );
-    EXPECT_EQ( vector< uint8_t >( ), response.body );
-    
-    map< string, string > headers;
-    EXPECT_EQ( headers, response.headers );
+    GIVEN( "i want to instantiate a HTTP response" )
+    {
+        WHEN( "i construct the structure" )
+        {
+            Http::Response response;
+            
+            THEN( "i should see default request values" )
+            {
+                REQUIRE( response.version == 1.1 );
+                REQUIRE( response.status_code == 0 );
+                REQUIRE( response.status_message == "" );
+                REQUIRE( response.body == vector< uint8_t >( ) );
+                
+                map< string, string > headers;
+                REQUIRE( response.headers == headers );
+            }
+        }
+    }
 }

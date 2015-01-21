@@ -13,6 +13,8 @@
 //System Namespaces
 using std::string;
 using std::unique_ptr;
+using std::chrono::time_point;
+using std::chrono::system_clock;
 
 //Project Namespaces
 using framework::detail::UniqueIdImpl;
@@ -54,15 +56,18 @@ namespace framework
     UniqueId UniqueId::parse( const string& value )
     {
         UniqueId id;
-        
         id.m_pimpl->set_id( value );
-        
         return id;
     }
     
     bool UniqueId::is_valid( const string& value )
     {
         return UniqueIdImpl::is_valid( value );
+    }
+    
+    time_point< system_clock > UniqueId::get_timestamp( void ) const
+    {
+        return m_pimpl->get_timestamp( );
     }
     
     UniqueId& UniqueId::operator =( const UniqueId& value )
