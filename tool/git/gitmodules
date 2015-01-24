@@ -1,9 +1,12 @@
-[submodule "dependency/gtest"]
-	path = dependency/gtest
-	url = http://source.corvusoft.co.uk/gtest-dependency.git
-[submodule "dependency/gcrypt"]
-	path = dependency/gcrypt
-	url = http://source.corvusoft.co.uk/gcrypt-dependency.git
-[submodule "dependency/gpg-error"]
-	path = dependency/gpg-error
-	url = http://source.corvusoft.co.uk/gpg-error-dependency.git
+[submodule "dependency/catch"]
+	path = dependency/catch
+	url = http://source.corvusoft.co.uk/catch-dependency.git
+[submodule "dependency/ooid"]
+	path = dependency/ooid
+	url = http://source.corvusoft.co.uk/ooid-dependency.git
+[submodule "dependency/md5"]
+	path = dependency/md5
+	url = http://source.corvusoft.co.uk/md5-dependency.git
+[submodule "dependency/asio"]
+	path = dependency/asio
+	url = http://source.corvusoft.co.uk/asio-dependency.git
