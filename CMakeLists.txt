@@ -16,9 +16,9 @@ set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules" 
 
 find_package( md5 REQUIRED )
 find_package( ooid REQUIRED )
-find_package( curl REQUIRED )
+find_package( asio REQUIRED )
 
-include_directories( ${md5_INCLUDE} ${ooid_INCLUDE} ${curl_INCLUDE} )
+include_directories( ${md5_INCLUDE} ${ooid_INCLUDE} ${asio_INCLUDE} )
 
 #
 # Configuration
@@ -27,6 +27,7 @@ set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/source" )
 set( SOURCE_DIR "${INCLUDE_DIR}/corvusoft/${PROJECT_NAME}" )
 set( CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/distribution" )
 set( LIBRARY_OUTPUT_PATH "${CMAKE_INSTALL_PREFIX}/library" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DASIO_STANDALONE=YES" )
 
 if ( ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" )
     if ( ${CMAKE_CXX_COMPILER_VERSION} VERSION_LESS 4.9 )

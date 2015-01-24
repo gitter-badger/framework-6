@@ -35,7 +35,8 @@ SCENARIO( "request constructor", "[http]" )
             
             THEN( "i should see default request values" )
             {
-                REQUIRE( request.uri == "" );
+                REQUIRE( request.host == "" );
+                REQUIRE( request.path == "" );
                 REQUIRE( request.version == 1.1 );
                 REQUIRE( request.method == "GET" );
                 REQUIRE( request.body == vector< uint8_t >( ) );

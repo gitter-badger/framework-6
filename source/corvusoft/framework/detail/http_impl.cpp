@@ -3,6 +3,10 @@
  */
 
 //System Includes
+#include <map>
+#include <string>
+#include <iostream>
+#include <stdexcept>
 
 //Project Includes
 #include "corvusoft/framework/map.h"
@@ -10,18 +14,26 @@
 #include "corvusoft/framework/detail/http_impl.h"
 
 //External Includes
-#include <curl/curl.h>
+#include <asio.hpp>
 
 //System Namespaces
 using std::map;
-using std::stol;
 using std::stod;
+using std::vector;
 using std::string;
+using std::istream;
+using std::ostream;
+using std::getline;
 using std::to_string;
+using std::runtime_error;
 
 //Project Namespaces
 
 //External Namespaces
+using asio::ip::tcp;
+using asio::io_service;
+using asio::error_code;
+using asio::system_error;
 
 namespace framework
 {
@@ -62,110 +74,80 @@ namespace framework
         Http::Response HttpImpl::perform( const Http::Request& request )
         {
             Http::Response response;
-            
-            curl_global_init( CURL_GLOBAL_ALL );
-            
-            CURL* curl = curl_easy_init( );
-            
-            if ( curl )
+
+            io_service io_service;
+
+            tcp::resolver resolver( io_service );
+            tcp::resolver::query query( request.host, "http" );
+            tcp::resolver::iterator endpoint_iterator = resolver.resolve( query );
+            tcp::resolver::iterator end;
+
+            tcp::socket socket( io_service );
+            error_code error = asio::error::host_not_found;
+
+            while ( error and endpoint_iterator not_eq end )
             {
-                curl_easy_setopt( curl, CURLOPT_VERBOSE, 0L );
-                
-                curl_easy_setopt( curl, CURLOPT_CUSTOMREQUEST, request.method.data( ) );
-                
-                curl_easy_setopt( curl, CURLOPT_WRITEFUNCTION, &write_body_callback );
-                
-                curl_easy_setopt( curl, CURLOPT_WRITEDATA, &response );
-                
-                curl_easy_setopt( curl, CURLOPT_HEADERFUNCTION, &write_headers_callback );
-                
-                curl_easy_setopt( curl, CURLOPT_WRITEHEADER, &response );
-                
-                curl_easy_setopt( curl, CURLOPT_URL, request.uri.data( ) );
-                
-                curl_easy_setopt( curl, CURLOPT_POSTFIELDS, &( request.body )[ 0 ] );
-                
-                curl_easy_setopt( curl, CURLOPT_HTTP_VERSION, request.version );
-                
-                struct curl_slist* headers = nullptr;
-                
-                if ( Map::find_ignoring_case( "Content-Length", request.headers ) == request.headers.end( ) )
-                {
-                    string value = "Content-Length: " + ::to_string( request.body.size( ) );
-                    
-                    headers = curl_slist_append( headers, value.data( ) );
-                }
-                
-                for ( auto header : request.headers )
-                {
-                    string value = header.first + ": " + header.second;
-                    
-                    headers = curl_slist_append( headers, value.data( ) );
-                }
-                
-                curl_easy_setopt( curl, CURLOPT_HTTPHEADER, headers );
-                
-                CURLcode result = curl_easy_perform( curl );
-                
-                if ( result not_eq CURLE_OK )
-                {
-                    fprintf( stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror( result ) );
-                }
-                
-                curl_easy_cleanup( curl );
+                socket.close( );
+                socket.connect( *endpoint_iterator++, error );
+            }
+
+            if ( error )
+            {
+                throw system_error(error);
+            }
+
+            asio::streambuf request_buffer;
+            ostream request_stream( &request_buffer );
+
+            request_stream << request.method << request.path << " HTTP/1.1\r\n";
+            request_stream << "Host: " << request.host << "\r\n";
+
+            for ( auto header : request.headers )
+            {
+                request_stream << header.first << ": " << header.second << "\r\n";
+            }
+
+            request_stream << "\r\n";
+
+            if ( not request.body.empty( ) )
+            {
+                request_stream << request.body.data( );
+            }
+
+            asio::write( socket, request_buffer );
+
+            asio::streambuf response_buffer;
+            asio::read_until( socket, response_buffer, "\r\n" );
+            istream response_stream( &response_buffer );
+
+            string http_version;
+            response_stream >> http_version;
+            response.version = stod( http_version.substr( 5, 8 ) );
+
+            response_stream >> response.status_code;
+            getline( response_stream, response.status_message );
+
+            asio::read_until( socket, response_buffer, "\r\n\r\n" );
+
+            string header;
+            while ( getline( response_stream, header ) and header not_eq "\r" )
+            {
+                auto name_value = String::split( header, ':' );
+
+                response.headers[ name_value[ 0 ] ] = name_value[ 1 ];
+            }
+
+            while ( asio::read( socket, asio::buffer( response.body ), asio::transfer_at_least( 1 ), error ) )
+            {
+                //n/a
+            }
+
+            if ( error not_eq asio::error::eof )
+            {
+                throw runtime_error( "failed to read response." );
             }
             
             return response;
-        }
-        
-        size_t HttpImpl::write_body_callback( void* data, size_t size, size_t nmemb, void* ptr )
-        {
-            Http::Response* response = static_cast< Http::Response* >( ptr );
-            
-            auto length = size * nmemb;
-            
-            response->body = Bytes( static_cast< Byte* >( data ), static_cast< Byte* >( data ) + length );
-            
-            return length;
-        }
-        
-        size_t HttpImpl::write_headers_callback( void* data, size_t size, size_t nmemb, void* ptr )
-        {
-            Http::Response* response = static_cast< Http::Response* >( ptr );
-            
-            auto length = size * nmemb;
-            auto response_data = String::trim( string( static_cast< char* >( data ), length ) );
-            
-            if ( not response_data.empty( ) )
-            {
-                if ( "HTTP/" == String::uppercase( response_data.substr( 0, 5 ) ) )
-                {
-                    auto parts = String::split( response_data, ' ' );
-                    
-                    response->status_code = stol( parts[ 1 ] );
-                    response->status_message = String::trim( parts[ 2 ] );
-                    
-                    parts = String::split( parts[ 0 ], '/' );
-                    response->version = stod( parts[ 1 ] );
-                }
-                else
-                {
-                    auto header = String::split( response_data, ':' );
-                    
-                    if ( header.size( ) > 1 )
-                    {
-                        auto name = String::trim( header[ 0 ] );
-                        auto value = String::trim( header[ 1 ] );
-                        
-                        if ( not name.empty( ) )
-                        {
-                            response->headers[ name ] = value;
-                        }
-                    }
-                }
-            }
-            
-            return length;
         }
     }
 }

@@ -34,7 +34,8 @@ namespace framework
             {
                 Bytes body;
                 double version = 1.1;
-                std::string uri = "";
+                std::string host = "";
+                std::string path = "";
                 std::string method = "GET";
                 std::map< std::string, std::string > headers;
             };

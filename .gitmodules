@@ -1,7 +1,3 @@
-[submodule "dependency/curl"]
-        branch = master
-	path = dependency/curl
-	url = http://source.corvusoft.co.uk/libcurl-dependency.git
 [submodule "dependency/catch"]
 	path = dependency/catch
 	url = http://source.corvusoft.co.uk/catch-dependency.git
@@ -11,3 +7,6 @@
 [submodule "dependency/md5"]
 	path = dependency/md5
 	url = http://source.corvusoft.co.uk/md5-dependency.git
+[submodule "dependency/asio"]
+	path = dependency/asio
+	url = http://source.corvusoft.co.uk/asio-dependency.git
