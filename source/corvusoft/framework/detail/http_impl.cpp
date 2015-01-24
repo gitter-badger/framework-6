@@ -5,6 +5,7 @@
 //System Includes
 #include <map>
 #include <string>
+#include <utility>
 #include <iostream>
 #include <stdexcept>
 
@@ -26,12 +27,12 @@ using std::ostream;
 using std::getline;
 using std::to_string;
 using std::runtime_error;
+using std::istreambuf_iterator;
 
 //Project Namespaces
 
 //External Namespaces
 using asio::ip::tcp;
-using asio::io_service;
 using asio::error_code;
 using asio::system_error;
 
@@ -43,42 +44,40 @@ namespace framework
         {
             Http::Request action = request;
             action.method = "GET";
-            
+
             return perform( action );
         }
-        
+
         Http::Response HttpImpl::put( const Http::Request& request )
         {
             Http::Request action = request;
             action.method = "PUT";
-            
+
             return perform( action );
         }
-        
+
         Http::Response HttpImpl::post( const Http::Request& request )
         {
             Http::Request action = request;
             action.method = "POST";
-            
+
             return perform( action );
         }
-        
+
         Http::Response HttpImpl::destroy( const Http::Request& request )
         {
             Http::Request action = request;
             action.method = "DELETE";
-            
+
             return perform( action );
         }
-        
+
         Http::Response HttpImpl::perform( const Http::Request& request )
         {
-            Http::Response response;
-
-            io_service io_service;
+            asio::io_service io_service;
 
             tcp::resolver resolver( io_service );
-            tcp::resolver::query query( request.host, "http" );
+            tcp::resolver::query query( request.host, ::to_string( request.port ) );
             tcp::resolver::iterator endpoint_iterator = resolver.resolve( query );
             tcp::resolver::iterator end;
 
@@ -99,8 +98,9 @@ namespace framework
             asio::streambuf request_buffer;
             ostream request_stream( &request_buffer );
 
-            request_stream << request.method << request.path << " HTTP/1.1\r\n";
+            request_stream << request.method << " " << request.path << " HTTP/1.1\r\n";
             request_stream << "Host: " << request.host << "\r\n";
+            request_stream << "Connection: close\r\n";
 
             for ( auto header : request.headers )
             {
@@ -116,6 +116,7 @@ namespace framework
 
             asio::write( socket, request_buffer );
 
+            Http::Response response;
             asio::streambuf response_buffer;
             asio::read_until( socket, response_buffer, "\r\n" );
             istream response_stream( &response_buffer );
@@ -133,13 +134,13 @@ namespace framework
             while ( getline( response_stream, header ) and header not_eq "\r" )
             {
                 auto name_value = String::split( header, ':' );
-
-                response.headers[ name_value[ 0 ] ] = name_value[ 1 ];
+                response.headers.insert( make_pair( name_value[ 0 ], name_value[ 1 ] ) );
             }
 
-            while ( asio::read( socket, asio::buffer( response.body ), asio::transfer_at_least( 1 ), error ) )
+            while ( asio::read( socket, response_buffer, asio::transfer_at_least( 1 ), error ) )
             {
-                //n/a
+                auto body = Bytes( istreambuf_iterator< char >( &response_buffer ), istreambuf_iterator< char >( ) );
+                response.body.insert( response.body.end( ), body.begin( ), body.end( ) );
             }
 
             if ( error not_eq asio::error::eof )

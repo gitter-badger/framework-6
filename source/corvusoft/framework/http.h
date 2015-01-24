@@ -8,6 +8,7 @@
 //System Includes
 #include <map>
 #include <string>
+#include <cstdint>
 
 //Project Includes
 #include <corvusoft/framework/bytes>
@@ -33,11 +34,12 @@ namespace framework
             struct Request
             {
                 Bytes body;
+                uint16_t port = 80;
                 double version = 1.1;
                 std::string host = "";
-                std::string path = "";
+                std::string path = "/";
                 std::string method = "GET";
-                std::map< std::string, std::string > headers;
+                std::multimap< std::string, std::string > headers;
             };
             
             struct Response
@@ -46,7 +48,7 @@ namespace framework
                 double version = 1.1;
                 long status_code = 0;
                 std::string status_message = "";
-                std::map< std::string, std::string > headers;
+                std::multimap< std::string, std::string > headers;
             };
             
             //Constructors

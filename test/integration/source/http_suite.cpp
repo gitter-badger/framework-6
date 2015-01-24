@@ -10,18 +10,19 @@
 
 //Project Includes
 #include <corvusoft/framework/http>
+#include <corvusoft/framework/bytes>
 
 //External Includes
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
 //System Namespaces
-using std::map;
-using std::vector;
 using std::string;
+using std::multimap;
 
 //Project Namespaces
 using framework::Http;
+using framework::Bytes;
 
 //External Namespaces
 
@@ -36,12 +37,13 @@ SCENARIO( "request constructor", "[http]" )
             THEN( "i should see default request values" )
             {
                 REQUIRE( request.host == "" );
-                REQUIRE( request.path == "" );
+                REQUIRE( request.path == "/" );
+                REQUIRE( request.port == 80 );
                 REQUIRE( request.version == 1.1 );
                 REQUIRE( request.method == "GET" );
-                REQUIRE( request.body == vector< uint8_t >( ) );
+                REQUIRE( request.body == Bytes( ) );
                 
-                map< string, string > headers;
+                multimap< string, string > headers;
                 REQUIRE( request.headers == headers );
             }
         }
@@ -61,9 +63,9 @@ SCENARIO( "response constructor", "[http]" )
                 REQUIRE( response.version == 1.1 );
                 REQUIRE( response.status_code == 0 );
                 REQUIRE( response.status_message == "" );
-                REQUIRE( response.body == vector< uint8_t >( ) );
+                REQUIRE( response.body == Bytes( ) );
                 
-                map< string, string > headers;
+                multimap< string, string > headers;
                 REQUIRE( response.headers == headers );
             }
         }
