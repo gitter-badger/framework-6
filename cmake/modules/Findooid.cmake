@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 Corvusoft
+# Copyright (c) 2013, 2014, 2015 Corvusoft
 
 find_path( ooid_INCLUDE uuid.h HINTS "${CMAKE_SOURCE_DIR}/dependency/ooid/kashmir" "/usr/include" "/usr/local/include" "/opt/local/include" )
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 Corvusoft
+# Copyright (c) 2013, 2014, 2015 Corvusoft
 
 find_path( md5_INCLUDE md5.h HINTS "${CMAKE_SOURCE_DIR}/dependency/md5/include" "/usr/include" "/usr/local/include" "/opt/local/include" )
 
