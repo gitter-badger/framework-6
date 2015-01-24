@@ -58,7 +58,7 @@ include_directories( ${INCLUDE_DIR} )
 
 add_library( ${PROJECT_NAME} SHARED ${MANIFEST} )
 
-target_link_libraries( ${PROJECT_NAME} ${curl_LIBRARY} )
+target_link_libraries( ${PROJECT_NAME} )
 
 #
 # Install
