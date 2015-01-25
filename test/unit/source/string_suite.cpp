@@ -11,7 +11,6 @@
 #include <corvusoft/framework/string>
 
 //External Includes
-#define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
 //System Namespaces

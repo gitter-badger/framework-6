@@ -9,7 +9,6 @@
 #include <corvusoft/framework/istream>
 
 //External Includes
-#define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
 //System Namespaces
