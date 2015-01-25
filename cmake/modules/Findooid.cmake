@@ -3,7 +3,7 @@
 find_path( ooid_INCLUDE uuid.h HINTS "${CMAKE_SOURCE_DIR}/dependency/ooid/kashmir" "/usr/include" "/usr/local/include" "/opt/local/include" )
 
 if ( ooid_INCLUDE )
-    set( ooid_FOUND TRUE )
+    set( OOID_FOUND TRUE )
 
     if ( NOT ooid_FIND_QUIETLY )
         message( STATUS "Found ooid header: ${ooid_INCLUDE}" )
