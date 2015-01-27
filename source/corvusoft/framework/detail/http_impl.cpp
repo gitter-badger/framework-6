@@ -72,6 +72,30 @@ namespace framework
             return perform( action );
         }
 
+        Http::Response HttpImpl::trace( const Http::Request& request )
+        {
+            Http::Request action = request;
+            action.method = "TRACE";
+
+            return perform( action );
+        }
+
+        Http::Response HttpImpl::connect( const Http::Request& request )
+        {
+            Http::Request action = request;
+            action.method = "CONNECT";
+
+            return perform( action );
+        }
+
+        Http::Response HttpImpl::options( const Http::Request& request )
+        {
+            Http::Request action = request;
+            action.method = "OPTIONS";
+
+            return perform( action );
+        }
+
         Http::Response HttpImpl::perform( const Http::Request& request )
         {
             asio::io_service io_service;

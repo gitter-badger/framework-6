@@ -161,7 +161,7 @@ SCENARIO( "equality-operator", "[checksum]" )
         
         WHEN( "i perform a comparison with the equality-operator" )
         {
-            THEN( "i should see the identical instances" )
+            THEN( "i should see identical instances" )
             {
                 REQUIRE( lhs == rhs );
             }

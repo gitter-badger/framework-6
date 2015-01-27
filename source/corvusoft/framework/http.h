@@ -61,6 +61,12 @@ namespace framework
             static Response post( const Request& request );
             
             static Response destroy( const Request& request );
+
+            static Response trace( const Request& request );
+
+            static Response connect( const Request& request );
+
+            static Response options( const Request& request );
             
             //Getters
             

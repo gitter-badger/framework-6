@@ -44,6 +44,12 @@ namespace framework
                 static Http::Response post( const Http::Request& request );
                 
                 static Http::Response destroy( const Http::Request& request );
+
+                static Http::Response trace( const Http::Request& request );
+
+                static Http::Response connect( const Http::Request& request );
+
+                static Http::Response options( const Http::Request& request );
                 
                 //Getters
                 

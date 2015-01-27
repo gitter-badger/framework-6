@@ -40,4 +40,19 @@ namespace framework
     {
         return HttpImpl::destroy( request );
     }
+
+    Http::Response Http::trace( const Http::Request& request )
+    {
+        return HttpImpl::trace( request );
+    }
+
+    Http::Response Http::connect( const Http::Request& request )
+    {
+        return HttpImpl::connect( request );
+    }
+
+    Http::Response Http::options( const Http::Request& request )
+    {
+        return HttpImpl::options( request );
+    }
 }
