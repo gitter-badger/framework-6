@@ -166,24 +166,20 @@ namespace framework
         
         string StringImpl::trim( const string& value, const string& delimiter )
         {
-            string result = empty;
-            
-            result = StringImpl::trim_leading( value, delimiter );
-            
-            result = StringImpl::trim_lagging( result, delimiter );
-            
-            return result;
+            string result = StringImpl::trim_leading( value, delimiter );
+
+            return StringImpl::trim_lagging( result, delimiter );
         }
         
         string StringImpl::trim_leading( const string& value, const string& delimiter )
         {
-            string result = value;
+            string result = empty;
             
-            size_t position = result.find_first_not_of( delimiter );
+            size_t position = value.find_first_not_of( delimiter );
             
             if ( string::npos not_eq position )
             {
-                result = result.substr( position );
+                result = value.substr( position );
             }
             
             return result;
@@ -191,13 +187,13 @@ namespace framework
         
         string StringImpl::trim_lagging( const string& value, const string& delimiter )
         {
-            string result = value;
+            string result = empty;
             
-            size_t position = result.find_last_not_of( delimiter );
+            size_t position = value.find_last_not_of( delimiter );
             
             if ( string::npos not_eq position )
             {
-                result = result.substr( 0, position + 1 );
+                result = value.substr( 0, position + 1 );
             }
             
             return result;
