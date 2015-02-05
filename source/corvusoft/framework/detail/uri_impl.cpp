@@ -59,7 +59,22 @@ namespace framework
         {
             return get_path( );
         }
-        
+
+        bool UriImpl::is_valid( const string& value )
+        {
+            try
+            {
+                UriImpl pimpl;
+                pimpl.set_uri( value );
+            }
+            catch ( const invalid_argument& ia )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         string UriImpl::decode( const Bytes& value )
         {
             return UriImpl::decode( string( value.begin( ), value.end( ) ) );

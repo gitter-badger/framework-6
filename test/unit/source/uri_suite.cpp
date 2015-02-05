@@ -265,6 +265,34 @@ SCENARIO( "to_native_path", "[uri]" )
     }
 }
 
+SCENARIO( "valid is_valid", "[uri]" )
+{
+    GIVEN( "i want to validate a string value" )
+    {
+        WHEN( "i construct the object with 'ws://restq.corvusoft.co.uk:443/queues" )
+        {
+            THEN( "i should see 'true'" )
+            {
+                REQUIRE( Uri::is_valid( "ws://restq.corvusoft.co.uk:443/queues" ) );
+            }
+        }
+    }
+}
+
+SCENARIO( "invalid is_valid", "[uri]" )
+{
+    GIVEN( "i want to validate a string value" )
+    {
+        WHEN( "i construct the object with '---_)(*&'" )
+        {
+            THEN( "i should not see an exception but a 'false' value" )
+            {
+                REQUIRE( Uri::is_valid( "---_)(*&" ) == false );
+            }
+        }
+    }
+}
+
 SCENARIO( "parse", "[uri]" )
 {
     GIVEN( "i want to instantiate a uri from a string value" )

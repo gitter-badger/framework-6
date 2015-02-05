@@ -47,8 +47,8 @@ namespace framework
                 std::string to_string( void ) const;
                 
                 std::string to_native_path( void ) const;
-                
-                static UriImpl parse( const std::string& value );
+
+                static bool is_valid( const std::string& value );
                 
                 static std::string decode( const Bytes& value );
                 

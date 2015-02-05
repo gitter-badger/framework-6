@@ -50,7 +50,12 @@ namespace framework
     {
         return m_pimpl->to_native_path( );
     }
-    
+
+    bool Uri::is_valid( const string& value )
+    {
+        return UriImpl::is_valid( value );
+    }
+
     Uri Uri::parse( const string& value )
     {
         Uri uri;
