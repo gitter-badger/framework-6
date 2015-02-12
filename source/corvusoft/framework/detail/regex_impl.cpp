@@ -52,12 +52,12 @@ namespace framework
         RegexImpl::RegexImpl( const RegexImpl& original ) : m_pattern( original.m_pattern ),
             m_expression( original.m_expression )
         {
-            //n/a
+            return;
         }
         
         RegexImpl::~RegexImpl( void )
         {
-            //n/a
+            return;
         }
         
         string RegexImpl::to_string( void ) const

@@ -28,17 +28,17 @@ namespace framework
     
     Checksum::Checksum( const Checksum& original ) : m_pimpl( new ChecksumImpl( *original.m_pimpl ) )
     {
-        //n/a
+        return;
     }
     
     Checksum::Checksum( const ChecksumImpl& implementation ) : m_pimpl( new ChecksumImpl( implementation ) )
     {
-        //n/a
+        return;
     }
     
     Checksum::~Checksum( void )
     {
-        //n/a
+        return;
     }
     
     string Checksum::to_string( void ) const
@@ -99,6 +99,6 @@ namespace framework
     
     Checksum::Checksum( void ) : m_pimpl( new ChecksumImpl )
     {
-        //n/a
+        return;
     }
 }

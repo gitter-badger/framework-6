@@ -30,17 +30,17 @@ namespace framework
     
     UniqueId::UniqueId( const UniqueId& original ) : m_pimpl( new UniqueIdImpl( *original.m_pimpl ) )
     {
-        //n/a
+        return;
     }
     
     UniqueId::UniqueId( const UniqueIdImpl& implementation ) : m_pimpl( new UniqueIdImpl( implementation ) )
     {
-        //n/a
+        return;
     }
     
     UniqueId::~UniqueId( void )
     {
-        //n/a
+        return;
     }
     
     string UniqueId::to_string( void ) const
@@ -99,6 +99,6 @@ namespace framework
     
     UniqueId::UniqueId( void ) : m_pimpl( new UniqueIdImpl )
     {
-        //n/a
+        return;
     }
 }

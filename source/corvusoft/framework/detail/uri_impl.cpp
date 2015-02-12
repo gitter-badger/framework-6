@@ -37,17 +37,17 @@ namespace framework
     {
         UriImpl::UriImpl( void ) : m_uri( String::empty )
         {
-            //n/a
+            return;
         }
         
         UriImpl::UriImpl( const UriImpl& original ) : m_uri( original.m_uri )
         {
-            //n/a
+            return;
         }
         
         UriImpl::~UriImpl( void )
         {
-            //n/a
+            return;
         }
         
         string UriImpl::to_string( void ) const

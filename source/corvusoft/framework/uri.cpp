@@ -28,17 +28,17 @@ namespace framework
     
     Uri::Uri( const Uri& original ) : m_pimpl( new UriImpl( *original.m_pimpl ) )
     {
-        //n/a
+        return;
     }
     
     Uri::Uri( const UriImpl& implementation ) : m_pimpl( new UriImpl( implementation ) )
     {
-        //n/a
+        return;
     }
     
     Uri::~Uri( void )
     {
-        //n/a
+        return;
     }
     
     string Uri::to_string( void ) const
@@ -159,6 +159,6 @@ namespace framework
     
     Uri::Uri( void ) : m_pimpl( new UriImpl )
     {
-        //n/a
+        return;
     }
 }

@@ -30,17 +30,17 @@ namespace framework
     {
         ChecksumImpl::ChecksumImpl( void ) : m_checksum( String::empty )
         {
-            //n/a
+            return;
         }
         
         ChecksumImpl::ChecksumImpl( const ChecksumImpl& original ) : m_checksum( original.m_checksum )
         {
-            //n/a
+            return;
         }
         
         ChecksumImpl::~ChecksumImpl( void )
         {
-            //n/a
+            return;
         }
         
         string ChecksumImpl::to_string( void ) const

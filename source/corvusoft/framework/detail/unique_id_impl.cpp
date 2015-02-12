@@ -40,17 +40,17 @@ namespace framework
     {
         UniqueIdImpl::UniqueIdImpl( void ) : m_unique_id( String::empty )
         {
-            //n/a
+            return;
         }
         
         UniqueIdImpl::UniqueIdImpl( const UniqueIdImpl& original ) : m_unique_id( original.m_unique_id )
         {
-            //n/a
+            return;
         }
         
         UniqueIdImpl::~UniqueIdImpl( void )
         {
-            //n/a
+            return;
         }
         
         string UniqueIdImpl::to_string( void ) const

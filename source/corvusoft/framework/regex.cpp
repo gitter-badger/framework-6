@@ -24,32 +24,32 @@ namespace framework
 {
     Regex::Regex( void ) : m_pimpl( new RegexImpl( String::empty ) )
     {
-        //n/a
+        return;
     }
     
     Regex::Regex( const char* pattern, const int options ) : m_pimpl( new RegexImpl( pattern, options ) )
     {
-        //n/a
+        return;
     }
     
     Regex::Regex( const string& pattern, const int options ) : m_pimpl( new RegexImpl( pattern.data( ), options ) )
     {
-        //n/a
+        return;
     }
     
     Regex::Regex( const Regex& original ) : m_pimpl( new RegexImpl( *original.m_pimpl ) )
     {
-        //n/a
+        return;
     }
     
     Regex::Regex( const RegexImpl& implementation ) : m_pimpl( new RegexImpl( implementation ) )
     {
-        //n/a
+        return;
     }
     
     Regex::~Regex( void )
     {
-        //n/a
+        return;
     }
     
     string Regex::to_string( void ) const
