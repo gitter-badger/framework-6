@@ -145,12 +145,15 @@ namespace framework
             asio::read_until( socket, response_buffer, "\r\n" );
             istream response_stream( &response_buffer );
 
-            string http_version;
-            response_stream >> http_version;
-            response.version = stod( http_version.substr( 5, 8 ) );
+            string status;
+            getline( response_stream, status );
+            auto status_line = String::split( status, ' ' );
 
-            response_stream >> response.status_code;
-            getline( response_stream, response.status_message );
+            string http_version = status_line[ 0 ].substr( status_line[ 0 ].find_first_of( '/' ) + 1 );
+            response.version = stod( http_version );
+
+            response.status_code = stod( status_line[ 1 ] );
+            response.status_message = status_line[ 2 ].substr( 0, status_line[ 2 ].length( ) - 1 );
 
             asio::read_until( socket, response_buffer, "\r\n\r\n" );
 
@@ -158,7 +161,7 @@ namespace framework
             while ( getline( response_stream, header ) and header not_eq "\r" )
             {
                 auto name_value = String::split( header, ':' );
-                response.headers.insert( make_pair( name_value[ 0 ], name_value[ 1 ] ) );
+                response.headers.insert( make_pair( name_value[ 0 ], name_value[ 1 ].substr( 0, name_value[ 1 ].find_last_of( '\r' ) ) ) );
             }
 
             while ( asio::read( socket, response_buffer, asio::transfer_at_least( 1 ), error ) )
