@@ -27,6 +27,12 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/unique_id.h
      ${SOURCE_DIR}/http
      ${SOURCE_DIR}/http.h
+     ${SOURCE_DIR}/http_session
+     ${SOURCE_DIR}/http_session.h
+     ${SOURCE_DIR}/http_request
+     ${SOURCE_DIR}/http_request.h
+     ${SOURCE_DIR}/http_response
+     ${SOURCE_DIR}/http_response.h
      ${SOURCE_DIR}/hexidecimal
      ${SOURCE_DIR}/hexidecimal.h
 )

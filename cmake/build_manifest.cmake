@@ -19,6 +19,8 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/unique_id_impl.cpp
      ${SOURCE_DIR}/http.cpp
      ${SOURCE_DIR}/detail/http_impl.cpp
+     ${SOURCE_DIR}/http_session.cpp
+     ${SOURCE_DIR}/detail/http_session_impl.cpp
      ${SOURCE_DIR}/hexidecimal.cpp
      ${SOURCE_DIR}/detail/hexidecimal_impl.cpp
 )

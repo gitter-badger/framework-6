@@ -16,3 +16,6 @@
 #include "corvusoft/framework/unique_id"
 #include "corvusoft/framework/hexidecimal"
 #include "corvusoft/framework/regex_option"
+#include "corvusoft/framework/http_session"
+#include "corvusoft/framework/http_request"
+#include "corvusoft/framework/http_response"
