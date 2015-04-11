@@ -14,8 +14,11 @@
 //External Includes
 
 //System Namespaces
+using std::queue;
 using std::string;
+using std::vector;
 using std::multimap;
+using std::function;
 using std::unique_ptr;
 
 //Project Namespaces
@@ -78,6 +81,20 @@ namespace framework
     HttpResponse HttpSession::connect( const HttpRequest& value )
     {
         return m_pimpl->perform( "CONNECT", value );
+    }
+
+    void HttpSession::batch( queue< HttpRequest >& requests,
+                             const function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                             const function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler )
+    {
+        m_pimpl->batch( requests, success_handler, error_handler );
+    }
+
+    void HttpSession::batch( const vector< HttpRequest >& requests,
+                             const function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                             const function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler )
+    {
+        m_pimpl->batch( requests, success_handler, error_handler );
     }
 
     Uri HttpSession::get_uri( void ) const

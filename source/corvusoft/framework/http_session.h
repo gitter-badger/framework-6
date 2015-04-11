@@ -7,8 +7,11 @@
 
 //System Includes
 #include <map>
+#include <queue>
+#include <vector>
 #include <string>
 #include <memory>
+#include <functional>
 
 //Project Includes
 #include <corvusoft/framework/bytes>
@@ -64,6 +67,13 @@ namespace framework
 
             HttpResponse connect( const HttpRequest& value );
 
+            void batch( std::queue< HttpRequest >& requests,
+                        const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                        const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler );
+        
+            void batch( const std::vector< HttpRequest >& requests,
+                        const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                        const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler );
             //Getters
             Uri get_uri( void ) const;
 

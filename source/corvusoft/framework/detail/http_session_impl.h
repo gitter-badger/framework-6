@@ -7,8 +7,11 @@
 
 //System Includes
 #include <map>
+#include <queue>
+#include <vector>
 #include <string>
 #include <memory>
+#include <functional>
 
 //Project Includes
 
@@ -49,6 +52,13 @@ namespace framework
                 //Functionality
                 HttpResponse perform( const std::string& method, const HttpRequest& value );
 
+                void batch( std::queue< HttpRequest >& requests,
+                            const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                            const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler );
+
+                void batch( const std::vector< HttpRequest >& requests,
+                            const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                            const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler );
                 //Getters
                 Uri get_uri( void ) const;
 
@@ -103,37 +113,46 @@ namespace framework
                 //Constructors
                 
                 //Functionality
+                std::shared_ptr< asio::ip::tcp::resolver > setup( const HttpRequest& request,
+                                                                  HttpResponse* response );
+
                 static void handle_connect( const asio::error_code& error,
                                             asio::ip::tcp::resolver::iterator endpoint_iterator,
                                             std::shared_ptr< asio::ip::tcp::socket > socket,
-                                            std::shared_ptr< asio::streambuf > request,
-                                            std::shared_ptr< asio::streambuf > response );
+                                            std::shared_ptr< asio::streambuf > request_buffer,
+                                            std::shared_ptr< asio::streambuf > response_buffer,
+                                            HttpResponse* response );
 
                 static void handle_resolve( const asio::error_code& error,
                                             asio::ip::tcp::resolver::iterator endpoint_iterator,
                                             std::shared_ptr< asio::ip::tcp::socket > socket,
-                                            std::shared_ptr< asio::streambuf > request,
-                                            std::shared_ptr< asio::streambuf > response );
+                                            std::shared_ptr< asio::streambuf > request_buffer,
+                                            std::shared_ptr< asio::streambuf > response_buffer,
+                                            HttpResponse* response );
 
                 static void handle_read_body( const asio::error_code& error,
                                               std::shared_ptr< asio::ip::tcp::socket > socket,
-                                              std::shared_ptr< asio::streambuf > request,
-                                              std::shared_ptr< asio::streambuf > response );
+                                              std::shared_ptr< asio::streambuf > request_buffer,
+                                              std::shared_ptr< asio::streambuf > response_buffer,
+                                              HttpResponse* response );
 
                 static void handle_read_status( const asio::error_code& error,
                                                 std::shared_ptr< asio::ip::tcp::socket > socket,
-                                                std::shared_ptr< asio::streambuf > request,
-                                                std::shared_ptr< asio::streambuf > response );
+                                                std::shared_ptr< asio::streambuf > request_buffer,
+                                                std::shared_ptr< asio::streambuf > response_buffer,
+                                                HttpResponse* response );
 
                 static void handle_read_headers( const asio::error_code& error,
                                                  std::shared_ptr< asio::ip::tcp::socket > socket,
-                                                 std::shared_ptr< asio::streambuf > request,
-                                                 std::shared_ptr< asio::streambuf > response );
+                                                 std::shared_ptr< asio::streambuf > request_buffer,
+                                                 std::shared_ptr< asio::streambuf > response_buffer,
+                                                 HttpResponse* response );
 
                 static void handle_write_request( const asio::error_code& error,
                                                   std::shared_ptr< asio::ip::tcp::socket > socket,
-                                                  std::shared_ptr< asio::streambuf > request,
-                                                  std::shared_ptr< asio::streambuf > response );
+                                                  std::shared_ptr< asio::streambuf > request_buffer,
+                                                  std::shared_ptr< asio::streambuf > response_buffer,
+                                                  HttpResponse* response );
                 //Getters
                 
                 //Setters
@@ -142,6 +161,8 @@ namespace framework
                 
                 //Properties
                 Uri m_uri;
+
+                asio::io_service m_service;
 
                 std::multimap< std::string, std::string > m_cookies;
 
