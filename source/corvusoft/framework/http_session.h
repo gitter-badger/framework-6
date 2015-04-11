@@ -72,8 +72,8 @@ namespace framework
                         const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler );
         
             void batch( const std::vector< HttpRequest >& requests,
-                        const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
-                        const std::function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler );
+                        const std::function< void ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                        const std::function< void ( const HttpRequest&, const HttpResponse& ) >& error_handler );
             //Getters
             Uri get_uri( void ) const;
 

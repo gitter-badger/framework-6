@@ -91,8 +91,8 @@ namespace framework
     }
 
     void HttpSession::batch( const vector< HttpRequest >& requests,
-                             const function< bool ( const HttpRequest&, const HttpResponse& ) >& success_handler,
-                             const function< bool ( const HttpRequest&, const HttpResponse& ) >& error_handler )
+                             const function< void ( const HttpRequest&, const HttpResponse& ) >& success_handler,
+                             const function< void ( const HttpRequest&, const HttpResponse& ) >& error_handler )
     {
         m_pimpl->batch( requests, success_handler, error_handler );
     }
