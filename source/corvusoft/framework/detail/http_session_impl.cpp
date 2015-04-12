@@ -6,6 +6,7 @@
 #include <ostream>
 #include <utility>
 #include <sstream>
+#include <iomanip>
 #include <iostream>
 #include <stdexcept>
 #include <functional>
@@ -34,6 +35,7 @@ using std::make_pair;
 using std::shared_ptr;
 using std::make_shared;
 using std::stringstream;
+using std::setprecision;
 using std::runtime_error;
 using std::placeholders::_1;
 using std::placeholders::_2;
@@ -241,20 +243,36 @@ namespace framework
             context->response_buffer = make_shared< asio::streambuf >( );
 
             ostream request_stream( context->request_buffer.get( ) );
-            request_stream <<  request.method << " " << request.path << " " << "HTTP" << "/" << 1.1 << "\r\n";
+            request_stream << request.method      << " " << request.path      << " ";
+            request_stream << m_uri.get_scheme( ) << "/" << setprecision( 2 ) << request.version << "\r\n";
 
-            //add session.headers and session.cookies and version
+            auto headers = request.headers;
+            headers.insert( m_headers.begin( ), m_headers.end( ) );
 
-            // Form the request. We specify the "Connection: close" header so that the
-            // server will close the socket after transmitting the response. This will
-            // allow us to treat all data up until the EOF as the content.
+            for ( auto header : headers )
+            {
+                request_stream << header.first << ": " << header.second << "\r\n";
+            }
+
+            //cookie path!
+            string cookie = String::empty;
+            for ( auto value : m_cookies )
+            {
+                cookie += value.first + "=" + value.second + ",";
+            }
+
+            if ( not cookie.empty( ) )
+            {
+                request_stream << "Cookie: " << cookie.substr( 0, cookie.length( ) - 1 ) << "\r\n";
+            }
+
             //use content-length or transfer-encoding
             request_stream << "Connection: close\r\n";
 
             request_stream << "\r\n";
             request_stream.write( reinterpret_cast< const char* >( request.body.data( ) ), request.body.size( ) );
 
-            tcp::resolver::query query( m_uri.get_authority( ), "http" );
+            tcp::resolver::query query( m_uri.get_authority( ), m_uri.get_scheme( ) );
             context->resolver->async_resolve( query, bind( handle_resolve, _1, _2, context ) );
 
             return context;
