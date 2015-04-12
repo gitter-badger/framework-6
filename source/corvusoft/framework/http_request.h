@@ -25,9 +25,9 @@ namespace framework
     struct HttpRequest
     {
         Bytes body;
-        double version;
-        std::string path;
-        std::string method;
+        double version = 1.1;
+        std::string path = "/";
+        std::string method = "GET";
         std::multimap< std::string, std::string > headers;
     };
 }

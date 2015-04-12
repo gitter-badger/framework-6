@@ -11,6 +11,7 @@
 
 //Project Includes
 #include <corvusoft/framework/bytes>
+#include <corvusoft/framework/string>
 
 //External Includes
 
@@ -25,10 +26,10 @@ namespace framework
     struct HttpResponse
     {
         Bytes body;
-        double version;
-        long status_code;
-        std::string protocol;
-        std::string status_message;
+        double version = 0;
+        long status_code = 0;
+        std::string protocol = String::empty;
+        std::string status_message = String::empty;
         std::multimap< std::string, std::string > headers;
     };
 }
