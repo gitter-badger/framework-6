@@ -27,6 +27,7 @@ namespace framework
         Bytes body;
         double version;
         long status_code;
+        std::string protocol;
         std::string status_message;
         std::multimap< std::string, std::string > headers;
     };

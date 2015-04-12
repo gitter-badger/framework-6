@@ -5,7 +5,9 @@
 //System Includes
 #include <ostream>
 #include <utility>
+#include <sstream>
 #include <iostream>
+#include <stdexcept>
 #include <functional>
 
 //Project Includes
@@ -31,6 +33,8 @@ using std::function;
 using std::make_pair;
 using std::shared_ptr;
 using std::make_shared;
+using std::stringstream;
+using std::runtime_error;
 using std::placeholders::_1;
 using std::placeholders::_2;
 
@@ -236,6 +240,8 @@ namespace framework
             context->request_buffer = make_shared< asio::streambuf >( );
             context->response_buffer = make_shared< asio::streambuf >( );
 
+            //add session.headers and session.cookies
+
             //if ( response_ == nullptr ) fprintf( stderr, "socket null\n\n" );
             // Form the request. We specify the "Connection: close" header so that the
             // server will close the socket after transmitting the response. This will
@@ -259,28 +265,15 @@ namespace framework
         {
             if ( not error )
             {
-                // Write all of the data that has been read so far.
-                //std::cout << context->response_buffer.get( ) << std::flush;
-
-                // Continue reading remaining data until EOF.
-                asio::async_read( *context->socket,
-                                  *context->response_buffer,
-                                  asio::transfer_at_least( 1 ),
-                                  bind( handle_read_body, _1, context ) );
+                asio::async_read( *context->socket, *context->response_buffer, asio::transfer_at_least( 1 ), bind( handle_read_body, _1, context ) );
             }
             else if ( error not_eq asio::error::eof )
             {
-                fprintf( stderr, "handle_read_body Error: \n" );
-                //std::cout << "Error: " << err << "\n";
+                throw runtime_error( error.message( ) );
             }
 
-            std::stringstream body_stream;
-            body_stream << context->response_buffer.get( );
-            auto body = body_stream.str( );
-
-            fprintf( stderr, "%s\n", body.data( ) );
-//            std::cout << "BODY" << std::endl << std::flush;
-//            std::cout << context->response_buffer.get( ) << std::flush;
+            auto data = asio::buffer_cast< const unsigned char* >( context->response_buffer->data( ) );
+            context->response.body = Bytes( data, data + context->response_buffer->size( ) );
 
             if ( context->has_callbacks )
             {
@@ -290,142 +283,98 @@ namespace framework
 
         void HttpSessionImpl::handle_read_status( const error_code& error, shared_ptr< HttpContextImpl >& context )
         {
-            if ( not error )
+            if ( error )
             {
-                // Check that response is OK.
-                istream response_stream( context->response_buffer.get( ) );
-                string http_version;
-                response_stream >> http_version;
-
-                long status_code;
-                response_stream >> status_code;
-
-                context->response.status_code = status_code;
-
-                string status_message;
-                getline( response_stream, status_message );
-
-                if ( not response_stream or http_version.substr( 0, 5 ) not_eq "HTTP/" )
-                {
-                    std::cout << "Invalid response\n";
-                    return;
-                }
-                if ( status_code not_eq 200 )
-                {
-                    std::cout << "Response returned with status code ";
-                    std::cout << status_code << "\n";
-                    return;
-                }
-
-                // Read the response headers, which are terminated by a blank line.
-                asio::async_read_until( *context->socket,
-                                        *context->response_buffer,
-                                        "\r\n\r\n",
-                                        bind( handle_read_headers, _1, context ) );
+                throw runtime_error( error.message( ) );
             }
-            else
+
+            istream response_stream( context->response_buffer.get( ) );
+
+            string value = String::empty;
+            response_stream >> value;
+
+            auto delimiter = value.find( "/" );
+            if ( delimiter == value.length( ) )
             {
-                fprintf( stderr, "handle_read_status_line Error: \n" );
-                //std::cout << "handle_read_status_line Error: " << err << "\n";
+                throw runtime_error( "invalid response line: " + value );
             }
+
+            context->response.protocol = value.substr( 0, delimiter );
+            context->response.version = stod( value.substr( delimiter + 1 ) );
+
+            response_stream >> context->response.status_code;
+
+            getline( response_stream, context->response.status_message );
+
+            asio::async_read_until( *context->socket, *context->response_buffer, "\r\n\r\n", bind( handle_read_headers, _1, context ) );
         }
 
         void HttpSessionImpl::handle_read_headers( const error_code& error, shared_ptr< HttpContextImpl >& context )
         {
-            if ( not error )
+            if ( error )
             {
-                // Process the response headers.
-                istream response_stream( context->response_buffer.get( ) );
-
-                string header;
-
-                while ( getline( response_stream, header ) and header not_eq "\r" )
-                {
-                    std::cout << header << "\n";
-                }
-
-                //std::cout << "\n";
-
-                // Write whatever content we already have to output.
-                if ( context->response_buffer->size() > 0 )
-                {
-                    std::cout << context->response_buffer.get( );
-                }
-
-                // Start reading remaining data until EOF.
-                asio::async_read( *context->socket,
-                                  *context->response_buffer,
-                                  asio::transfer_at_least( 1 ),
-                                  bind( handle_read_body, _1, context ) );
+                throw runtime_error( error.message( ) );
             }
-            else
+
+            string header = String::empty;
+            istream response_stream( context->response_buffer.get( ) );
+
+            while ( getline( response_stream, header ) and header not_eq "\r" )
             {
-                fprintf( stderr, "handle_read_headers Error: \n" );
-                //std::cout << "handle_read_headers Error: " << err << "\n";
+                const auto values = String::split( header, ':' );
+
+                if ( not values.empty( ) )
+                {
+                    const auto& name = values[ 0 ];
+                    auto value = values.size( ) == 2 ? values[ 1 ] : String::empty;
+
+                    if ( value[ 0 ] == ' ' )
+                    {
+                        value.erase( value.begin( ) );
+                    }
+
+                    context->request.headers.insert( make_pair( name, value ) );
+                }
             }
+
+            asio::async_read( *context->socket, *context->response_buffer, asio::transfer_at_least( 1 ), bind( handle_read_body, _1, context ) );
         }
 
         void HttpSessionImpl::handle_write_request( const error_code& error, shared_ptr< HttpContextImpl >& context )
         {
-            if ( not error )
+            if ( error )
             {
-                // Read the response status line. The response streambuf will
-                // automatically grow to accommodate the entire line. The growth may be
-                // limited by passing a maximum size to the streambuf constructor.
-                asio::async_read_until( *context->socket,
-                                        *context->response_buffer,
-                                        "\r\n",
-                                        bind( handle_read_status, _1, context ) );
+                throw runtime_error( error.message( ) );
             }
-            else
-            {
-                fprintf( stderr, "handle_write_request Error: \n" );
-                //std::cout << "handle_write_request Error: " << err.message() << "\n";
-            }
+
+            asio::async_read_until( *context->socket, *context->response_buffer, "\r\n", bind( handle_read_status, _1, context ) );
         }
 
-        void HttpSessionImpl::handle_connect( const error_code& error, tcp::resolver::iterator endpoint_iterator, shared_ptr< HttpContextImpl >& context )
+        void HttpSessionImpl::handle_connect( const error_code& error, tcp::resolver::iterator endpoint, shared_ptr< HttpContextImpl >& context )
         {
             if ( not error )
             {
-                // The connection was successful. Send the request.
-                asio::async_write( *context->socket,
-                                   *context->request_buffer,
-                                   bind( handle_write_request, _1, context ) );
+                asio::async_write( *context->socket, *context->request_buffer, bind( handle_write_request, _1, context ) );
             }
-            else if ( endpoint_iterator not_eq tcp::resolver::iterator( ) )
+            else if ( endpoint not_eq tcp::resolver::iterator( ) )
             {
-                // The connection failed. Try the next endpoint in the list.
                 context->socket->close( );
-
-                tcp::endpoint endpoint = *endpoint_iterator;
-
-                context->socket->async_connect( endpoint, //*endpoint_iterator,
-                                               bind( handle_connect, _1, ++endpoint_iterator, context ) );
+                context->socket->async_connect( *endpoint, bind( handle_connect, _1, ++endpoint, context ) );
             }
             else
             {
-                fprintf( stderr, "handle_connect Error: \n" );
-                //std::cout << "handle_connect Error: " << err.message() << "\n";
+                throw runtime_error( error.message( ) );
             }
         }
 
-        void HttpSessionImpl::handle_resolve( const error_code& error, tcp::resolver::iterator endpoint_iterator, shared_ptr< HttpContextImpl >& context )
+        void HttpSessionImpl::handle_resolve( const error_code& error, tcp::resolver::iterator endpoint, shared_ptr< HttpContextImpl >& context )
         {
-            if ( not error )
+            if ( error )
             {
-                // Attempt a connection to the first endpoint in the list. Each endpoint
-                // will be tried until we successfully establish a connection.
-                tcp::endpoint endpoint = *endpoint_iterator;
+                throw runtime_error( error.message( ) );
+            }
 
-                context->socket->async_connect( endpoint, //*endpointer_iterator,
-                                                bind( handle_connect, _1, ++endpoint_iterator, context ) );
-            }
-            else
-            {
-                fprintf( stderr, "handle_resolve Error: \n" );
-                //std::cout << "handle_resolve Error: " << err.message() << "\n";
-            }
+            context->socket->async_connect( *endpoint, bind( handle_connect, _1, ++endpoint, context ) );
         }
     }
 }
