@@ -240,22 +240,21 @@ namespace framework
             context->request_buffer = make_shared< asio::streambuf >( );
             context->response_buffer = make_shared< asio::streambuf >( );
 
-            //add session.headers and session.cookies
+            ostream request_stream( context->request_buffer.get( ) );
+            request_stream <<  request.method << " " << request.path << " " << "HTTP" << "/" << 1.1 << "\r\n";
 
-            //if ( response_ == nullptr ) fprintf( stderr, "socket null\n\n" );
+            //add session.headers and session.cookies and version
+
             // Form the request. We specify the "Connection: close" header so that the
             // server will close the socket after transmitting the response. This will
             // allow us to treat all data up until the EOF as the content.
-            ostream request_stream( context->request_buffer.get( ) );
-            request_stream << "GET " << "/" << " HTTP/1.1\r\n";
-            request_stream << "Host: " << "www.corvusoft.co.uk" << "\r\n";
-            request_stream << "Accept: */*\r\n";
-            request_stream << "Connection: close\r\n\r\n";
+            //use content-length or transfer-encoding
+            request_stream << "Connection: close\r\n";
 
-            // Start an asynchronous resolve to translate the server and service names
-            // into a list of endpoints.
-            tcp::resolver::query query( "www.corvusoft.co.uk", "http" );
+            request_stream << "\r\n";
+            request_stream.write( reinterpret_cast< const char* >( request.body.data( ) ), request.body.size( ) );
 
+            tcp::resolver::query query( m_uri.get_authority( ), "http" );
             context->resolver->async_resolve( query, bind( handle_resolve, _1, _2, context ) );
 
             return context;
@@ -321,19 +320,21 @@ namespace framework
 
             while ( getline( response_stream, header ) and header not_eq "\r" )
             {
-                const auto values = String::split( header, ':' );
+
+                const auto values = String::split( string( header.begin( ), header.begin( ) + header.size( ) ), ':' );
+                fprintf( stderr, "%s\n", values[ 1 ].data( ) );
 
                 if ( not values.empty( ) )
                 {
                     const auto& name = values[ 0 ];
                     auto value = values.size( ) == 2 ? values[ 1 ] : String::empty;
 
-                    if ( value[ 0 ] == ' ' )
+                    if ( value.front( ) == ' ' )
                     {
                         value.erase( value.begin( ) );
                     }
 
-                    context->request.headers.insert( make_pair( name, value ) );
+                    context->response.headers.insert( make_pair( name, value ) );
                 }
             }
 
