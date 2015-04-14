@@ -114,23 +114,25 @@ namespace framework
                 //Constructors
                 
                 //Functionality
+                std::map< std::string, std::string > parse_cookie( const std::string& definition );
+
                 std::shared_ptr< HttpContextImpl > setup( const HttpRequest& request, asio::io_service& service );
 
-                static void handle_read_body( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context  );
+                void handle_read_body( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context  );
 
-                static void handle_read_status( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context );
+                void handle_read_status( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context );
 
-                static void handle_read_headers( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context );
+                void handle_read_headers( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context );
 
-                static void handle_write_request( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context );
+                void handle_write_request( const asio::error_code& error, std::shared_ptr< HttpContextImpl >& context );
 
-                static void handle_connect( const asio::error_code& error,
-                                            asio::ip::tcp::resolver::iterator endpoint_iterator,
-                                            std::shared_ptr< HttpContextImpl >& context );
+                void handle_connect( const asio::error_code& error,
+                                     asio::ip::tcp::resolver::iterator endpoint_iterator,
+                                     std::shared_ptr< HttpContextImpl >& context );
 
-                static void handle_resolve( const asio::error_code& error,
-                                            asio::ip::tcp::resolver::iterator endpoint_iterator,
-                                            std::shared_ptr< HttpContextImpl >& context  );
+                void handle_resolve( const asio::error_code& error,
+                                     asio::ip::tcp::resolver::iterator endpoint_iterator,
+                                     std::shared_ptr< HttpContextImpl >& context  );
                 //Getters
                 
                 //Setters

@@ -3,6 +3,7 @@
  */
 
 //System Includes
+#include <regex>
 #include <ostream>
 #include <utility>
 #include <sstream>
@@ -14,6 +15,7 @@
 //Project Includes
 #include "corvusoft/framework/uri.h"
 #include "corvusoft/framework/map.h"
+#include "corvusoft/framework/regex.h"
 #include "corvusoft/framework/string.h"
 #include "corvusoft/framework/http_request.h"
 #include "corvusoft/framework/http_response.h"
@@ -23,7 +25,9 @@
 //External Includes
 
 //System Namespaces
+using std::map;
 using std::queue;
+using std::regex;
 using std::string;
 using std::vector;
 using std::istream;
@@ -34,6 +38,7 @@ using std::function;
 using std::make_pair;
 using std::shared_ptr;
 using std::make_shared;
+using std::regex_match;
 using std::stringstream;
 using std::setprecision;
 using std::runtime_error;
@@ -234,36 +239,79 @@ namespace framework
             return *this;
         }
 
+        map< string, string > HttpSessionImpl::parse_cookie( const string& definition )
+        {
+            map< string, string > result;
+
+            auto items = String::split( definition, ';' );
+
+            for ( auto item : items )
+            {
+                auto name_value = String::split( item, '=' );
+
+                auto name = String::lowercase( String::trim( name_value[ 0 ] ) );
+                auto value = name_value.size( ) == 2 ? String::trim( name_value[ 1 ] ) : String::empty;
+
+                if ( name == "path" )
+                {
+                    result[ name ] = value;
+                }
+                else if ( name == "domain" )
+                {
+                    bool has_pattern = ( value.front( ) == '.' );
+
+                    value = Regex::escape( value );
+
+                    if ( has_pattern )
+                    {
+                        value = ".*" + value;
+                    }
+
+                    result[ name ] = value;
+                }
+            }
+
+            return result;
+        }
+
         shared_ptr< HttpContextImpl > HttpSessionImpl::setup( const HttpRequest& request, io_service& service )
         {
+            //break this up into methods!
             auto context = make_shared< HttpContextImpl >( );
+            context->request = request;
             context->resolver = make_shared< tcp::resolver >( service );
             context->socket = make_shared< tcp::socket >( service );
             context->request_buffer = make_shared< asio::streambuf >( );
             context->response_buffer = make_shared< asio::streambuf >( );
 
             ostream request_stream( context->request_buffer.get( ) );
-            request_stream << request.method      << " " << request.path      << " ";
-            request_stream << m_uri.get_scheme( ) << "/" << setprecision( 2 ) << request.version << "\r\n";
+            request_stream << request.method << " " << request.path << " " << "HTTP/" << setprecision( 2 ) << request.version << "\r\n";
 
-            auto headers = request.headers;
-            headers.insert( m_headers.begin( ), m_headers.end( ) );
+            string cookie_header = String::empty;
 
-            for ( auto header : headers )
+            for ( auto cookie : m_cookies )
+            {
+                auto cookie_config = parse_cookie( cookie.second );
+
+                if ( regex_match( m_uri.get_authority( ), regex( cookie_config[ "domain" ] ) ) )
+                {
+                    if ( cookie_config[ "path" ] == "/" or cookie_config[ "path" ] == request.path )
+                    {
+                        cookie_header += cookie.first + "=" + cookie.second.substr( 0, cookie.second.find( ";" ) ) + ";";
+                    }
+                }
+            }
+
+            if ( not cookie_header.empty( ) )
+            {
+                context->request.headers.insert( make_pair( "Cookie", cookie_header.substr( 0, cookie_header.length( ) -1 ) ) );
+            }
+
+            context->request.headers.insert( m_headers.begin( ), m_headers.end( ) );
+
+            for ( auto header : context->request.headers )
             {
                 request_stream << header.first << ": " << header.second << "\r\n";
-            }
-
-            //cookie path!
-            string cookie = String::empty;
-            for ( auto value : m_cookies )
-            {
-                cookie += value.first + "=" + value.second + ",";
-            }
-
-            if ( not cookie.empty( ) )
-            {
-                request_stream << "Cookie: " << cookie.substr( 0, cookie.length( ) - 1 ) << "\r\n";
             }
 
             //use content-length or transfer-encoding
@@ -273,7 +321,7 @@ namespace framework
             request_stream.write( reinterpret_cast< const char* >( request.body.data( ) ), request.body.size( ) );
 
             tcp::resolver::query query( m_uri.get_authority( ), m_uri.get_scheme( ) );
-            context->resolver->async_resolve( query, bind( handle_resolve, _1, _2, context ) );
+            context->resolver->async_resolve( query, bind( &HttpSessionImpl::handle_resolve, this, _1, _2, context ) );
 
             return context;
         }
@@ -282,7 +330,10 @@ namespace framework
         {
             if ( not error )
             {
-                asio::async_read( *context->socket, *context->response_buffer, asio::transfer_at_least( 1 ), bind( handle_read_body, _1, context ) );
+                asio::async_read( *context->socket,
+                                  *context->response_buffer,
+                                  asio::transfer_at_least( 1 ),
+                                  bind( &HttpSessionImpl::handle_read_body, this, _1, context ) );
             }
             else if ( error not_eq asio::error::eof )
             {
@@ -323,7 +374,10 @@ namespace framework
 
             getline( response_stream, context->response.status_message );
 
-            asio::async_read_until( *context->socket, *context->response_buffer, "\r\n\r\n", bind( handle_read_headers, _1, context ) );
+            asio::async_read_until( *context->socket,
+                                    *context->response_buffer,
+                                    "\r\n\r\n",
+                                    bind( &HttpSessionImpl::handle_read_headers, this, _1, context ) );
         }
 
         void HttpSessionImpl::handle_read_headers( const error_code& error, shared_ptr< HttpContextImpl >& context )
@@ -338,14 +392,12 @@ namespace framework
 
             while ( getline( response_stream, header ) and header not_eq "\r" )
             {
+                auto delimiter = header.find( ":" );
 
-                const auto values = String::split( string( header.begin( ), header.begin( ) + header.size( ) ), ':' );
-                fprintf( stderr, "%s\n", values[ 1 ].data( ) );
-
-                if ( not values.empty( ) )
+                if ( delimiter not_eq string::npos )
                 {
-                    const auto& name = values[ 0 ];
-                    auto value = values.size( ) == 2 ? values[ 1 ] : String::empty;
+                    auto name = header.substr( 0, delimiter );
+                    auto value = header.substr( delimiter + 1 );
 
                     if ( value.front( ) == ' ' )
                     {
@@ -353,10 +405,25 @@ namespace framework
                     }
 
                     context->response.headers.insert( make_pair( name, value ) );
+
+                    if ( String::lowercase( name ) == "set-cookie" )
+                    {
+                        delimiter = value.find( "=" );
+                        name = value.substr( 0, delimiter );
+
+                        m_cookies.insert( make_pair( name, value.substr( delimiter + 1 ) ) );
+                    }
+                }
+                else
+                {
+                    context->response.headers.insert( make_pair( header, String::empty ) );
                 }
             }
 
-            asio::async_read( *context->socket, *context->response_buffer, asio::transfer_at_least( 1 ), bind( handle_read_body, _1, context ) );
+            asio::async_read( *context->socket,
+                              *context->response_buffer,
+                              asio::transfer_at_least( 1 ),
+                              bind( &HttpSessionImpl::handle_read_body, this, _1, context ) );
         }
 
         void HttpSessionImpl::handle_write_request( const error_code& error, shared_ptr< HttpContextImpl >& context )
@@ -366,19 +433,24 @@ namespace framework
                 throw runtime_error( error.message( ) );
             }
 
-            asio::async_read_until( *context->socket, *context->response_buffer, "\r\n", bind( handle_read_status, _1, context ) );
+            asio::async_read_until( *context->socket,
+                                    *context->response_buffer,
+                                    "\r\n",
+                                    bind( &HttpSessionImpl::handle_read_status, this, _1, context ) );
         }
 
         void HttpSessionImpl::handle_connect( const error_code& error, tcp::resolver::iterator endpoint, shared_ptr< HttpContextImpl >& context )
         {
             if ( not error )
             {
-                asio::async_write( *context->socket, *context->request_buffer, bind( handle_write_request, _1, context ) );
+                asio::async_write( *context->socket,
+                                   *context->request_buffer,
+                                   bind( &HttpSessionImpl::handle_write_request, this, _1, context ) );
             }
             else if ( endpoint not_eq tcp::resolver::iterator( ) )
             {
                 context->socket->close( );
-                context->socket->async_connect( *endpoint, bind( handle_connect, _1, ++endpoint, context ) );
+                context->socket->async_connect( *endpoint, bind( &HttpSessionImpl::handle_connect, this, _1, ++endpoint, context ) );
             }
             else
             {
@@ -393,7 +465,7 @@ namespace framework
                 throw runtime_error( error.message( ) );
             }
 
-            context->socket->async_connect( *endpoint, bind( handle_connect, _1, ++endpoint, context ) );
+            context->socket->async_connect( *endpoint, bind( &HttpSessionImpl::handle_connect, this, _1, ++endpoint, context ) );
         }
     }
 }
