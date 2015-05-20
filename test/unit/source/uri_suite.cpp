@@ -247,24 +247,6 @@ SCENARIO( "to_string", "[uri]" )
     }
 }
 
-SCENARIO( "to_native_path", "[uri]" )
-{
-    GIVEN( "an object with example data" )
-    {
-        string value = "/User/ben/Development/application-on/resource/en_GB.UTF-8";
-        
-        Uri uri( "file://" + value );
-        
-        WHEN( "i invoke to_string" )
-        {
-            THEN( "i should a string representation" )
-            {
-                REQUIRE( uri.to_native_path( ) == value );
-            }
-        }
-    }
-}
-
 SCENARIO( "valid is_valid", "[uri]" )
 {
     GIVEN( "i want to validate a string value" )

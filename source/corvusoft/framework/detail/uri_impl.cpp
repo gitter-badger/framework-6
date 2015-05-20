@@ -22,6 +22,7 @@ using std::regex;
 using std::smatch;
 using std::strtol;
 using std::string;
+using std::multimap;
 using std::snprintf;
 using std::to_string;
 using std::runtime_error;
@@ -53,11 +54,6 @@ namespace framework
         string UriImpl::to_string( void ) const
         {
             return m_uri;
-        }
-        
-        string UriImpl::to_native_path( void ) const
-        {
-            return get_path( );
         }
 
         bool UriImpl::is_valid( const string& value )
@@ -337,6 +333,25 @@ namespace framework
             }
             
             return authority;
+        }
+
+        multimap< string, string > UriImpl::get_query_parameters( void ) const
+        {
+            multimap< string, string > parameters;
+
+            auto query = String::split( get_query( ), '&' );
+
+            for ( auto parameter : query )
+            {
+                string::size_type index = parameter.find_first_of( '=' );
+
+                string name = decode_parameter( parameter.substr( 0, index ) );
+                string value = decode_parameter( parameter.substr( index + 1, parameter.length( ) ) );
+
+                parameters.insert( make_pair( name, value ) );
+            }
+
+            return parameters;
         }
         
         void UriImpl::set_uri( const string& value )

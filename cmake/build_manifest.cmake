@@ -11,8 +11,6 @@ set( MANIFEST
      ${SOURCE_DIR}/detail/regex_impl.cpp
      ${SOURCE_DIR}/string.cpp
      ${SOURCE_DIR}/detail/string_impl.cpp
-     ${SOURCE_DIR}/istream.cpp
-     ${SOURCE_DIR}/detail/istream_impl.cpp
      ${SOURCE_DIR}/checksum.cpp
      ${SOURCE_DIR}/detail/checksum_impl.cpp
      ${SOURCE_DIR}/unique_id.cpp

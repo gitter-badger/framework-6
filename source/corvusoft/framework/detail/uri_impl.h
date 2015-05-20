@@ -6,6 +6,7 @@
 #define _FRAMEWORK_DETAIL_URI_IMPL_H 1
 
 //System Includes
+#include <map>
 #include <string>
 
 //Project Includes
@@ -45,8 +46,6 @@ namespace framework
                 
                 //Functionality
                 std::string to_string( void ) const;
-                
-                std::string to_native_path( void ) const;
 
                 static bool is_valid( const std::string& value );
                 
@@ -76,7 +75,9 @@ namespace framework
                 std::string get_password( void ) const;
                 
                 std::string get_authority( void ) const;
-                
+
+                std::multimap< std::string, std::string > get_query_parameters( void ) const;
+
                 //Setters
                 void set_uri( const std::string& value );
                 

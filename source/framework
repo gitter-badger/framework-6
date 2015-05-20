@@ -11,7 +11,6 @@
 #include "corvusoft/framework/regex"
 #include "corvusoft/framework/vector"
 #include "corvusoft/framework/string"
-#include "corvusoft/framework/istream"
 #include "corvusoft/framework/checksum"
 #include "corvusoft/framework/unique_id"
 #include "corvusoft/framework/hexidecimal"

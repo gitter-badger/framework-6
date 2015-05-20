@@ -12,6 +12,7 @@
 
 //System Namespaces
 using std::string;
+using std::multimap;
 using std::unique_ptr;
 
 //Project Namespaces
@@ -44,11 +45,6 @@ namespace framework
     string Uri::to_string( void ) const
     {
         return m_pimpl->to_string( );
-    }
-    
-    string Uri::to_native_path( void ) const
-    {
-        return m_pimpl->to_native_path( );
     }
 
     bool Uri::is_valid( const string& value )
@@ -128,6 +124,11 @@ namespace framework
     string Uri::get_authority( void ) const
     {
         return m_pimpl->get_authority( );
+    }
+
+    multimap< string, string > Uri::get_query_parameters( void ) const
+    {
+        return m_pimpl->get_query_parameters( );
     }
     
     Uri& Uri::operator =( const Uri& rhs )
