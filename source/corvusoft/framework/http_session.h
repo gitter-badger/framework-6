@@ -47,9 +47,7 @@ namespace framework
             HttpSession( const Uri& value );
 
             HttpSession( const HttpSession& original );
-            
-            HttpSession( const detail::HttpSessionImpl& implementation );
-            
+
             virtual ~HttpSession( void );
             
             //Functionality

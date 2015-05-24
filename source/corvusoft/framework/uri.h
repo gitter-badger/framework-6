@@ -41,8 +41,6 @@ namespace framework
             
             Uri( const Uri& original );
             
-            Uri( const detail::UriImpl& implementation );
-            
             virtual ~Uri( void );
             
             //Functionality

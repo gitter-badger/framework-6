@@ -40,8 +40,6 @@ namespace framework
             
             Checksum( const Checksum& original );
             
-            Checksum( const detail::ChecksumImpl& implementation );
-            
             virtual ~Checksum( void );
             
             //Functionality

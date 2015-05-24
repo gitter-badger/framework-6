@@ -37,11 +37,6 @@ namespace framework
     {
         return;
     }
-
-    HttpSession::HttpSession( const HttpSessionImpl& implementation ) : m_pimpl( new HttpSessionImpl( implementation ) )
-    {
-        return;
-    }
     
     HttpSession::~HttpSession( void )
     {

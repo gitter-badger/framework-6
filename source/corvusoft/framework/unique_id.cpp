@@ -33,11 +33,6 @@ namespace framework
         return;
     }
     
-    UniqueId::UniqueId( const UniqueIdImpl& implementation ) : m_pimpl( new UniqueIdImpl( implementation ) )
-    {
-        return;
-    }
-    
     UniqueId::~UniqueId( void )
     {
         return;
@@ -50,13 +45,17 @@ namespace framework
     
     UniqueId UniqueId::generate( void )
     {
-        return UniqueIdImpl::generate( );
+        UniqueId id;
+        *id.m_pimpl = UniqueIdImpl::generate( );
+
+        return id;
     }
     
     UniqueId UniqueId::parse( const string& value )
     {
         UniqueId id;
         id.m_pimpl->set_id( value );
+        
         return id;
     }
     

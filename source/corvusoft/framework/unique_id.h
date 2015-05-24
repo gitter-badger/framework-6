@@ -40,8 +40,6 @@ namespace framework
             
             UniqueId( const UniqueId& original );
             
-            UniqueId( const detail::UniqueIdImpl& implementation );
-            
             virtual ~UniqueId( void );
             
             //Functionality

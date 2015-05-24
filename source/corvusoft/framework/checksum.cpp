@@ -31,11 +31,6 @@ namespace framework
         return;
     }
     
-    Checksum::Checksum( const ChecksumImpl& implementation ) : m_pimpl( new ChecksumImpl( implementation ) )
-    {
-        return;
-    }
-    
     Checksum::~Checksum( void )
     {
         return;
@@ -53,18 +48,23 @@ namespace framework
     
     Checksum Checksum::generate( const Bytes& value )
     {
-        return ChecksumImpl::generate( value );
+        Checksum checksum;
+        *checksum.m_pimpl = ChecksumImpl::generate( value );
+
+        return checksum;
     }
     
     Checksum Checksum::generate( const string& value )
     {
-        return ChecksumImpl::generate( value );
+        Checksum checksum;
+        *checksum.m_pimpl = ChecksumImpl::generate( value );
+
+        return checksum;
     }
     
     Checksum Checksum::parse( const string& hash )
     {
         Checksum checksum;
-        
         checksum.m_pimpl->set_checksum( hash );
         
         return checksum;

@@ -32,11 +32,6 @@ namespace framework
         return;
     }
     
-    Uri::Uri( const UriImpl& implementation ) : m_pimpl( new UriImpl( implementation ) )
-    {
-        return;
-    }
-    
     Uri::~Uri( void )
     {
         return;

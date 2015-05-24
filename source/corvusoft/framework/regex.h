@@ -42,8 +42,6 @@ namespace framework
             
             Regex( const Regex& original );
             
-            Regex( const detail::RegexImpl& implementation );
-            
             virtual ~Regex( void );
             
             //Functionality

@@ -42,11 +42,6 @@ namespace framework
         return;
     }
     
-    Regex::Regex( const RegexImpl& implementation ) : m_pimpl( new RegexImpl( implementation ) )
-    {
-        return;
-    }
-    
     Regex::~Regex( void )
     {
         return;
