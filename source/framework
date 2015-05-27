@@ -9,7 +9,6 @@
 #include "corvusoft/framework/byte"
 #include "corvusoft/framework/bytes"
 #include "corvusoft/framework/regex"
-#include "corvusoft/framework/vector"
 #include "corvusoft/framework/string"
 #include "corvusoft/framework/checksum"
 #include "corvusoft/framework/unique_id"
