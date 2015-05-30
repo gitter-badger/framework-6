@@ -8,7 +8,7 @@
 //System Includes
 
 //Project Includes
-#include "corvusoft/framework/bytes.h"
+#include "corvusoft/framework/byte.h"
 #include "corvusoft/framework/hexidecimal.h"
 
 //External Includes

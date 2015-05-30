@@ -9,8 +9,6 @@ set( PROJECT_ARTIFACTS
      ${SOURCE_DIR}/date.h
      ${SOURCE_DIR}/byte
      ${SOURCE_DIR}/byte.h
-     ${SOURCE_DIR}/bytes
-     ${SOURCE_DIR}/bytes.h
      ${SOURCE_DIR}/regex
      ${SOURCE_DIR}/regex.h
      ${SOURCE_DIR}/regex_option

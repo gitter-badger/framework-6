@@ -10,7 +10,7 @@
 #include <string>
 
 //Project Includes
-#include <corvusoft/framework/bytes>
+#include <corvusoft/framework/byte>
 #include <corvusoft/framework/string>
 
 //External Includes

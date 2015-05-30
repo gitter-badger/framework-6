@@ -9,7 +9,7 @@
 
 //Project Includes
 #include "corvusoft/framework/http.h"
-#include "corvusoft/framework/bytes.h"
+#include "corvusoft/framework/byte.h"
 
 //External Includes
 

@@ -10,7 +10,7 @@
 
 //Project Includes
 #include <corvusoft/framework/http>
-#include <corvusoft/framework/bytes>
+#include <corvusoft/framework/byte>
 
 //External Includes
 #include <catch.hpp>

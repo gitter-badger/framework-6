@@ -6,7 +6,7 @@
 #include <string>
 
 //Project Includes
-#include <corvusoft/framework/bytes>
+#include <corvusoft/framework/byte>
 #include <corvusoft/framework/checksum>
 
 //External Includes
