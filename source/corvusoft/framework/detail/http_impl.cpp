@@ -155,7 +155,7 @@ namespace framework
             response.status_code = stod( status_line[ 1 ] );
             response.status_message = status_line[ 2 ].substr( 0, status_line[ 2 ].length( ) - 1 );
 
-            asio::read_until( socket, response_buffer, "\r\n\r\n" );
+            asio::read_until( socket, response_buffer, "\r\n\r\n", error );
 
             string header;
             while ( getline( response_stream, header ) and header not_eq "\r" )
