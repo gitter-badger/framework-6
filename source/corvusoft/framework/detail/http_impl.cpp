@@ -161,13 +161,18 @@ namespace framework
             while ( getline( response_stream, header ) and header not_eq "\r" )
             {
                 auto name_value = String::split( header, ':' );
-                response.headers.insert( make_pair( name_value[ 0 ], name_value[ 1 ].substr( 0, name_value[ 1 ].find_last_of( '\r' ) ) ) );
+                auto name = String::trim( name_value[ 0 ] );
+                auto value = String::trim( name_value[ 1 ].substr( 0, name_value[ 1 ].find_last_of( '\r' ) ) );
+                response.headers.insert( make_pair( name, value ) );
             }
 
-            while ( asio::read( socket, response_buffer, asio::transfer_at_least( 1 ), error ) )
+            while ( not error )
             {
                 auto body = Bytes( istreambuf_iterator< char >( &response_buffer ), istreambuf_iterator< char >( ) );
+                response_buffer.consume( body.size( ) );
                 response.body.insert( response.body.end( ), body.begin( ), body.end( ) );
+
+                asio::read( socket, response_buffer, asio::transfer_all( ), error );
             }
 
             if ( error not_eq asio::error::eof )
