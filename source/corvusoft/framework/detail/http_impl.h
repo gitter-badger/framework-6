@@ -37,20 +37,8 @@ namespace framework
                 //Constructors
                 
                 //Functionality
-                static Http::Response get( const Http::Request& request );
-                
-                static Http::Response put( const Http::Request& request );
-                
-                static Http::Response post( const Http::Request& request );
-                
-                static Http::Response destroy( const Http::Request& request );
-
-                static Http::Response trace( const Http::Request& request );
-
-                static Http::Response connect( const Http::Request& request );
-
-                static Http::Response options( const Http::Request& request );
-                
+                static Http::Response perform( const std::string& method, const Http::Request& request );
+            
                 //Getters
                 
                 //Setters

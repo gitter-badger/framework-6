@@ -59,10 +59,14 @@ namespace framework
             static Response put( const Request& request );
             
             static Response post( const Request& request );
-            
-            static Response destroy( const Request& request );
+
+            static Response head( const Request& request );
+
+            static Response patch( const Request& request );
 
             static Response trace( const Request& request );
+
+            static Response destroy( const Request& request );
 
             static Response connect( const Request& request );
 

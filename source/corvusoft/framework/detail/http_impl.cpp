@@ -40,58 +40,10 @@ namespace framework
 {
     namespace detail
     {
-        Http::Response HttpImpl::get( const Http::Request& request )
+        Http::Response HttpImpl::perform( const string& method, const Http::Request& request )
         {
             Http::Request action = request;
-            action.method = "GET";
-
-            return perform( action );
-        }
-
-        Http::Response HttpImpl::put( const Http::Request& request )
-        {
-            Http::Request action = request;
-            action.method = "PUT";
-
-            return perform( action );
-        }
-
-        Http::Response HttpImpl::post( const Http::Request& request )
-        {
-            Http::Request action = request;
-            action.method = "POST";
-
-            return perform( action );
-        }
-
-        Http::Response HttpImpl::destroy( const Http::Request& request )
-        {
-            Http::Request action = request;
-            action.method = "DELETE";
-
-            return perform( action );
-        }
-
-        Http::Response HttpImpl::trace( const Http::Request& request )
-        {
-            Http::Request action = request;
-            action.method = "TRACE";
-
-            return perform( action );
-        }
-
-        Http::Response HttpImpl::connect( const Http::Request& request )
-        {
-            Http::Request action = request;
-            action.method = "CONNECT";
-
-            return perform( action );
-        }
-
-        Http::Response HttpImpl::options( const Http::Request& request )
-        {
-            Http::Request action = request;
-            action.method = "OPTIONS";
+            action.method = method;
 
             return perform( action );
         }
