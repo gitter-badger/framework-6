@@ -71,6 +71,8 @@ namespace framework
             static Response connect( const Request& request );
 
             static Response options( const Request& request );
+
+            static Response perform( const Request& request );
             
             //Getters
             

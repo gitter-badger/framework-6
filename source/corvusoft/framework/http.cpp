@@ -65,4 +65,9 @@ namespace framework
     {
         return HttpImpl::perform( "OPTIONS", request );
     }
+
+    Http::Response Http::perform( const Http::Request& request )
+    {
+        return HttpImpl::perform( request.method, request );
+    }
 }
