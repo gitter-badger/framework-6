@@ -1,6 +1,6 @@
 # Copyright (c) 2013, 2014, 2015 Corvusoft
 
-set( PROJECT_ARTIFACTS
+set( BUILD_ARTIFACTS
      ${SOURCE_DIR}/map
      ${SOURCE_DIR}/map.h
      ${SOURCE_DIR}/uri
