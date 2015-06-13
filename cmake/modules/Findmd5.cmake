@@ -6,7 +6,7 @@ if ( md5_INCLUDE )
     set( MD5_FOUND TRUE )
 
     if ( NOT md5_FIND_QUIETLY )
-        message( STATUS "Found md5 header: ${md5_INCLUDE}" )
+        message( STATUS "Found md5 source: ${md5_INCLUDE}" )
     endif ( )
 else ( )
     if ( md5_FIND_REQUIRED )

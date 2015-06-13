@@ -6,7 +6,7 @@ if ( asio_INCLUDE )
     set( ASIO_FOUND TRUE )
 
     if ( NOT asio_FIND_QUIETLY )
-        message( STATUS "Found asio header: ${asio_INCLUDE}" )
+        message( STATUS "Found asio source: ${asio_INCLUDE}" )
     endif ( )
 else ( )
     if ( asio_FIND_REQUIRED )

@@ -6,7 +6,7 @@ if ( ooid_INCLUDE )
     set( OOID_FOUND TRUE )
 
     if ( NOT ooid_FIND_QUIETLY )
-        message( STATUS "Found ooid header: ${ooid_INCLUDE}" )
+        message( STATUS "Found ooid source: ${ooid_INCLUDE}" )
     endif ( )
 else ( )
     if ( ooid_FIND_REQUIRED )
