@@ -18,7 +18,7 @@ include( "${CMAKE_SOURCE_DIR}/cmake/build_configuration.cmake" )
 # Dependencies
 #
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DASIO_STANDALONE=YES" )
-set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/" )
+set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules" )
 
 find_package( md5 REQUIRED )
 find_package( ooid REQUIRED )
@@ -42,9 +42,9 @@ target_link_libraries( ${PROJECT_NAME} )
 #
 include( "${CMAKE_SOURCE_DIR}/cmake/build_artifacts.cmake" )
 
-install( FILES ${INCLUDE_DIR}/${PROJECT_NAME} DESTINATION "include/" )
-install( FILES ${BUILD_ARTIFACTS} DESTINATION "include/corvusoft/${PROJECT_NAME}/" )
-install( FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}" DESTINATION "library/" )
+install( FILES ${INCLUDE_DIR}/${PROJECT_NAME} DESTINATION "include" )
+install( FILES ${BUILD_ARTIFACTS} DESTINATION "include/corvusoft/${PROJECT_NAME}" )
+install( FILES "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}" DESTINATION "library" )
 
 #
 # Test
