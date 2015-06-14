@@ -68,7 +68,7 @@ namespace framework
             static std::string replace( const std::string& target, const std::string& substitute, const std::string& value );
             
             static std::string replace( const std::string& target, const std::string& substitute, const std::string& value, const StringOption option );
-            
+
             //Getters
             
             //Setters

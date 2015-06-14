@@ -18,6 +18,7 @@ using std::map;
 using std::regex;
 using std::string;
 using std::vector;
+using std::smatch;
 using std::multimap;
 using std::transform;
 using std::regex_constants::icase;
@@ -218,8 +219,16 @@ namespace framework
             {
                 pattern.assign( expression, icase );
             }
+
+            smatch match;
+            string result = value;
+
+            while ( regex_search( result, match, pattern ) )
+            {
+                result = regex_replace( result, pattern, substitute );
+            }
             
-            return regex_replace( value, pattern, substitute );
+            return result;
         }
     }
 }
