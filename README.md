@@ -31,7 +31,7 @@ Corvusoft's C++ Framework is dual licensed; See LICENSE.md for full details.
 git clone --recursive http://github.com/corvusoft/framework.git
 mkdir framework/build
 cd framework/build
-cmake [-DBUILD_TESTS=YES] [-DBUILD_EXAMPLES=YES] [-DCMAKE_INSTALL_PREFIX=/output-directory] ..
+cmake [-DBUILD_TESTS=YES] [-DCMAKE_INSTALL_PREFIX=/output-directory] ..
 make install
 make test
 ```
