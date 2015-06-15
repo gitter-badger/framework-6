@@ -2,7 +2,7 @@
 
 ----------
 
-This framework is a collection of functionality that is not specific to an individual Corvusoft solution. It's intended to present a clean and reliable set of interfaces to common business objects and functionality.
+This framework is a collection of functionality that is not specific to an individual Corvusoft solution. It is intended to present a clean and reliable set of interfaces to common business objects and functionality.
 
 ## Features
 
