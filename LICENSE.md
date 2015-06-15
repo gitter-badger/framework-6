@@ -11,8 +11,8 @@ version 3 or (at your option) any later version as published by the Free Softwar
 and appearing in the file LICENSE.GPL included in the packaging of Corvusoft's C++ Framework.
 
 Corvusoft's C++ Framework is provided AS IS WITHOUT WARRANTY OF ANY KIND; without even
-the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
 
 NOTE:
 
