@@ -9,12 +9,12 @@ This framework is a collection of functionality that is not specific to an indiv
  - Uri datatype
  - Byte datatype
  - Checksum datatype
+ - Unique Identifier datatype
  - Map Utilities
- - HTTP Utilities
  - Date Utilities
- - Regex Utilities
+ - HTTP Utilities
  - String Utilties
- - Unique Identifier
+ - Regex Utilities
  - Hexidecimal Encoding
 
 ## License
