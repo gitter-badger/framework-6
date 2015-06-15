@@ -6,12 +6,16 @@ This framework is a collection of functionality that is not specific to an indiv
 
 ## Features
 
+ - Uri datatype
+ - Byte datatype
+ - Checksum datatype
  - Map Utilities
- - Uri Utilities
  - HTTP Utilities
+ - Date Utilities
+ - Regex Utilities
  - String Utilties
  - Unique Identifier
- - Checksum Generators
+ - Hexidecimal Encoding
 
 ## License
 
