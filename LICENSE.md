@@ -14,7 +14,7 @@ Corvusoft's C++ Framework is provided AS IS WITHOUT WARRANTY OF ANY KIND; withou
 the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 See the GNU General Public License for more details.
 
-NOTE:
+*NOTE:*
 
 Using Corvusoft's C++ Framework under the GPL requires that your work based on 
 Corvusoft's C++ Framework, if distributed, must be licensed under the GPL. If you wish to
