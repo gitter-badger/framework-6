@@ -25,48 +25,30 @@ using framework::Bytes;
 
 //External Namespaces
 
-SCENARIO( "request constructor", "[http]" )
+TEST_CASE( "request constructor", "[http]" )
 {
-    GIVEN( "i want to instantiate a HTTP request" )
-    {
-        WHEN( "i construct the structure" )
-        {
-            Http::Request request;
-            
-            THEN( "i should see default request values" )
-            {
-                REQUIRE( request.host == "" );
-                REQUIRE( request.path == "/" );
-                REQUIRE( request.port == 80 );
-                REQUIRE( request.version == 1.1 );
-                REQUIRE( request.method == "GET" );
-                REQUIRE( request.body == Bytes( ) );
-                
-                multimap< string, string > headers;
-                REQUIRE( request.headers == headers );
-            }
-        }
-    }
+    Http::Request request;
+
+    REQUIRE( request.host == "" );
+    REQUIRE( request.path == "/" );
+    REQUIRE( request.port == 80 );
+    REQUIRE( request.version == 1.1 );
+    REQUIRE( request.method == "GET" );
+    REQUIRE( request.body == Bytes( ) );
+
+    multimap< string, string > headers;
+    REQUIRE( request.headers == headers );
 }
 
-SCENARIO( "response constructor", "[http]" )
+TEST_CASE( "response constructor", "[http]" )
 {
-    GIVEN( "i want to instantiate a HTTP response" )
-    {
-        WHEN( "i construct the structure" )
-        {
-            Http::Response response;
+    Http::Response response;
             
-            THEN( "i should see default request values" )
-            {
-                REQUIRE( response.version == 1.1 );
-                REQUIRE( response.status_code == 0 );
-                REQUIRE( response.status_message == "" );
-                REQUIRE( response.body == Bytes( ) );
-                
-                multimap< string, string > headers;
-                REQUIRE( response.headers == headers );
-            }
-        }
-    }
+    REQUIRE( response.version == 1.1 );
+    REQUIRE( response.status_code == 0 );
+    REQUIRE( response.status_message == "" );
+    REQUIRE( response.body == Bytes( ) );
+    
+    multimap< string, string > headers;
+    REQUIRE( response.headers == headers );
 }

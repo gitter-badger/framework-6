@@ -24,38 +24,18 @@ using framework::RegexOption;
 
 //External Namespaces
 
-SCENARIO( "case insensitive string constructor", "[regex]" )
+TEST_CASE( "case insensitive string constructor", "[regex]" )
 {
-    GIVEN( "i want to instantiate a regex" )
-    {
-        const string value = "^[a-z]{9,9}$";
-        
-        Regex pattern( value, RegexOption::CASE_INSENSITIVE );
-        
-        WHEN( "i construct the object with '^[a-z]{9,9}$'" )
-        {
-            THEN( "i should see pattern '^[a-z]{9,9}$'" )
-            {
-                REQUIRE( pattern.to_string( ) == value );
-            }
-        }
-    }
+    const string value = "^[a-z]{9,9}$";
+    Regex pattern( value, RegexOption::CASE_INSENSITIVE );
+    
+    REQUIRE( pattern.to_string( ) == value );
 }
 
-SCENARIO( "case insensitive character pointer constructor", "[regex]" )
+TEST_CASE( "case insensitive character pointer constructor", "[regex]" )
 {
-    GIVEN( "i want to instantiate a regex" )
-    {
-        const char* value = "^[a-z]{9,9}$";
+    const char* value = "^[a-z]{9,9}$";    
+    Regex pattern( value, RegexOption::CASE_INSENSITIVE );
         
-        Regex pattern( value, RegexOption::CASE_INSENSITIVE );
-        
-        WHEN( "i construct the object with '^[a-z]{9,9}$'" )
-        {
-            THEN( "i should see pattern '^[a-z]{9,9}$'" )
-            {
-                REQUIRE( pattern.to_string( ) == value );
-            }
-        }
-    }
+    REQUIRE( pattern.to_string( ) == value );
 }

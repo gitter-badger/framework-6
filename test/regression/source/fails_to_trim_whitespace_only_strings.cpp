@@ -21,86 +21,32 @@ using framework::String;
 
 //External Namespaces
 
-SCENARIO( "trim with only single whitespace character", "[string]" )
+TEST_CASE( "trim with only single whitespace character", "[string]" )
 {
-    GIVEN( "i want to trim a string value" )
-    {
-        WHEN( "i invoke trim with ' '" )
-        {
-            THEN( "i should see ''" )
-            {
-                REQUIRE( String::trim( " " ) == "" );
-            }
-        }
-    }
+    REQUIRE( String::trim( " " ) == "" );
 }
 
-SCENARIO( "trim with only multiple whitespace characters", "[string]" )
+TEST_CASE( "trim with only multiple whitespace characters", "[string]" )
 {
-    GIVEN( "i want to trim a string value" )
-    {
-        WHEN( "i invoke trim with '    '" )
-        {
-            THEN( "i should see ''" )
-            {
-                REQUIRE( String::trim( "    " ) == "" );
-            }
-        }
-    }
+    REQUIRE( String::trim( "    " ) == "" );
 }
 
-SCENARIO( "trim leading with only single whitespace character", "[string]" )
+TEST_CASE( "trim leading with only single whitespace character", "[string]" )
 {
-    GIVEN( "i want to trim a string value" )
-    {
-        WHEN( "i invoke trim_leading with ' '" )
-        {
-            THEN( "i should see ''" )
-            {
-                REQUIRE( String::trim_leading( " " ) == "" );
-            }
-        }
-    }
+    REQUIRE( String::trim_leading( " " ) == "" );
 }
 
-SCENARIO( "trim leading with only multiple whitespace characters", "[string]" )
+TEST_CASE( "trim leading with only multiple whitespace characters", "[string]" )
 {
-    GIVEN( "i want to trim a string value" )
-    {
-        WHEN( "i invoke trim_leading with '   '" )
-        {
-            THEN( "i should see ''" )
-            {
-                REQUIRE( String::trim_leading( "   " ) == "" );
-            }
-        }
-    }
+    REQUIRE( String::trim_leading( "   " ) == "" );
 }
 
-SCENARIO( "trim lagging with only single whitespace character", "[string]" )
+TEST_CASE( "trim lagging with only single whitespace character", "[string]" )
 {
-    GIVEN( "i want to trim a string value" )
-    {
-        WHEN( "i invoke trim_lagging with ' '" )
-        {
-            THEN( "i should see ''" )
-            {
-                REQUIRE( String::trim_lagging( " " ) == "" );
-            }
-        }
-    }
+    REQUIRE( String::trim_lagging( " " ) == "" );
 }
 
-SCENARIO( "trim lagging with only multiple whitespace characters", "[string]" )
+TEST_CASE( "trim lagging with only multiple whitespace characters", "[string]" )
 {
-    GIVEN( "i want to trim a string value" )
-    {
-        WHEN( "i invoke trim_lagging with '   '" )
-        {
-            THEN( "i should see ''" )
-            {
-                REQUIRE( String::trim_lagging( "   " ) == "" );
-            }
-        }
-    }
+    REQUIRE( String::trim_lagging( "   " ) == "" );
 }
