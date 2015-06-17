@@ -36,7 +36,7 @@ make install
 make test
 ```
 
-You will now find all required components installed in the framework distribution folder.  Please submit all enhancements, proposals, and defects via the issue tracker.
+You will now find all required components installed in the framework distribution folder.  Please submit all enhancements, proposals, and defects via the [issue](http://github.com/corvusoft/framework/issues) tracker.
 
 ## Road Map
  
