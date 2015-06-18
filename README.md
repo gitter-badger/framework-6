@@ -42,6 +42,6 @@ You will now find all required components installed in the framework distributio
  
  - HTTP Session
  - Static Build Option
- - Alternative algorithms for Checksum
  - Better date support
+ - Alternative algorithms for Checksum
  
