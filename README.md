@@ -25,9 +25,7 @@ Corvusoft's C++ Framework is dual licensed; See LICENSE.md for full details.
 
 ## Build
 
-```
-#!bash
-
+```bash
 git clone --recursive http://github.com/corvusoft/framework.git
 mkdir framework/build
 cd framework/build
