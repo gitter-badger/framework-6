@@ -1,5 +1,7 @@
 # Corvusoft's C++ Framework
 
+[![Join the chat at https://gitter.im/Corvusoft/framework](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Corvusoft/framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ----------
 
 This framework is a collection of functionality that is not specific to an individual Corvusoft solution. It is intended to present a clean and reliable set of interfaces to common business objects and functionality.
